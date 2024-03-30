@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 //TODO: 
     //ADD A METHOD TO UPDATE ALL CURRENTLY-PLAYING AUDIO SOURCES WHEN MASTERVOLUME GETS CHANGED BY THE PLAYER
@@ -10,8 +11,6 @@ public class AudioManager : MonoBehaviour
 {
     //singleton
     static AudioManager instance;
-
-
     public static AudioManager GetInstance()
     {
         if (instance == null)
@@ -33,6 +32,7 @@ public class AudioManager : MonoBehaviour
 
     private Dictionary<string, AudioClip> audioClips;
     private Dictionary<string, List<AudioSource>> playingAudioSources;
+    private Dictionary<AudioSource, float> originalVolumes;
 
     [SerializeField]float MasterVolume = 1.0f;
 
@@ -50,10 +50,16 @@ public class AudioManager : MonoBehaviour
         }
 
         playingAudioSources = new Dictionary<string, List<AudioSource>>();
+        originalVolumes = new Dictionary<AudioSource, float>();
 
         LoadAudioClips();
     }
 
+    void Update(){
+        CleanupInvalidAudioSources();
+
+
+    }
 
     //thr current implementation depends on there being an "Audio" Folder inside of a 
     //"Resources" folder to take advantage of the Resources.LoadAll method
@@ -72,6 +78,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+
     
     public AudioSource PlayGlobalAudio(string key, float volume = 1.0f, bool loop = false, float fadeTime = 0f)
     {
@@ -79,6 +86,9 @@ public class AudioManager : MonoBehaviour
         {
             GameObject audioObject = new GameObject("AudioObject_" + key);
             AudioSource source = audioObject.AddComponent<AudioSource>();
+
+            originalVolumes.Add(source, volume);
+
             source.clip = audioClips[key];
             source.volume = 0;
             source.loop = loop;
@@ -126,6 +136,9 @@ public class AudioManager : MonoBehaviour
             Debug.Log(maxDistance);
             GameObject audioObject = new GameObject("AudioObject_" + key);
             AudioSource source = audioObject.AddComponent<AudioSource>();
+
+            originalVolumes.Add(source, volume);
+
             source.clip = audioClips[key];
             source.volume = volume * MasterVolume;
             source.loop = loop;
@@ -166,6 +179,9 @@ public class AudioManager : MonoBehaviour
         {
             GameObject audioObject = new GameObject("AudioObject_" + key);
             AudioSource source = audioObject.AddComponent<AudioSource>();
+
+            originalVolumes.Add(source, volume);
+
             source.clip = audioClips[key];
             source.volume = volume * MasterVolume;
             source.loop = loop;
@@ -217,6 +233,7 @@ public class AudioManager : MonoBehaviour
                 {
                     source.Stop();
                     Destroy(source.gameObject);
+                    originalVolumes.Remove(source);
                 }
             }
             // Clear the list after stopping and destroying the AudioSources
@@ -257,9 +274,64 @@ public class AudioManager : MonoBehaviour
                     break;
                 }
             }
+
+            originalVolumes.Remove(source);
         }
     }
 
+
+
+    //VOLUME SETTERS
+
+    public void SetMasterVolume(float newVolume){
+        MasterVolume = Mathf.Clamp(newVolume, 0.0f, 1.0f);
+
+        foreach(var audioList in playingAudioSources.Values){
+            foreach(var audioSource in audioList){
+                audioSource.volume = GetOriginalVolume(audioSource) * MasterVolume;
+            }
+        }
+
+        foreach (var audioZone in FindObjectsOfType<AudioZone>()){
+            audioZone.UpdateVolumeBasedOnMasterVolume();
+        }
+    }
+
+    private float GetOriginalVolume(AudioSource audioSource){
+        if(originalVolumes.TryGetValue(audioSource, out float originalVolume))
+        {
+            return originalVolume;
+        }
+        else{
+            Debug.LogWarning("Original volume not found for Audiosource. Using default volume.");
+            return 1.0f;
+        }
+    }
+
+    public float GetMasterVolume(){
+        return MasterVolume;
+    }
+
+
+
+    private void CleanupInvalidAudioSources()
+    {
+        foreach (var key in new List<string>(playingAudioSources.Keys))
+        {
+            var sources = playingAudioSources[key];
+            sources.RemoveAll(source => source == null || source.gameObject == null);
+            if (sources.Count == 0)
+            {
+                playingAudioSources.Remove(key);
+            }
+        }
+
+        var invalidEntries = originalVolumes.Where(pair => pair.Key == null || pair.Key.gameObject == null).Select(pair => pair.Key).ToList();
+        foreach (var key in invalidEntries)
+        {
+            originalVolumes.Remove(key);
+        }
+    }
 
 
     //COROUTINES
