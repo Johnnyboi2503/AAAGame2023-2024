@@ -11,5 +11,8 @@ public class TESTmoveforward : MonoBehaviour
         if(Input.GetKey(KeyCode.W)){
             transform.Translate(0, 0, speed * Time.deltaTime);
         }
+        if(Input.GetKey(KeyCode.S)){
+            transform.Translate(0, 0, -speed * Time.deltaTime);
+        }
     }
 }

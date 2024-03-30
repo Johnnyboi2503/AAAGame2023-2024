@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO: 
+    //ADD A METHOD TO UPDATE ALL CURRENTLY-PLAYING AUDIO SOURCES WHEN MASTERVOLUME GETS CHANGED BY THE PLAYER
+
+
 public class AudioManager : MonoBehaviour
 {
     //singleton
@@ -69,23 +73,23 @@ public class AudioManager : MonoBehaviour
     }
 
     
-    public AudioSource PlayGlobalAudio(string key, float volume = 1.0f, bool loop = false)
+    public AudioSource PlayGlobalAudio(string key, float volume = 1.0f, bool loop = false, float fadeTime = 0f)
     {
         if (audioClips.ContainsKey(key))
         {
             GameObject audioObject = new GameObject("AudioObject_" + key);
             AudioSource source = audioObject.AddComponent<AudioSource>();
             source.clip = audioClips[key];
-            source.volume = volume * MasterVolume;
+            source.volume = 0;
             source.loop = loop;
-
             source.spatialBlend = 0;
-
             source.Play();
+
+            StartCoroutine(FadeIn(source, volume * MasterVolume, fadeTime));
 
             if (!loop)
             {
-                Destroy(audioObject, audioClips[key].length);
+                Destroy(audioObject, audioClips[key].length + fadeTime);
             }
 
             if (!playingAudioSources.ContainsKey(key))
@@ -231,12 +235,19 @@ public class AudioManager : MonoBehaviour
     //AudioSource ExampleAudioSource = AudioManager.GetInstance().PlayGlobalAudio("Roar");
     //AudioManager.GetInstance().StopAudio(ExampleAudioSource);
 
-    public void StopAudio(AudioSource source)
+    public void StopAudio(AudioSource source, float fadeTime = 0f)
     {
         if (source != null)
         {
-            source.Stop();
-            Destroy(source.gameObject);
+            if (fadeTime > 0)
+            {
+                StartCoroutine(FadeOutAndDestroy(source, fadeTime));
+            }
+            else
+            {
+                source.Stop();
+                Destroy(source.gameObject);
+            }
 
             foreach (var key in playingAudioSources.Keys)
             {
@@ -249,4 +260,37 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+
+
+    //COROUTINES
+
+    IEnumerator FadeIn(AudioSource audioSource, float targetVolume, float fadeTime){
+        float startVolume = 0f;
+        float time = 0;
+
+        while(time<fadeTime){
+            audioSource.volume = Mathf.Lerp(startVolume, targetVolume, time/fadeTime);
+            time += Time.deltaTime;
+            yield return null; 
+        }
+
+        audioSource.volume = targetVolume;
+    }
+
+    IEnumerator FadeOutAndDestroy(AudioSource audioSource, float fadeTime)
+    {
+        float currentVolume = audioSource.volume;
+        float time = 0;
+
+        while (time < fadeTime)
+        {
+            audioSource.volume = Mathf.Lerp(currentVolume, 0f, time / fadeTime);
+            time += Time.deltaTime;
+            yield return null; 
+        }
+
+        audioSource.volume = 0f;
+        audioSource.Stop();
+        Destroy(audioSource.gameObject);
+    }
 }
