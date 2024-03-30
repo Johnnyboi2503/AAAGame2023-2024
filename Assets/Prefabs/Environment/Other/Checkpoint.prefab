@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1445162835157890259}
   - component: {fileID: 4990288403780471342}
   - component: {fileID: 358133942534466145}
-  - component: {fileID: 683036712832805805}
+  - component: {fileID: 8109671941295486570}
   m_Layer: 11
   m_Name: Checkpoint
   m_TagString: Checkpoint
@@ -101,8 +101,8 @@ MonoBehaviour:
   triggered: 0
   checkPointManager: {fileID: 0}
   render: {fileID: 0}
---- !u!135 &683036712832805805
-SphereCollider:
+--- !u!65 &8109671941295486570
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -120,5 +120,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 5
+  m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
