@@ -80,6 +80,7 @@ public class BombDemon : MonoBehaviour
 
     private void Idle()
     {
+        animator.SetBool("isIdle", true);
         elapsed += Time.deltaTime;
         if (elapsed > updateNavDelay)
         {
@@ -97,6 +98,7 @@ public class BombDemon : MonoBehaviour
 
                     if (dist < aggroRange)
                     {
+                        animator.SetBool("isIdle", false);
                         state = State.attacking;
                     }
                 }
