@@ -55,7 +55,7 @@ MonoBehaviour:
   gizmosOn: 1
   isLooping: 1
   damage: 20
-  speed: 1.5
+  speed: 10
   pathPoints:
   - {fileID: 5448858872394718704}
   - {fileID: 3899588977026355603}

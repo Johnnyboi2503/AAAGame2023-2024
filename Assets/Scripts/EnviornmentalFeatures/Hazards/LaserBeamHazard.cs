@@ -65,8 +65,7 @@ public class LaserBeamHazard : MonoBehaviour
         direction.Normalize();
 
         laserBeam.Translate(direction *  speed * Time.deltaTime, Space.World);
-        laserBeam.forward = direction;
-        laserBeam.Rotate(new Vector3(0, 0, 90));
+        
 
         // Update Target Path Point if Reached Path Point
         float distance = Vector3.Distance(laserBeam.position, targetPathPoint.position);
