@@ -268,4 +268,13 @@ public class PlayerInput : MonoBehaviour {
         }
         currentControls = ControlType.mouseAndKeyboard;
     }
+
+    public void SetMKSensitivity(float xSensitivity, float ySensitivity) {
+        MKXSensitivity = xSensitivity;
+        MKYSensitivity = ySensitivity;
+
+        cinemachineCam.m_XAxis.m_MaxSpeed = MKXSensitivity;
+        cinemachineCam.m_YAxis.m_MaxSpeed = MKYSensitivity;
+    }
+
 }
