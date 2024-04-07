@@ -1,0 +1,14 @@
+Name,Dialogue,Pose
+_StartDecision,,
+_Decision,life sucks,
+Person1,that sucks,sad
+,hope things get better,
+_Decision,Doing good,
+Person1,thats great!,happy
+,hope things are good,
+_Decision,Don't talk to me,
+Person1,huh?,angered
+_EndDecision,,
+Person1,well anyway good luck,idle
+,...,
+,I see ya around,happy
