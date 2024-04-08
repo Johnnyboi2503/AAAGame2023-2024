@@ -2645,7 +2645,7 @@ PrefabInstance:
     - target: {fileID: 1402132625037281584, guid: 798eb078d59d8e84a8608a2abda2c685,
         type: 3}
       propertyPath: bulletSpeed
-      value: 4
+      value: 4.25
       objectReference: {fileID: 0}
     - target: {fileID: 1402132625037281584, guid: 798eb078d59d8e84a8608a2abda2c685,
         type: 3}
@@ -2660,17 +2660,17 @@ PrefabInstance:
     - target: {fileID: 1402132625037281584, guid: 798eb078d59d8e84a8608a2abda2c685,
         type: 3}
       propertyPath: aggroDistance
-      value: 30
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1402132625037281584, guid: 798eb078d59d8e84a8608a2abda2c685,
         type: 3}
       propertyPath: attackDistance
-      value: 24
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 1402132625037281584, guid: 798eb078d59d8e84a8608a2abda2c685,
         type: 3}
       propertyPath: deagroDistance
-      value: 37
+      value: 74
       objectReference: {fileID: 0}
     - target: {fileID: 1402132625037281584, guid: 798eb078d59d8e84a8608a2abda2c685,
         type: 3}
