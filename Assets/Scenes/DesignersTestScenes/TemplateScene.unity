@@ -733,6 +733,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1601227346848069220, guid: 3ad2f30930958f642ac676370cd0876a,
         type: 3}
+      propertyPath: aggroRange
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1601227346848069220, guid: 3ad2f30930958f642ac676370cd0876a,
+        type: 3}
       propertyPath: attackRange
       value: 7
       objectReference: {fileID: 0}
@@ -1622,7 +1627,7 @@ PrefabInstance:
     - target: {fileID: 2140793749135220256, guid: 5bf3cde02d767d84483d6fca34846329,
         type: 3}
       propertyPath: aggroDistance
-      value: 13
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2140793749135220256, guid: 5bf3cde02d767d84483d6fca34846329,
         type: 3}
@@ -1632,7 +1637,7 @@ PrefabInstance:
     - target: {fileID: 2140793749135220256, guid: 5bf3cde02d767d84483d6fca34846329,
         type: 3}
       propertyPath: deagroDistance
-      value: 17
+      value: 74
       objectReference: {fileID: 0}
     - target: {fileID: 2140793749135220256, guid: 5bf3cde02d767d84483d6fca34846329,
         type: 3}
@@ -3614,6 +3619,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462496366872794715, guid: 88512be50a530374189e930db8c0502d,
+        type: 3}
+      propertyPath: jumpForce
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462496366872794715, guid: 88512be50a530374189e930db8c0502d,
+        type: 3}
+      propertyPath: horizontalForce
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462496366872794715, guid: 88512be50a530374189e930db8c0502d,
+        type: 3}
+      propertyPath: boostedJumpForce
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462496366872794715, guid: 88512be50a530374189e930db8c0502d,
+        type: 3}
+      propertyPath: initalSpeedScale
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462496366872794715, guid: 88512be50a530374189e930db8c0502d,
+        type: 3}
+      propertyPath: boostedHorizontalForce
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 3462496366872794715, guid: 88512be50a530374189e930db8c0502d,
+        type: 3}
+      propertyPath: boostedInitalSpeedScale
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3739281105588693709, guid: 88512be50a530374189e930db8c0502d,
         type: 3}
