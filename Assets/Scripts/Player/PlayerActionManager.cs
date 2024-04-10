@@ -102,13 +102,13 @@ public class PlayerActionManager : MonoBehaviour
         }
 
         // Checking input for stab dash action
-        if(currentAction == stabAction && stabAction.timer < combinationWindow) {
+        if(currentAction == stabAction && stabAction.timer < combinationWindow && dashAction.CanPerformDash()) {
             stabAction.EndAction();
             StabDashInput(input);
         }
 
         // checking input for slash dash action
-        if(currentAction == slashAction && slashAction.timer < combinationWindow) {
+        if (currentAction == slashAction && slashAction.timer < combinationWindow && dashAction.CanPerformDash()) {
             slashAction.EndAction();
             SlashDashInput(input);
         }
