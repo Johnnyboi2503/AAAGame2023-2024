@@ -42,6 +42,7 @@ public class BasicMovementAction : PlayerAction
     [SerializeField] float rotationSpeed; // How fast the player object turns to the direction inputted by player
 
     bool grounded;
+    bool onSlope;
     bool isMoving = false;
     Vector3 targetDirection;
 
@@ -59,9 +60,11 @@ public class BasicMovementAction : PlayerAction
         }
 
         grounded = playerPositionCheck.CheckOnGround();
+        onSlope = playerPositionCheck.CheckOnSlope();
 
         //Implemented physics
         if (grounded) {
+            // Ground Friction Calculations
             if (rb.velocity.magnitude > 0) {
                 Vector3 frictionChange = rb.velocity.normalized * movementModification.GetBoost(groundFriction, boostedGroundFriction, false);
                 if(frictionChange.magnitude < rb.velocity.magnitude) {
@@ -71,11 +74,21 @@ public class BasicMovementAction : PlayerAction
                     rb.velocity = Vector3.zero;
                 }
             }
+            // Slope gravity appllying
+            if (onSlope) {
+                Vector3 addedGravityAcceleration = Vector3.down * movementModification.GetBoost(gravityAcceleration, boostedGravityAcceleration, false);
+                addedGravityAcceleration = playerPositionCheck.CorrectVelocityCollision(addedGravityAcceleration);
+                rb.velocity += addedGravityAcceleration;
+            }
         }
         else {
+            // Applying drag
             rb.drag = airDrag;
+
+            // Applying gravity
             if (-rb.velocity.y < movementModification.GetBoost(maxFallSpeed, boostedMaxFallSpeed, false)) {
-                rb.velocity += Vector3.down * movementModification.GetBoost(gravityAcceleration, boostedGravityAcceleration, false);
+                Vector3 addedGravityAcceleration = Vector3.down * movementModification.GetBoost(gravityAcceleration, boostedGravityAcceleration, false);
+                rb.velocity += addedGravityAcceleration;
             }
         }
     }
@@ -103,6 +116,11 @@ public class BasicMovementAction : PlayerAction
         else {
             addedVelocity = targetDirection.normalized * movementModification.GetBoost(airAcceleration, boostedAirAcceleration, true);
             maxVelocity = targetDirection.normalized * movementModification.GetBoost(maxAirSpeed, boostedMaxAirSpeed, true);
+        }
+
+        // Velocity calcuation if on slope
+        if(onSlope) {
+            addedVelocity = playerPositionCheck.CorrectVelocityCollision(addedVelocity, true);
         }
 
         // Applying horizontal movement and limiting speed based on max velocity

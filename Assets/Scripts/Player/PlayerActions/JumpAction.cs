@@ -88,7 +88,7 @@ public class JumpAction : PlayerAction
     }
 
     public bool CanPerformJump() {
-        return grounded || canAirJump;
+        return (grounded || canAirJump) && !positionCheck.CheckOnSlope();
     }
 
     public override void EndAction() {

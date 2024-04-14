@@ -74,6 +74,7 @@ MonoBehaviour:
   terrainCastScaleZ: 0
   terrainCastScaleXY: 0
   groundCheckScaleXZ: 0.5
+  slopeCheck: 0.758
   grounded: 0
 --- !u!114 &1554232633083437368
 MonoBehaviour:
@@ -488,11 +489,13 @@ MonoBehaviour:
   keyboardDash: 304
   keyboardJump: 32
   keyboardShoot: 316
+  keybaordDialogue: 0
   controllerStab: 329
   controllerSlash: 328
   controllerDash: 331
   controllerJump: 326
   controllerShoot: 330
+  controllerDialogue: 0
 --- !u!114 &7281945831924435466
 MonoBehaviour:
   m_ObjectHideFlags: 0
