@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour {
     enum ControlType { controller, mouseAndKeyboard };
     CinemachineFreeLook cinemachineCam;
     Transform cameraOrientation;
+    [SerializeField]Texture2D cursorSprite;
 
     [Header("Control Type")]
     [SerializeField] ControlType currentControls; // Current control set up, keyboard or mouse
@@ -50,6 +51,12 @@ public class PlayerInput : MonoBehaviour {
         dialogueManager = FindAnyObjectByType<DialogueManager>();
         playerActionManager.combinationWindow = combinationWindow;
 
+        //SET CURSOR TEXTURE LIKE HERE
+        if(cursorSprite != null)
+        {
+            Cursor.SetCursor(cursorSprite, Vector2.zero, CursorMode.Auto);
+        }
+        //hide cursor right after
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         SetCurrentController();
