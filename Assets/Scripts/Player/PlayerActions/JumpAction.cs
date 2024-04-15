@@ -21,6 +21,9 @@ public class JumpAction : PlayerAction
     [Range(0, 1)]
     [SerializeField] float boostedDamping;
 
+    [Space]
+    [SerializeField] private float jumpAudioVolume = 1f;
+
     float jumpTimer = 0f;
     bool jumping = false;
     bool canAirJump = false;
@@ -64,6 +67,10 @@ public class JumpAction : PlayerAction
     public void JumpStart() {
         Jump(movementModification.GetBoost(initalSpeed, boostedInitalSpeed, true));
         jumping = true;
+
+        // Play jump audio
+        AudioManager.GetInstance().PlayAudioFollowObject("Jump_SFX", gameObject, jumpAudioVolume);
+
         OnStartAction.Invoke();
     }
 

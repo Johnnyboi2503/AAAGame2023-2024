@@ -42,6 +42,9 @@ public class PlayerActionManager : MonoBehaviour
         energyBlast = GetComponentInParent<EnergyBlast>();
 
         currentAction = basicMovementAction;
+
+        // Subscribe OnDeath method
+        FindObjectOfType<PlayerKillable>().OnDie.AddListener(OnDeath);
     }
 
     public void DirectionalInput(Vector3 input) {
@@ -198,5 +201,17 @@ public class PlayerActionManager : MonoBehaviour
         currentAction.EndAction();
         currentAction = action;
         currentAction.OnEndAction.AddListener(EndOfAction);
+    }
+
+    public void OnDeath()
+    {
+        // Stop all action related audio
+        AudioManager audioManager = AudioManager.GetInstance();
+        audioManager.StopAudioOfType("Jump_SFX");
+        audioManager.StopAudioOfType("Dash_SFX");
+        audioManager.StopAudioOfType("Slash_SFX");
+        audioManager.StopAudioOfType("Stab_SFX");
+        audioManager.StopAudioOfType("EnergyBlast_SFX");
+        audioManager.StopAudioOfType("EnergyBlastImpact_SFX");
     }
 }
