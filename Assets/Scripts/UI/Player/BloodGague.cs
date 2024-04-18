@@ -12,6 +12,8 @@ public class BloodGague : MonoBehaviour
     [SerializeField] BloodThirst bloodThirst;
     [SerializeField] EnergyBlast energyBlast;
 
+    Image test;
+
     private void Start()
     {
         bloodThirst.OnBloodChange.AddListener(UpdateBar);
