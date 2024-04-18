@@ -19,7 +19,6 @@ public class CharacterData : ScriptableObject
     Sprite suprised;
 
     public Sprite GetSprite(string key) {
-        Debug.Log(key);
         key = key.ToLower();
         switch(key) {
             case "idle":

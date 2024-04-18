@@ -14,7 +14,7 @@ public class DialogueOptionsUI : MonoBehaviour
 
             // Initalizing buttons
             if(currentButton.TryGetComponent<DialogueOptionButton>(out DialogueOptionButton dialogueOptionButton)) {
-                dialogueOptionButton.displayText.text = buttonText[i];
+                dialogueOptionButton.displayText.text = "> "+buttonText[i];
                 dialogueOptionButton.assignedIndex = buttonIndex[i];
                 dialogueOptionButton.optionUI = this;
             }
