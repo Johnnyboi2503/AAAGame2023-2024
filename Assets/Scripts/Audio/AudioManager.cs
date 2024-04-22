@@ -333,6 +333,35 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    //PAUSE AND UNPAUSE ALL AUDIO, this may need editing if interactions are weird with pause menu audio later on, we'll see
+    public void PauseAllAudio()
+    {
+        foreach (var audioList in playingAudioSources.Values)
+        {
+            foreach (var audioSource in audioList)
+            {
+                if (audioSource != null && audioSource.isPlaying)
+                {
+                    audioSource.Pause();
+                }
+            }
+        }
+    }
+
+    public void ResumeAllAudio()
+    {
+        foreach (var audioList in playingAudioSources.Values)
+        {
+            foreach (var audioSource in audioList)
+            {
+                if (audioSource != null && !audioSource.isPlaying)
+                {
+                    audioSource.UnPause();
+                }
+            }
+        }
+    }
+
 
     //COROUTINES
 
