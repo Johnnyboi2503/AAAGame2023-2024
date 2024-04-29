@@ -21,6 +21,9 @@ public class DashAction : PlayerAction
     [SerializeField] float boostedInitalSpeedScale;
     [SerializeField] float boostsedSpeedLimit;
 
+    [Space]
+    [SerializeField] private float dashAudioVolume = 1f;
+
     bool dashAvailable = true;
     float dashCdTimer;// Time before you can dash again
     public float timer = 0; // Used for starting slash/stab dash
@@ -95,6 +98,9 @@ public class DashAction : PlayerAction
         float appliedExitSpeed = Mathf.Min(currentMaxSpeed, appliedDashSpeed + currentEndDashSpeedBonus);
 
         dashMovement.Dash(appliedDashSpeed, currentDashDuration, direction, appliedExitSpeed);
+
+        // Play Dash Audio
+        AudioManager.GetInstance().PlayAudioFollowObject("Dash_SFX", gameObject, dashAudioVolume);
 
         OnStartAction.Invoke();
     }
