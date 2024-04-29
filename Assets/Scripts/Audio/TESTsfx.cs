@@ -42,16 +42,6 @@ public class TESTsfx : MonoBehaviour
             Debug.Log("6 key pressed, looping global sfx test");
             AudioManager.GetInstance().PlayGlobalAudio("TESTsfx", volume, true);
         }
-
-        if(Input.GetKeyDown(KeyCode.Alpha9)){
-            Debug.Log("9 key pressed, setting MasterVolume to 20%");
-            AudioManager.GetInstance().SetMasterVolume(.2f);
-        }
-
-        if(Input.GetKeyDown(KeyCode.Alpha0)){
-            Debug.Log("0 key pressed, setting MasterVolume to 100%");
-            AudioManager.GetInstance().SetMasterVolume(1f);
-        }
     }
 
 }

@@ -39,8 +39,6 @@ public class BombDemon : MonoBehaviour
     public LayerMask explosionLayer;
     private bool isAttacking;
 
-    public Animator animator;
-
     private void Start()
     {
         state = State.idle;
@@ -80,7 +78,6 @@ public class BombDemon : MonoBehaviour
 
     private void Idle()
     {
-        animator.SetBool("isIdle", true);
         elapsed += Time.deltaTime;
         if (elapsed > updateNavDelay)
         {
@@ -98,7 +95,6 @@ public class BombDemon : MonoBehaviour
 
                     if (dist < aggroRange)
                     {
-                        animator.SetBool("isIdle", false);
                         state = State.attacking;
                     }
                 }
@@ -110,8 +106,6 @@ public class BombDemon : MonoBehaviour
 
     private void Attacking()
     {
-        animator.SetBool("isRunning", true);
-
         elapsed += Time.deltaTime;
         if (elapsed > updateNavDelay)
         {
@@ -139,9 +133,6 @@ public class BombDemon : MonoBehaviour
 
                     if (dist < attackRange)
                     {
-                        animator.SetBool("isRunning", false);
-                        animator.SetBool("isExploding", true);
-
                         state = State.exploding;
                         Jump(player.transform);
                     }
@@ -167,7 +158,6 @@ public class BombDemon : MonoBehaviour
             // }
             if (hit.TryGetComponent<BloodThirst>(out BloodThirst bloodThirst))
             {
-                animator.SetBool("isExploding", false);
                 bloodThirst.LoseBlood(explosionBloodLoss);
                 Debug.Log(explosionBloodLoss);
                 state = State.dead;
@@ -203,12 +193,9 @@ public class BombDemon : MonoBehaviour
 
     private void DeadState()
     {
-        animator.SetBool("hasDied", true);
-
         deadTime -= Time.deltaTime;
         if(deadTime < 0)
         {
-            animator.SetBool("hasDied", false);
             Destroy(gameObject);
         }
     }

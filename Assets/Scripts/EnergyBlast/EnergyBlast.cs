@@ -21,10 +21,6 @@ public class EnergyBlast : MonoBehaviour
     public float timeBetweenShots; // Time it takes to fire another shot after just shooting one\
     public float bloodPerShot; //Amount of used per energy blast.
 
-    [Space]
-    [SerializeField] private float energyBlastAudioVolume = 1f;
-    [SerializeField] private float blastImpactAudioVolume = 1f;
-
     [System.NonSerialized]
 
     public float currRechargeTimer = 0f;
@@ -54,8 +50,6 @@ public class EnergyBlast : MonoBehaviour
             currTimeBetweenShots = 0f;
             GetComponent<BloodThirst>().LoseBlood(bloodPerShot);
 
-            // Play Energy Blast Audio
-            AudioManager.GetInstance().PlayAudioFollowObject("EnergyBlast_SFX", gameObject, energyBlastAudioVolume);
         }
     }
 
@@ -74,8 +68,6 @@ public class EnergyBlast : MonoBehaviour
             {
                 effect.TriggerEffect();
             }
-
-            AudioManager.GetInstance().PlayAudioAtLocation("EnergyBlastImpact_SFX", hit.point, blastImpactAudioVolume);
         }
         else // If no objects in raycast, still shoot laser
         {

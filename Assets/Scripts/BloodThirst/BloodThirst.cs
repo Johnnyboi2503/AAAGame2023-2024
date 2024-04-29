@@ -15,7 +15,6 @@ public class BloodThirst : MonoBehaviour
     [SerializeField] float overfedDrainRate; // Blood drain rate when overfed
 
     [SerializeField] bool canDrainBlood = true;
-    [SerializeField] float bloodthirstBarAudioVolume = 1f;
 
     [Header("Other Variables")]
     [SerializeField] PlayerKillable playerKillable;
@@ -40,8 +39,6 @@ public class BloodThirst : MonoBehaviour
         {
             Debug.Log("Movement modification not found");
         }
-
-        playerKillable.OnDie.AddListener(OnDeath);
     }
 
     // Update is called once per frame
@@ -92,12 +89,6 @@ public class BloodThirst : MonoBehaviour
         // Adding blood based on if you can overfeed and limiting it based on max
         if (canOverFeed) {
             currentBlood = Mathf.Min(currentBlood+amount, maxBloodForOverfed);
-
-            // If the player is over max blood due to overfed, play the blood thirst bar audio
-            if (currentBlood > maxBlood)
-            {
-                AudioManager.GetInstance().PlayGlobalAudio("BloodthirstBar_SFX", bloodthirstBarAudioVolume);
-            }
         }
         else {
             if(currentBlood < maxBlood) {
@@ -113,11 +104,5 @@ public class BloodThirst : MonoBehaviour
         currentBlood = Mathf.Clamp(currentBlood, 0, maxBlood);
 
         OnBloodChange.Invoke();
-    }
-
-    public void OnDeath()
-    {
-        // Stop All Audio
-        AudioManager.GetInstance().StopAudioOfType("BloodthirstBar_SFX");
     }
 }

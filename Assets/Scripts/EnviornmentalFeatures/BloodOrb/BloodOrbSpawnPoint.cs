@@ -33,6 +33,7 @@ public class BloodOrbSpawnPoint : MonoBehaviour
     }
 
     private void SetOrb(BloodOrb orb) {
+        orb.GetComponent<Rigidbody>().useGravity = false;
         orb.gainBloodAmount = bloodGainAmount;
         orb.transform.parent = transform;
         orb.transform.localScale = Vector3.one * orbScale;

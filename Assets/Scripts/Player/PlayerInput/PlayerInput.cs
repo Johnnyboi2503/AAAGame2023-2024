@@ -9,7 +9,6 @@ public class PlayerInput : MonoBehaviour {
     enum ControlType { controller, mouseAndKeyboard };
     CinemachineFreeLook cinemachineCam;
     Transform cameraOrientation;
-    [SerializeField]Texture2D cursorSprite;
 
     [Header("Control Type")]
     [SerializeField] ControlType currentControls; // Current control set up, keyboard or mouse
@@ -27,20 +26,29 @@ public class PlayerInput : MonoBehaviour {
 
     // All of these are inputs for their respective inputs
     [Header("Mouse Keyboard Inputs")]
-    [SerializeField] KeyCode keyboardStab;// Seperate this one because I wanna only have the header apply to one
-    [SerializeField] KeyCode keyboardSlash, keyboardDash, keyboardJump, keyboardShoot, keybaordDialogue;
+    [SerializeField] KeyCode keyboardStab;
+    [SerializeField] KeyCode keyboardSlash;
+    [SerializeField] KeyCode keyboardDash;
+    [SerializeField] KeyCode keyboardJump;
+    [SerializeField] KeyCode keyboardShoot;
 
     [Header("Controller Inputs")]
-    [SerializeField] KeyCode controllerStab; // Seperate this one because I wanna only have the header apply to one
-    [SerializeField] KeyCode controllerSlash, controllerDash, controllerJump, controllerShoot, controllerDialogue;
+    [SerializeField] KeyCode controllerStab;
+    [SerializeField] KeyCode controllerSlash;
+    [SerializeField] KeyCode controllerDash;
+    [SerializeField] KeyCode controllerJump;
+    [SerializeField] KeyCode controllerShoot;
 
     // Controls
-    KeyCode inputStab, inputSlash, inputDash, inputJump, inputShoot, inputDialogue;
+    KeyCode inputStab;
+    KeyCode inputSlash;
+    KeyCode inputDash;
+    KeyCode inputJump;
+    KeyCode inputShoot;
 
-    bool canInput = true, canAbilityInput = true;
+    bool canInput = true;
 
     PlayerActionManager playerActionManager;
-    DialogueManager dialogueManager;
     // Start is called before the first frame update
     void Start() {
         
@@ -48,17 +56,8 @@ public class PlayerInput : MonoBehaviour {
         cameraOrientation = FindObjectOfType<Camera>().transform;
         cinemachineCam = FindObjectOfType<CinemachineFreeLook>();
         playerActionManager = GetComponentInChildren<PlayerActionManager>();
-        dialogueManager = FindAnyObjectByType<DialogueManager>();
         playerActionManager.combinationWindow = combinationWindow;
 
-        //SET CURSOR TEXTURE LIKE HERE
-        if(cursorSprite != null)
-        {
-            Cursor.SetCursor(cursorSprite, Vector2.zero, CursorMode.Auto);
-        }
-        //hide cursor right after
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
         SetCurrentController();
     }
 
@@ -70,7 +69,8 @@ public class PlayerInput : MonoBehaviour {
             Vector3 inputDirection = Vector3.zero;
 
             //player input direction is calculated by multiplying forward and right by the horizontal and vertical axes
-            switch (currentControls) {
+            switch (currentControls)
+            {
                 //switch so that you can't control the player with a control scheme if it isn't assigned
                 case ControlType.controller:
                     inputDirection = cameraOrientation.right * Input.GetAxis("Left Stick Horizontal") + cameraOrientation.forward * Input.GetAxis("Left Stick Vertical");
@@ -80,15 +80,7 @@ public class PlayerInput : MonoBehaviour {
                     break;
                 default: break;
             }
-            OtherInputs();
-            Vector3 horizontalInput = new Vector3(inputDirection.x, 0, inputDirection.z);
-            if (canAbilityInput) {
-                CheckAbilities(horizontalInput);
-            }
-            else {
-                horizontalInput = Vector3.zero;
-            }
-            playerActionManager.DirectionalInput(horizontalInput);
+            CheckAbilities(new Vector3(inputDirection.x, 0, inputDirection.z));
         }
     }
     public void DisableInput() {
@@ -96,29 +88,6 @@ public class PlayerInput : MonoBehaviour {
     }
     public void EnableInput() {
         canInput = true;
-    }
-    public void DisableAbilityInput() {
-        canAbilityInput = false;
-        DisableCameraMovement();
-    }
-    public void EnableAbilityInput() {
-        canAbilityInput = true;
-        EnableCameraMovement();
-    }
-
-    public void DisableCameraMovement() {
-        cinemachineCam.m_XAxis.m_MaxSpeed = 0;
-        cinemachineCam.m_YAxis.m_MaxSpeed = 0;
-    }
-    public void EnableCameraMovement() {
-        SetCurrentController();
-    }
-
-    private void OtherInputs() {
-        // Advancing dialogue
-        if(Input.GetKeyDown(inputDialogue)) {
-            dialogueManager.DialougeAdvanceInput();
-        }
     }
     private void CheckAbilities(Vector3 direction) {
         if (Input.GetKeyDown(inputJump)) {
@@ -145,6 +114,7 @@ public class PlayerInput : MonoBehaviour {
         if (Input.GetKeyDown(inputShoot)) {
             playerActionManager.EnergyBlastInput();
         }
+        playerActionManager.DirectionalInput(direction);
     }
 
     private void SetCurrentController() {
@@ -241,14 +211,10 @@ public class PlayerInput : MonoBehaviour {
         inputDash = controllerDash + 4;
         inputJump = controllerJump + 4;
         inputShoot = controllerShoot + 4;
-        inputDialogue = controllerDialogue + 4;
 
         //set the sensitivity of the camera with ControllerXsensitivity and ControllerYsensitivity
-        if (canAbilityInput) {
-            cinemachineCam.m_XAxis.m_MaxSpeed = ControllerXSensitivity;
-            cinemachineCam.m_YAxis.m_MaxSpeed = ControllerYSensitivity;
-        }
-
+        cinemachineCam.m_XAxis.m_MaxSpeed = ControllerXSensitivity;
+        cinemachineCam.m_YAxis.m_MaxSpeed = ControllerYSensitivity;
         currentControls = ControlType.controller;
     }
 
@@ -256,6 +222,8 @@ public class PlayerInput : MonoBehaviour {
         // Setting axis for keyboard
         cinemachineCam.m_XAxis.m_InputAxisName = "Mouse X";
         cinemachineCam.m_YAxis.m_InputAxisName = "Mouse Y";
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
 
         // Setting inputs for keyboard
         inputStab = keyboardStab;
@@ -265,23 +233,11 @@ public class PlayerInput : MonoBehaviour {
         inputDash = keyboardDash;
         inputJump = keyboardJump;
 
-        inputShoot = keyboardShoot + 7; // Keycode enums are offset when set in the editor (mouse inputs here)
-        inputDialogue = keybaordDialogue + 7;
-
         //set the sensitivity of the camera with MKXSensitivity and MKYSensitivity
-        if (canAbilityInput) {
-            cinemachineCam.m_XAxis.m_MaxSpeed = MKXSensitivity;
-            cinemachineCam.m_YAxis.m_MaxSpeed = MKYSensitivity;
-        }
-        currentControls = ControlType.mouseAndKeyboard;
-    }
-
-    public void SetMKSensitivity(float xSensitivity, float ySensitivity) {
-        MKXSensitivity = xSensitivity;
-        MKYSensitivity = ySensitivity;
-
         cinemachineCam.m_XAxis.m_MaxSpeed = MKXSensitivity;
         cinemachineCam.m_YAxis.m_MaxSpeed = MKYSensitivity;
-    }
 
+        inputShoot = keyboardShoot + 7; // Keycode enums are offset when set in the editor (mouse inputs here)
+        currentControls = ControlType.mouseAndKeyboard;
+    }
 }

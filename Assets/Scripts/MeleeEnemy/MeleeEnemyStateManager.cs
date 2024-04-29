@@ -172,7 +172,6 @@ public class MeleeEnemyStateManager : MonoBehaviour
             enemyCDTimer = enemyAttackCooldown;
             if (!timer.IsActive())
                 timer.StartTimer(enemyAttackDuration, EndMelee);
-
             Debug.Log("sword active");
         }
     }
