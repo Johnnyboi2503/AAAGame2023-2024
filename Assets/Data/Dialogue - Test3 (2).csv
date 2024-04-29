@@ -1,0 +1,19 @@
+Name,Dialogue,Pose
+Person1,test,idle
+,how are you?,
+Person1,that sucks,happy
+,hope things get better,
+Person1,thats great!,sad
+,hope things are good,
+Person1,well anyway good luck,angry
+,well anyway good luck,
+Person1,I see ya around,suprised
+Person2,test,idle
+,how are you?,
+Person2,that sucks,happy
+,hope things get better,
+Person2,thats great!,sad
+,hope things are good,
+Person2,well anyway good luck,angry
+,well anyway good luck,
+Person2,I see ya around,suprised

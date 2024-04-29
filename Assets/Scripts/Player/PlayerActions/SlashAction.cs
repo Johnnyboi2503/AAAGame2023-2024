@@ -14,6 +14,9 @@ public class SlashAction : PlayerAction
     public float bloodGained; // Amount of blood gained when striking something you can slash
     public float attackDuration; // How long the sword stays out, temp implementation for testing
 
+    [Space]
+    [SerializeField] private float slashAudioVolume = 1f;
+
     // Components
     private SlashContact slashContact;
 
@@ -41,6 +44,9 @@ public class SlashAction : PlayerAction
         slashContact.ActivateContactEvent(swordMovement.OnContact, bloodGained);
         swordMovement.OnEndAction.AddListener(EndOfSlashAnimation);
         swordMovement.SlashPosition(attackDuration);
+
+        // Play slash audio
+        AudioManager.GetInstance().PlayAudioFollowObject("Slash_SFX", gameObject, slashAudioVolume);
 
         OnStartAction.Invoke();
     }

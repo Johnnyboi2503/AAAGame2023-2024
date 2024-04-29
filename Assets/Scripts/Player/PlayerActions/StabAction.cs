@@ -11,6 +11,9 @@ public class StabAction : PlayerAction {
     [SerializeField] float bloodGainAmount; // Amount of blood gained from striking something 
     [SerializeField] float attackDuration; // How long the sword swing lasts, temperary implemention for testing
 
+    [Space]
+    [SerializeField] float stabAudioVolume = 1f;
+
     // Movement Compoenents
     StabContact stabContact;
 
@@ -43,6 +46,9 @@ public class StabAction : PlayerAction {
         // Demon sword variables
         swordMovement.OnEndAction.AddListener(EndOfStabAnimation);
         swordMovement.StabPosition(attackDuration);
+
+        // Play Stab Audio
+        AudioManager.GetInstance().PlayAudioFollowObject("Stab_SFX", gameObject, stabAudioVolume);
 
         OnStartAction.Invoke();
     }

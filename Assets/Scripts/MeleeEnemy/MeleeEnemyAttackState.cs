@@ -17,12 +17,14 @@ public class MeleeEnemyAttackState : MeleeEnemyBaseState
         enemy.StopPosition();
         enemy.animator.SetBool("isAttacking", true);
 
+
     }
 
     public override void UpdateState(MeleeEnemyStateManager enemy)
     {
         // NOT DONE
         // melee attack?
+
         enemy.MeleeAttack();
 
 
