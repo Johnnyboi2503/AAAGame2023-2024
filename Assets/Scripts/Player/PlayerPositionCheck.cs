@@ -20,27 +20,16 @@ public class PlayerPositionCheck : MonoBehaviour {
     [SerializeField] float terrainCastScaleXY;
     [Range(0f, 1f)]
     [SerializeField] float groundCheckScaleXZ;
+    [Range(0f, 1f)]
+    [SerializeField] float slopeCheck;
     public bool grounded;
 
     Vector3 gizmoDir;
     private void Start() {
-        //rb = playerCollider.GetComponent<Rigidbody>();
+        //rb = playerCollider.GetComponent<Rigidbody
     }
     private void Update() {
         grounded = CheckOnGround();
-    }
-    public void WallStickCheck(Collision collision, Rigidbody rb) {
-        ContactPoint[] points = new ContactPoint[collision.contactCount];
-
-        Vector3 average = Vector3.zero;
-        foreach (ContactPoint point in collision.contacts) {
-            average += point.normal;
-        }
-        average = average / points.Length;
-
-        Vector3 rotatedAngle = MyMath.RotateXZAngle(average, 90f);
-        float alignment = Vector3.Dot(rotatedAngle, rb.velocity);
-        
     }
 
     // Checks whats colliding with and returning the closest collider
@@ -66,17 +55,21 @@ public class PlayerPositionCheck : MonoBehaviour {
 
     // Checking collision to calculate force perpendicular to the surface of collider (for sticky wall bug)
     // THIS WILL NO LONGER BE USED THERE IS AN EASIER IMPLEMENTATION
-    public Vector3 CorrectVelocityCollision(Vector3 addedVelocity) {
-        
+    public Vector3 CorrectVelocityCollision(Vector3 addedVelocity, bool moveIntoSlope = false) {
         if (TryGetClosestColliders(addedVelocity, out Collider[] colliders)) {
             // Calculate velocity based on colliders
             foreach (Collider collider in colliders) {
-                Vector3 normal = transform.position-collider.ClosestPoint(transform.position);
+                Vector3 normal = (transform.position-collider.ClosestPoint(transform.position)).normalized;
+
+                // If on a slope then treat the colliding surface as a wall
+                if (moveIntoSlope) {
+                    normal = new Vector3(normal.x, 0, normal.z);
+                }
 
                 // Calculating velocity
-                if (Vector3.Dot(normal.normalized, addedVelocity.normalized) < 0) { // Checking if the added velocity is going into the surface
+                if (Vector3.Dot(normal, addedVelocity.normalized) < 0) { // Checking if the added velocity is going into the surface
                                                                                     // Finding perpendicular vector to the surface normal
-                    Vector3 rotationVector = Vector3.Cross(normal.normalized, addedVelocity.normalized);
+                    Vector3 rotationVector = Vector3.Cross(normal, addedVelocity.normalized);
                     Vector3 perpendicularToNormal = MyMath.RotateAboutAxis(normal, rotationVector, 90f);
 
                     Debug.DrawLine(transform.position, transform.position + normal, Color.blue);
@@ -91,11 +84,44 @@ public class PlayerPositionCheck : MonoBehaviour {
 
         return addedVelocity;
     }
-    public bool CheckOnGround() {
+
+    // checking for slopes
+    public Vector3 CorrectingVelocityForSlopes(Vector3 addedVelocity) {
+        if (TryGetClosestColliders(addedVelocity, out Collider[] colliders)) {
+            // Calculate velocity based on colliders
+            foreach (Collider collider in colliders) {
+                Vector3 normal = (transform.position - collider.ClosestPoint(transform.position)).normalized;
+
+                // Dealing with slopes by eliminating vertical component to treat the slope as a wall
+                if (normal.y < slopeCheck && normal.y > 0f) {
+                    normal = new Vector3(normal.x, 0, normal.z);
+                }
+            }
+        }
+
+        return addedVelocity;
+    }
+
+    private Collider[] CheckColliderOnGround() {
         Vector3 extents = new Vector3(playerCollider.bounds.extents.x * groundCheckScaleXZ,
             playerCollider.bounds.extents.y,
             playerCollider.bounds.extents.z * groundCheckScaleXZ);
-        return Physics.OverlapBox(transform.position + (Vector3.down * groundCheckOffset), extents, Quaternion.LookRotation(transform.forward) , ground).Length > 0;
+        return Physics.OverlapBox(transform.position + (Vector3.down * groundCheckOffset), extents, Quaternion.LookRotation(transform.forward), ground);
+    }
+    public bool CheckOnGround() {
+        return CheckColliderOnGround().Length > 0;
+    }
+    public bool CheckOnSlope() {
+        Collider[] groundColliders = CheckColliderOnGround();
+        foreach (Collider collider in groundColliders) {
+            Vector3 normal = (transform.position - collider.ClosestPoint(transform.position)).normalized;
+
+            // Dealing with slopes by eliminating vertical component to treat the slope as a wall
+            if (normal.y < slopeCheck && normal.y > 0f) {
+                return true;
+            }
+        }
+        return false;
     }
     private void OnDrawGizmos() {
         //Gizmos.DrawWireCube(transform.position + (gizmoDir*terrainCheckOffset), (playerCollider.bounds.size * terrainCheckScale));

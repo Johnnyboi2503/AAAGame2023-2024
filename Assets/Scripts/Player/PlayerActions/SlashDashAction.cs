@@ -83,7 +83,6 @@ public class SlashDashAction : PlayerAction {
         }
     }
     
-
     public override void EndAction() {
         isDashing = false;
         render.material.color = holder;
