@@ -17,6 +17,11 @@ public class RibPlatform : MonoBehaviour
     [SerializeField] float bloodLostOnHit; //blood lost when hit by knockback volume
     MeshRenderer render; //using to change the platform's color when open/closed
 
+    [Space]
+    [Header("Audio")]
+    [SerializeField] private float porkRibsAudioVolume = 0.75f;
+    [SerializeField] private float porkRibsAudioDistanceRange = 10f;
+
     Timer timerTillClosed = new Timer();
     Timer timerTillOpened = new Timer();
 
@@ -50,6 +55,7 @@ public class RibPlatform : MonoBehaviour
         {
             if (!waitingToClose) //if the player hasnt stepped on the platform yet, this starts the timer for when the platform closes
             {
+                AudioManager.GetInstance().PlayAudioAtLocation("PorkRibs_Platform_SFX", transform.position, porkRibsAudioVolume, true, porkRibsAudioDistanceRange);
                 timerTillClosed.StartTimer(waitTime, CloseRibs);
                 waitingToClose = true;
             }
@@ -59,6 +65,7 @@ public class RibPlatform : MonoBehaviour
 
     private void CloseRibs()
     {
+        AudioManager.GetInstance().StopAudioOfType("PorkRibs_Platform_SFX");
         timerTillOpened.StartTimer(timeClosed, OpenRibs);
         knockbackTrigger.enabled = true;
         openCollider.enabled = false;

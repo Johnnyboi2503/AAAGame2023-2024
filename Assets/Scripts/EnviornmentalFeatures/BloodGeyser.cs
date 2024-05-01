@@ -6,6 +6,7 @@ public class BloodGeyser : MonoBehaviour
 {
     float acceleration;
     float maxSpeed;
+
     public void SetStats(float setAcceleration, float setMaxSpeed) {
         acceleration = setAcceleration;
         maxSpeed = setMaxSpeed;

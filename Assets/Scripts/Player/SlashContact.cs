@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.Events;
 
 public class SlashContact : MonoBehaviour {
+
+    [SerializeField] private float wallSlashAudioVolume = 0.75f;
+
     // Action to perform
     SlideAction slideAction;
 
@@ -26,6 +29,7 @@ public class SlashContact : MonoBehaviour {
     }
 
     private void StabContactEffect(Collider other) {
+
         bool found = false;
         bool canGainBlood = false;
 
@@ -42,6 +46,7 @@ public class SlashContact : MonoBehaviour {
             found = true;
         }
         else if (other.TryGetComponent(out PathCreator pathCreator)) {
+            AudioManager.GetInstance().PlayAudioAtLocation("WallSlash_SFX", transform.position, wallSlashAudioVolume);
             if (other.TryGetComponent(out WallDirection wallDir)) {
                 Vector3 wallForward = wallDir.GetForwardVector();
 

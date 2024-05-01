@@ -15,11 +15,21 @@ public class EyeballGeyser : DownwardStabEffect {
     [SerializeField] float geyserAcceleration;
     [SerializeField] float geyserMaxSpeed;
 
+    [Space]
+    [Header("Audio")]
+    [SerializeField] private float bloodGeyserAudioVolume = 1f;
+    [SerializeField] private float bloodGeyserAudioDistanceRange = 20f;
+
 
     // Variables
     float geyserTimer;
     bool isBlood = false;
     GameObject currentBloodGeyser;
+
+    private void Awake()
+    {
+        FindObjectOfType<PlayerKillable>().OnDie.AddListener(ResetObject);
+    }
 
     private void Update() {
         if (isBlood) {
@@ -37,6 +47,9 @@ public class EyeballGeyser : DownwardStabEffect {
     }
 
     public void StartBloodGeyser() {
+
+        AudioManager.GetInstance().PlayAudioAtLocation("BloodGeyser_SFX", transform.position, bloodGeyserAudioVolume, true, bloodGeyserAudioDistanceRange);
+
         if (!isBlood) {
             isBlood = true;
             geyserTimer = duration;
@@ -51,6 +64,9 @@ public class EyeballGeyser : DownwardStabEffect {
         }
     }
     private void EndBloodGeyser() {
+
+        AudioManager.GetInstance().StopAudioOfType("BloodGeyser_SFX");
+
         if (isBlood) {
             isBlood = false;
 
@@ -60,5 +76,10 @@ public class EyeballGeyser : DownwardStabEffect {
     private void OnDrawGizmos() {
         Gizmos.DrawWireCube(transform.position + Vector3.up * height/2, new Vector3(radius, height, radius));
         Gizmos.DrawLine(transform.position, transform.position + Vector3.up * (height - radius));
+    }
+
+    private void ResetObject()
+    {
+        AudioManager.GetInstance().StopAudioOfType("BloodGeyser_SFX");
     }
 }
