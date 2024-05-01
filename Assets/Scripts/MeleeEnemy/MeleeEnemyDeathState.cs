@@ -11,6 +11,7 @@ public class MeleeEnemyDeathState : MeleeEnemyBaseState
 
     public override void EnterState(MeleeEnemyStateManager enemy)
     {
+        enemy.animator.speed = 1;
         enemy.animator.SetBool("isDead", true);
         disappearTimer = enemy.deleteTimer;
 
