@@ -61,7 +61,11 @@ public class StabContact : MonoBehaviour
         }
         if(other.gameObject.TryGetComponent(out FlickEnemyStabable flickEnemy)) {
             actionManager.ChangeAction(flickAction);
-            flickAction.Stick(flickEnemy);
+            flickAction.Stick(flickEnemy, null);
+        }
+        if(other.gameObject.TryGetComponent(out FlickEnviornmentStabable flickEnviornment)) {
+            actionManager.ChangeAction(flickAction);
+            flickAction.Stick(null, flickEnviornment);
         }
         if(found) {
             EndContactEvent();
