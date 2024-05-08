@@ -55,10 +55,10 @@ public class EyeballGeyser : DownwardStabEffect {
             geyserTimer = duration;
 
 
-            currentBloodGeyser = Instantiate(bloodGeyserPrefab, transform.position, Quaternion.identity);
+            currentBloodGeyser = Instantiate(bloodGeyserPrefab, transform);
 
             //Setting position and scale
-            currentBloodGeyser.transform.position = transform.position + Vector3.up * (height / 2);
+            currentBloodGeyser.transform.localPosition = Vector3.up * (height / 2);
             currentBloodGeyser.transform.localScale = new Vector3(radius, height / 2, radius);
             currentBloodGeyser.GetComponent<BloodGeyser>().SetStats(geyserAcceleration, geyserMaxSpeed);
         }
@@ -74,8 +74,9 @@ public class EyeballGeyser : DownwardStabEffect {
         }
     }
     private void OnDrawGizmos() {
-        Gizmos.DrawWireCube(transform.position + Vector3.up * height/2, new Vector3(radius, height, radius));
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.up * (height - radius));
+        Matrix4x4 rotationMatrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.lossyScale);
+        Gizmos.matrix = rotationMatrix;
+        Gizmos.DrawWireCube(Vector3.up * height/2, new Vector3(radius, height, radius));
     }
 
     private void ResetObject()
