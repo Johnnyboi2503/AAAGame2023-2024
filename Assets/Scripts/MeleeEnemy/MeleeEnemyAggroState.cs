@@ -17,11 +17,11 @@ public class MeleeEnemyAggroState : MeleeEnemyBaseState
     public override void EnterState(MeleeEnemyStateManager enemy)
     {
         //Debug.Log("Enter Aggro State");
-        enemy.animator.SetBool("isAggro", true);
     }
 
     public override void UpdateState(MeleeEnemyStateManager enemy)
     {
+        enemy.animator.SetBool("isAggro", true);
         //Debug.Log("Enter Aggro Update");
         // moves towards player until in/out of range
         enemy.MoveTowardsPlayer();
@@ -41,8 +41,8 @@ public class MeleeEnemyAggroState : MeleeEnemyBaseState
         // if enemy is in range for attack
         if (enemy.RayCastCheck(attackDistance)) {
             enemy.SwitchState(enemy.attackState);
-            
             enemy.animator.SetBool("isAggro", false);
+            
 
         }
     }

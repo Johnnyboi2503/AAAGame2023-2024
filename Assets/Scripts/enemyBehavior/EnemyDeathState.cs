@@ -11,6 +11,7 @@ public class EnemyDeathState : EnemyBaseState
 
     public override void EnterState(EnemyStateManager enemy)
     {
+         enemy.animator.speed = 1;
         enemy.animator.SetBool("isDead", true);
         disapearTimer = enemy.deleteTimer;
 
