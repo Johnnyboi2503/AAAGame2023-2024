@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: e884efee622dc5847b03170009b57306
   - enabled: 1
+    path: Assets/Scenes/DesignersTestScenes/Section_1.unity
+    guid: a3c6a173e4815be448d6b9c2b366daae
+  - enabled: 0
     path: Assets/Scenes/DesignersTestScenes/NewWilfreddySuarez/Scenes/Area_4_ECopy.unity
     guid: 849f842361a54a74ea26823d86c5b6a3
   - enabled: 0
