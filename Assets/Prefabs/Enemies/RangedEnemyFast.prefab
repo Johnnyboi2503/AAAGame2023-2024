@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 5104841024641144038}
   - component: {fileID: 3896014209172367775}
   m_Layer: 8
-  m_Name: RangedEnemy
+  m_Name: RangedEnemyFast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
   stunDuration: 2
   deleteTimer: 1.5
   spawnpoint: {fileID: 0}
-  bulletPrefab: {fileID: 3113997752838417528, guid: d5d9f454918076d4689292dc56796b97,
+  bulletPrefab: {fileID: 3113997752838417528, guid: 1dd1a82e17d40d74ea126b80e7158d1a,
     type: 3}
   bulletFirePoint: {fileID: 7133236584065642053}
   bulletSpeed: 4.25
