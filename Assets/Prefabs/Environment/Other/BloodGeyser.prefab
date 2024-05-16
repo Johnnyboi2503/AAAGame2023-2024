@@ -120,5 +120,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471d76a0c2fcc0b4da8d8b8b3dd9fb88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bloodGeyserAudioVolume: 0.6
-  bloodGeyserAudioDistanceRange: 20

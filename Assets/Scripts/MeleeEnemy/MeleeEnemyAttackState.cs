@@ -15,8 +15,7 @@ public class MeleeEnemyAttackState : MeleeEnemyBaseState
     {
         //Debug.Log("Enter Attack State");
         enemy.StopPosition();
-        
-
+        enemy.animator.SetBool("isAttacking", true);
 
     }
 
@@ -24,7 +23,6 @@ public class MeleeEnemyAttackState : MeleeEnemyBaseState
     {
         // NOT DONE
         // melee attack?
-        enemy.animator.SetBool("isAttacking", true);
         enemy.MeleeAttack();
 
 

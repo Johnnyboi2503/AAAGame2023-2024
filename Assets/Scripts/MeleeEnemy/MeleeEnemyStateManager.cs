@@ -36,7 +36,6 @@ public class MeleeEnemyStateManager : MonoBehaviour
 
     [Header("Animations")]
     public Animator animator;
-    public ParticleSystem particle;
 
 
     // all the states of the enemies

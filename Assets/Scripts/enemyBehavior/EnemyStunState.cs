@@ -8,7 +8,6 @@ public class EnemyStunState : EnemyBaseState
     public Animator animator;
     public float stunDuration;
     public float stunTimer;
-    public ParticleSystem particle;
 
     public EnemyStunState(float _stunDuration) {
         stunDuration = _stunDuration;
@@ -18,8 +17,7 @@ public class EnemyStunState : EnemyBaseState
     {
         stunTimer = 0;
         //Debug.Log("Enter Stun State");
-        enemy.particle.Play();
-        enemy.animator.speed = 0;
+        enemy.animator.SetBool("isStunned", true);
         enemy.render.material.color = Color.red;
     }
 
@@ -27,7 +25,6 @@ public class EnemyStunState : EnemyBaseState
     {
         stunTimer += Time.deltaTime;
         if(stunTimer >= stunDuration) {
-            enemy.animator.speed = 1;
             enemy.Idle();
         }
         //Debug.Log("Enter Stun Update");
@@ -35,7 +32,7 @@ public class EnemyStunState : EnemyBaseState
         enemy.StopPosition();
         Debug.Log("stunned");
         // after amount of time no longer stunned
-      
+        enemy.animator.SetBool("isStunned", false);
 
     }
 }

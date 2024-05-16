@@ -30,8 +30,7 @@ public class FlickAction : PlayerAction
     MovementModification movementModification;
 
     // Action Relevant variables
-    FlickEnemyStabable flickEnemy;
-    FlickEnviornmentStabable flickEnviornment;
+    FlickEnemyStabable flickStabable;
     bool sticking = false;
     Vector3 stickPos;
     Vector3 swordStickPos;
@@ -52,12 +51,10 @@ public class FlickAction : PlayerAction
     }
 
     // Sticking to the object
-    public void Stick(FlickEnemyStabable _flickEnemy = null, FlickEnviornmentStabable _flickEnviornment = null) {
+    public void Stick(FlickEnemyStabable _flickStabable) {
         // Setting variables
         sticking = true;
-        flickEnemy = _flickEnemy;
-        flickEnviornment = _flickEnviornment;
-
+        flickStabable = _flickStabable;
 
         // Setting inital values
         stickPos = transform.position;
@@ -88,22 +85,14 @@ public class FlickAction : PlayerAction
         currentJump = currentJump + currentPlayerSpeed;
 
         // Adding bonus movement based on stunned enemy
-        if (flickEnemy != null) {
-            if (flickEnemy.stunned) {
-                float currentBonus = movementModification.GetBoost(stunnedEnemyBonus, boostedStunnedEnemyBonus, true);
-                currentHorizontal += currentBonus;
-                currentJump += currentBonus;
-            }
-
-            // Killing enemy before movement
-            flickEnemy.Die();
+        if(flickStabable.stunned) {
+            float currentBonus = movementModification.GetBoost(stunnedEnemyBonus, boostedStunnedEnemyBonus, true);
+            currentHorizontal += currentBonus;
+            currentJump += currentBonus;
         }
 
-        // For flick enviornment
-        if(flickEnviornment != null) {
-            directionInput = (flickEnviornment.horzDirPosition.position - transform.position).normalized;
-            flickEnviornment.MakePassable(0.5f); // Turning off the collider for 0.5 sec
-        }
+        // Killing enemy before movement
+        flickStabable.Die();
 
         // Setting Limits
         Vector3 horizontalVelocity = Mathf.Min(currentHorizontalLimit, currentHorizontal) * directionInput;

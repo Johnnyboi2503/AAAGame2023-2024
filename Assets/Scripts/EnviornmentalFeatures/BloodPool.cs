@@ -9,28 +9,7 @@ public class BloodPool : MonoBehaviour
     [SerializeField] float gainTickRate;
     [SerializeField] bool canOverfeed;
 
-    [Space]
-    [Header("Audio")]
-    [SerializeField] private float bloodPoolAudioVolume = 0.65f;
-    [SerializeField] private float bloodPoolAudioDistanceRange = 15f;
-
     float gainTickTimer;
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            AudioManager.GetInstance().PlayAudioAtLocation("BloodPool_SFX", transform.position, bloodPoolAudioVolume, true, bloodPoolAudioDistanceRange);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            AudioManager.GetInstance().StopAudioOfType("BloodPool_SFX");
-        }
-    }
 
     private void OnTriggerStay(Collider other) {
         if (other.TryGetComponent(out BloodThirst bloodThirst)) {
