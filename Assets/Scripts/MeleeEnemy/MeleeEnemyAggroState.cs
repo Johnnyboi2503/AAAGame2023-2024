@@ -17,11 +17,11 @@ public class MeleeEnemyAggroState : MeleeEnemyBaseState
     public override void EnterState(MeleeEnemyStateManager enemy)
     {
         //Debug.Log("Enter Aggro State");
-        enemy.animator.SetBool("isWalking", true);
     }
 
     public override void UpdateState(MeleeEnemyStateManager enemy)
     {
+        enemy.animator.SetBool("isAggro", true);
         //Debug.Log("Enter Aggro Update");
         // moves towards player until in/out of range
         enemy.MoveTowardsPlayer();
@@ -36,11 +36,14 @@ public class MeleeEnemyAggroState : MeleeEnemyBaseState
             //enemy.SwitchToIdle(); this is not the intended behavior, you should start this timer when it reaches the LAST SEEN position of the player when theyre out of site - Nelson
             enemy.Idle(); // This is here for march implementation
 
-           enemy.animator.SetBool("isWalking", false);
+           enemy.animator.SetBool("isAggro", false);
         }
         // if enemy is in range for attack
         if (enemy.RayCastCheck(attackDistance)) {
             enemy.SwitchState(enemy.attackState);
+            enemy.animator.SetBool("isAggro", false);
+            
+
         }
     }
 }
