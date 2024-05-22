@@ -3,8 +3,6 @@ using UnityEngine;
 using UnityEditor;
 using System.IO;
 
-
-
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/DialogueInteraction", order = 1)]
 public class DialogueInteraction : ScriptableObject
 {
