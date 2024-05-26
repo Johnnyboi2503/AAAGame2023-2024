@@ -14,6 +14,9 @@ public class Checkpoint : MonoBehaviour
     public CheckPointManager checkPointManager; // Used to check if they can be used as checkpoint
     public Renderer render; // Temperary component use for testing
 
+    [Space]
+    [SerializeField] private float interactionAudioVolume = 0.75f;
+
     private void Start() {
         render = GetComponent<Renderer>();
     }
@@ -23,6 +26,10 @@ public class Checkpoint : MonoBehaviour
         if (collider.transform.CompareTag("Player"))// checks if the collider is a checkpoint
         {
             if(checkPointManager.CanActivateCheckpoint(index)) {
+
+                // Play audio on activate checkpoint
+                AudioManager.GetInstance().PlayAudioAtLocation("TerrainInteration_SFX", transform.position, interactionAudioVolume);
+
                 render.material.color = Color.blue;
                 collider.transform.GetComponent<PlayerKillable>().respawnPosition = transform.position; // setting player respawn position if valid checkpoint
             }

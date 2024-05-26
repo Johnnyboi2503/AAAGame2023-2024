@@ -28,19 +28,20 @@ public class PlayerInput : MonoBehaviour {
     // All of these are inputs for their respective inputs
     [Header("Mouse Keyboard Inputs")]
     [SerializeField] KeyCode keyboardStab;// Seperate this one because I wanna only have the header apply to one
-    [SerializeField] KeyCode keyboardSlash, keyboardDash, keyboardJump, keyboardShoot, keybaordDialogue;
+    [SerializeField] KeyCode keyboardSlash, keyboardDash, keyboardJump, keyboardShoot, keyboardDialogue, keyboardInteract;
 
     [Header("Controller Inputs")]
     [SerializeField] KeyCode controllerStab; // Seperate this one because I wanna only have the header apply to one
-    [SerializeField] KeyCode controllerSlash, controllerDash, controllerJump, controllerShoot, controllerDialogue;
+    [SerializeField] KeyCode controllerSlash, controllerDash, controllerJump, controllerShoot, controllerDialogue, controllerInteract;
 
     // Controls
-    KeyCode inputStab, inputSlash, inputDash, inputJump, inputShoot, inputDialogue;
+    KeyCode inputStab, inputSlash, inputDash, inputJump, inputShoot, inputDialogue, inputInteract;
 
     bool canInput = true, canAbilityInput = true;
 
     PlayerActionManager playerActionManager;
     DialogueManager dialogueManager;
+    PlayerInteraction playerInteraction;
     // Start is called before the first frame update
     void Start() {
         
@@ -49,6 +50,7 @@ public class PlayerInput : MonoBehaviour {
         cinemachineCam = FindObjectOfType<CinemachineFreeLook>();
         playerActionManager = GetComponentInChildren<PlayerActionManager>();
         dialogueManager = FindAnyObjectByType<DialogueManager>();
+        playerInteraction = GetComponentInChildren<PlayerInteraction>();
         playerActionManager.combinationWindow = combinationWindow;
 
         //SET CURSOR TEXTURE LIKE HERE
@@ -115,8 +117,14 @@ public class PlayerInput : MonoBehaviour {
     }
 
     private void OtherInputs() {
+        // starting dialogue
+        if (Input.GetKeyDown(inputInteract))
+        {
+            Debug.Log("interact key press");
+            playerInteraction.TryInteract();
+        }
         // Advancing dialogue
-        if(Input.GetKeyDown(inputDialogue)) {
+        if (Input.GetKeyDown(inputDialogue)) {
             dialogueManager.DialougeAdvanceInput();
         }
     }
@@ -242,6 +250,7 @@ public class PlayerInput : MonoBehaviour {
         inputJump = controllerJump + 4;
         inputShoot = controllerShoot + 4;
         inputDialogue = controllerDialogue + 4;
+        inputInteract = controllerInteract + 4; // added interact
 
         //set the sensitivity of the camera with ControllerXsensitivity and ControllerYsensitivity
         if (canAbilityInput) {
@@ -265,8 +274,11 @@ public class PlayerInput : MonoBehaviour {
         inputDash = keyboardDash;
         inputJump = keyboardJump;
 
+        // added interact
+        inputInteract = keyboardInteract;
+
         inputShoot = keyboardShoot + 7; // Keycode enums are offset when set in the editor (mouse inputs here)
-        inputDialogue = keybaordDialogue + 7;
+        inputDialogue = keyboardDialogue + 7;
 
         //set the sensitivity of the camera with MKXSensitivity and MKYSensitivity
         if (canAbilityInput) {

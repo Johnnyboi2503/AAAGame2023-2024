@@ -24,6 +24,8 @@ public class PlayerActionManager : MonoBehaviour
 
     public float combinationWindow;
 
+    float stunTimer;
+
     private void Start() {
         // Getting other Components
         rb = GetComponentInParent<Rigidbody>();
@@ -201,6 +203,10 @@ public class PlayerActionManager : MonoBehaviour
         currentAction.EndAction();
         currentAction = action;
         currentAction.OnEndAction.AddListener(EndOfAction);
+    }
+
+    public void EndCurrentAction() {
+        ChangeAction(basicMovementAction);
     }
 
     public void OnDeath()

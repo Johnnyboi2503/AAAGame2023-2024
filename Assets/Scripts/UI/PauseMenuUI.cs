@@ -10,6 +10,9 @@ public class PauseMenuUI : MonoBehaviour
     public GameObject pauseMenuUI;
     private bool gameIsPaused = false;
     public KeyCode pauseKey;
+
+    [Space]
+    [SerializeField] private float uiInteractionAudioVolume = 0.75f;
     private void OnEnable()
     {
      playerKillable = FindObjectOfType<PlayerKillable>();
@@ -54,12 +57,16 @@ public class PauseMenuUI : MonoBehaviour
 
     public void QuitToMenu()
     {
+        PlayUIInteractionAudio();
+
         ChangeScene("MainMenu");
         Time.timeScale = 1f;
     }
 
     public void Restart()
     {
+        PlayUIInteractionAudio();
+
         playerKillable.TakeDamage(100000);
         Resume();
     }
@@ -68,6 +75,11 @@ public class PauseMenuUI : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    private void PlayUIInteractionAudio()
+    {
+        AudioSource audioSource = AudioManager.GetInstance().PlayGlobalAudio("UI_Interaction_SFX", uiInteractionAudioVolume);
+        DontDestroyOnLoad(audioSource.transform.gameObject);
+    }
 }
 
 

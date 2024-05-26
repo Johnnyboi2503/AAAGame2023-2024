@@ -5,6 +5,8 @@ using UnityEngine.Events;
 
 public class StabContact : MonoBehaviour
 {
+    [SerializeField] private float wallStabAudioVolume = 0.75f;
+
     // Contact Action
     DashThroughAction dashThroughAction;
     FlickAction flickAction;
@@ -54,10 +56,16 @@ public class StabContact : MonoBehaviour
             dashThroughAction.DashThrough(dashThrough);
 
             found = true;
+
+            AudioManager.GetInstance().PlayAudioFollowObject("WallStab_SFX", gameObject, wallStabAudioVolume);
         }
         if(other.gameObject.TryGetComponent(out FlickEnemyStabable flickEnemy)) {
             actionManager.ChangeAction(flickAction);
-            flickAction.Stick(flickEnemy);
+            flickAction.Stick(flickEnemy, null);
+        }
+        if(other.gameObject.TryGetComponent(out FlickEnviornmentStabable flickEnviornment)) {
+            actionManager.ChangeAction(flickAction);
+            flickAction.Stick(null, flickEnviornment);
         }
         if(found) {
             EndContactEvent();
