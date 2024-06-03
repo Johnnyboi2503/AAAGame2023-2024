@@ -1,0 +1,18 @@
+Name,Dialogue,Pose
+Glo|!!! Sword... You're the thief?|idle
+Player|I wouldn't go as far as to call me that...|idle
+Player|What's your name?|idle
+Glo|Glo...|idle
+_StartDecision||
+_Decision|Are you part of the protest?|
+Glo|Yes. The Herald, she leads us. Are you also?|idle
+Player|I'm here to beat those shitbags back to Asmon's Asscrack, so yeah, you can follow me.|happy
+Glo|...Excellent.|happy
+_Decision|What happened to your, uh, stomach?|
+Glo|She shivers and cringes away.|sad
+_Decision|Is the one you call Green Herald up ahead?|idle
+Glo|Yes, past these buildings, you will soon find her|idle
+_Decision|Goodbye.|
+Player|See you around, Glo.|happy
+Glo|See you.. around.|idle
+_EndDecision||

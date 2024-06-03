@@ -686,6 +686,11 @@ MonoBehaviour:
   optionsUI: {fileID: 9192025945448794942}
   characterDatas:
   - {fileID: 11400000, guid: ab3ca64a30d5f6a4c9f08bacab47c1dc, type: 2}
+  - {fileID: 11400000, guid: 8da702fd5d96aab45b3050848cfcbe79, type: 2}
+  - {fileID: 11400000, guid: b99570d207878c2419d0fc6db73995cd, type: 2}
+  - {fileID: 11400000, guid: 796d84b9d3ab8e746970e71ab42dac96, type: 2}
+  - {fileID: 11400000, guid: d3c9f36fde0921143a741594ce5daad8, type: 2}
+  - {fileID: 11400000, guid: 63fe9d24ca9a63248850bb6987dacd0a, type: 2}
 --- !u!1 &3807662326151663603
 GameObject:
   m_ObjectHideFlags: 0

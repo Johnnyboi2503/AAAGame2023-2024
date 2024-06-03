@@ -7,7 +7,8 @@ public class NPC : Interactable
     public PlayerInteraction playerDistance;
     public DialogueInteraction npcDialogue;
     public DialogueManager dialogueManager;
-    public GameObject npcCanvas;
+    public GameObject npcPortraitCanvas;
+    public GameObject npcBoxCanvas;
 
     private void Start() {
         npcDialogue.PopulateData();
@@ -16,7 +17,11 @@ public class NPC : Interactable
     private void Update()
     {
         // makes the pop up box face the player
-        npcCanvas.transform.LookAt(npcCanvas.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+        npcBoxCanvas.transform.LookAt(npcBoxCanvas.transform.position + Camera.main.transform.rotation * Vector3.forward, Camera.main.transform.rotation * Vector3.up);
+
+        Vector3 offsetToCamera = npcPortraitCanvas.transform.position - Camera.main.transform.position;
+        Vector3 horizontalCameraPosition = npcPortraitCanvas.transform.position + new Vector3(offsetToCamera.x, 0f, offsetToCamera.z);
+        npcPortraitCanvas.transform.LookAt(horizontalCameraPosition, Vector3.up);
     }
 
     // starts the dialogue using idalogue manager
@@ -29,11 +34,11 @@ public class NPC : Interactable
     // activates the canvas gameobject 
     public override void InteractPopUp()
     {
-        npcCanvas.SetActive(true);
+        npcBoxCanvas.SetActive(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        npcCanvas.SetActive(false);
+        npcBoxCanvas.SetActive(false);
     }
 }

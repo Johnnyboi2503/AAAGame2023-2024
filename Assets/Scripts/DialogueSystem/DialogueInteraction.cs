@@ -27,7 +27,7 @@ public class DialogueInteraction : ScriptableObject
 
         string[] rows = CSV.text.Split('\n');
         for (int i = 1; i < rows.Length; i++) {
-            string[] currentRow = rows[i].Split(',', 3);
+            string[] currentRow = rows[i].Split('|', 3);
             holder.Add(new string[] { currentRow[0], currentRow[1], currentRow[2].Trim() });
         }
 
