@@ -124,8 +124,9 @@ public class DialogueManager : MonoBehaviour
                     Sprite poseSprite = null;
                     if (rowPose != "" && rowPose != " ") {
                         // Seaching and assigning character data
-                        foreach (CharacterData characterData in characterDatas) {
+                        foreach (CharacterData characterData in characterDatas){
                             if (characterData.characterName == textBox.nameText.text) {
+                                Debug.Log(characterData.characterName);
                                 poseSprite = characterData.GetSprite(rowPose);
                                 break;
                             }
