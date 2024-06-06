@@ -138,8 +138,8 @@ MonoBehaviour:
     type: 3}
   bulletFirePoint: {fileID: 7133236584065642053}
   bulletSpeed: 2.25
-  bulletDamage: 14
-  enemyAttackCooldown: 3
+  bulletDamage: 25
+  enemyAttackCooldown: 2.25
   deathSpeedIncrease: 0.1
   deathSpeedDuration: 1
   render: {fileID: 0}
@@ -302,7 +302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   singleBloodAmount: 5
   bloodAmountSpawned: 5
-  stunnedBloodAmountSpawned: 10
+  stunnedBloodAmountSpawned: 8
   bloodPrefab: {fileID: 7959290666730999954, guid: 6d3004141710547468d2b677ddc35683,
     type: 3}
 --- !u!1 &7133236584065642053

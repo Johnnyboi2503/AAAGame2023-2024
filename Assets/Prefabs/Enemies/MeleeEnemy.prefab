@@ -136,7 +136,7 @@ MonoBehaviour:
   deleteTimer: 2
   spawnpoint: {fileID: 0}
   enemyWeapon: {fileID: 2857033075332203483}
-  enemyDamage: 100
+  enemyDamage: 50
   enemyAttackCooldown: 3
   enemyAttackDuration: 1
   deathSpeedIncrease: 0.1
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   singleBloodAmount: 5
-  bloodAmountSpawned: 5
+  bloodAmountSpawned: 7
   stunnedBloodAmountSpawned: 10
   bloodPrefab: {fileID: 7959290666730999954, guid: 6d3004141710547468d2b677ddc35683,
     type: 3}
