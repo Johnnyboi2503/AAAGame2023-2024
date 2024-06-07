@@ -49,8 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a68df59e630cf54e8eb9cd1b6c22671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vacuumSpeed: 4
-  gainBloodAmount: 50
+  vacuumSpeed: 25
+  gainBloodAmount: 5
+  interactionAudioVolume: 0.75
 --- !u!33 &136108890744760622
 MeshFilter:
   m_ObjectHideFlags: 0
