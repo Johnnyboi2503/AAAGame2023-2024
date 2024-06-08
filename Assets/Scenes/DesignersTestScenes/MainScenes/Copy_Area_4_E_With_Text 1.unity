@@ -21485,6 +21485,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6948064354820620955, guid: ebe4cb8c4726c844a99ddefdd502302e,
+        type: 3}
+      propertyPath: bloodThirst
+      value: 
+      objectReference: {fileID: 1422182477}
+    - target: {fileID: 6948064354820620955, guid: ebe4cb8c4726c844a99ddefdd502302e,
+        type: 3}
+      propertyPath: energyBlast
+      value: 
+      objectReference: {fileID: 1422182476}
     - target: {fileID: 7111464641881351756, guid: ebe4cb8c4726c844a99ddefdd502302e,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -31852,15 +31862,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3567104782591337, guid: 88512be50a530374189e930db8c0502d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 20
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3567104782591337, guid: 88512be50a530374189e930db8c0502d, type: 3}
       propertyPath: m_LocalScale.y
-      value: 20
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3567104782591337, guid: 88512be50a530374189e930db8c0502d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 20
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 903524653456634431, guid: 88512be50a530374189e930db8c0502d,
         type: 3}
@@ -31890,7 +31900,17 @@ PrefabInstance:
     - target: {fileID: 3739281105588693709, guid: 88512be50a530374189e930db8c0502d,
         type: 3}
       propertyPath: maxBlood
-      value: 175
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739281105588693709, guid: 88512be50a530374189e930db8c0502d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739281105588693709, guid: 88512be50a530374189e930db8c0502d,
+        type: 3}
+      propertyPath: currentBlood
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3739281105588693709, guid: 88512be50a530374189e930db8c0502d,
         type: 3}
@@ -31905,7 +31925,7 @@ PrefabInstance:
     - target: {fileID: 3739281105588693709, guid: 88512be50a530374189e930db8c0502d,
         type: 3}
       propertyPath: maxBloodForOverfed
-      value: 250
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 3739281105588693709, guid: 88512be50a530374189e930db8c0502d,
         type: 3}
@@ -31990,7 +32010,7 @@ PrefabInstance:
     - target: {fileID: 7957877405646395103, guid: 88512be50a530374189e930db8c0502d,
         type: 3}
       propertyPath: vacuumRange
-      value: 20
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8596804024649230227, guid: 88512be50a530374189e930db8c0502d,
         type: 3}
@@ -32016,6 +32036,30 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 895455381}
   m_SourcePrefab: {fileID: 100100000, guid: 88512be50a530374189e930db8c0502d, type: 3}
+--- !u!114 &1422182476 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6773326116938459665, guid: 88512be50a530374189e930db8c0502d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1422182475}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895455379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d02df61c988e81e4fa4db148fa2fc638, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1422182477 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3739281105588693709, guid: 88512be50a530374189e930db8c0502d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1422182475}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895455379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0275fc88435de3d468a6d14def8d76c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1422909313
 PrefabInstance:
   m_ObjectHideFlags: 0

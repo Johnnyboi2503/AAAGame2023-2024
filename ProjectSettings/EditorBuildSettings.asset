@@ -23,7 +23,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/DesignersTestScenes/MichelleLevelScene.unity
     guid: fc23d963072270840a6abf1cdf516ec7
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScenes/VaporWaveTest.unity
     guid: 31ea6e892b2d599489b80d48d80431bc
+  - enabled: 1
+    path: Assets/Scenes/DesignersTestScenes/MainScenes/Copy_Section_1_WithText 1.unity
+    guid: 61344c8b40ce42a41b1493a84ea85d77
+  - enabled: 0
+    path: Assets/Scenes/DesignersTestScenes/MainScenes/Copy_Area_4_E_With_Text 1.unity
+    guid: 856755e0b9476bb4cb13988d50852d69
   m_configObjects: {}
