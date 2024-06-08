@@ -17,7 +17,7 @@ public class SlashAction : PlayerAction
     // Components
     private SlashContact slashContact;
 
-    public bool isSlashing = false;
+    private bool isSlashing = false;
     public float timer = 0; // Used for slash dash
 
     private void Start()
