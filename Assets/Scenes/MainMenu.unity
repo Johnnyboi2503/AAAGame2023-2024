@@ -1011,8 +1011,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Left Stick Vertical
+  m_HorizontalAxis: Menu Horizontal
+  m_VerticalAxis: Menu Vertical
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10

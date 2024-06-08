@@ -1268,9 +1268,24 @@ PrefabInstance:
       objectReference: {fileID: 855105359}
     - target: {fileID: 7538186908493475484, guid: 5a0610fc73a88174aa3ecce9385b122f,
         type: 3}
+      propertyPath: pauseKeyKeyboard
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538186908493475484, guid: 5a0610fc73a88174aa3ecce9385b122f,
+        type: 3}
+      propertyPath: pauseKeyPlaystation
+      value: 335
+      objectReference: {fileID: 0}
+    - target: {fileID: 7538186908493475484, guid: 5a0610fc73a88174aa3ecce9385b122f,
+        type: 3}
       propertyPath: optionsMenuReturnButton
       value: 
       objectReference: {fileID: 2082839649}
+    - target: {fileID: 7538186908493475484, guid: 5a0610fc73a88174aa3ecce9385b122f,
+        type: 3}
+      propertyPath: pauseKeyXboxAndNintendo
+      value: 333
+      objectReference: {fileID: 0}
     - target: {fileID: 7940965276504888737, guid: 5a0610fc73a88174aa3ecce9385b122f,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1483,8 +1498,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
+  m_HorizontalAxis: Menu Horizontal
+  m_VerticalAxis: Menu Vertical
   m_SubmitButton: Submit
   m_CancelButton: Cancel
   m_InputActionsPerSecond: 10

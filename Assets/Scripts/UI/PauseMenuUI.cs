@@ -13,7 +13,7 @@ public class PauseMenuUI : MonoBehaviour
     private bool gameIsPaused = false;
     private bool optionsMenuIsOpen = false;
 
-    public KeyCode pauseKey;
+    public KeyCode pauseKeyKeyboard;
 
     private CursorLockMode prevCursorLockMode;
     private bool prevCursorVisibility;
@@ -34,7 +34,8 @@ public class PauseMenuUI : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(pauseKey))
+        //This may not work for Xbox and Nintendo controllers since i dont think they use JoystickButton 9 as their pause button
+        if(Input.GetKeyDown(pauseKeyKeyboard)|| Input.GetKeyDown(KeyCode.JoystickButton9))
         {
             if(gameIsPaused)
             {
