@@ -66,7 +66,8 @@ public class AudioZone : MonoBehaviour
         {
             currentTime += Time.deltaTime;
             float masterVolume = AudioManager.GetInstance().GetMasterVolume();
-            audioSource.volume = Mathf.Lerp(start, targetVolume * masterVolume, currentTime / duration);
+            float musicVolume = AudioManager.GetInstance().GetMusicVolume();
+            audioSource.volume = Mathf.Lerp(start, targetVolume * masterVolume * musicVolume, currentTime / duration);
             yield return null;
         }
 
@@ -77,7 +78,8 @@ public class AudioZone : MonoBehaviour
     public void UpdateVolumeBasedOnMasterVolume(){
         if(playerIsInZone){
             float masterVolume = fullVolume * AudioManager.GetInstance().GetMasterVolume();
-            audioSource.volume = fullVolume * masterVolume;
+            float musicVolume = fullVolume * AudioManager.GetInstance().GetMusicVolume();
+            audioSource.volume = fullVolume * masterVolume * musicVolume;
         }
         else if (!isFading){
             audioSource.volume = 0f;

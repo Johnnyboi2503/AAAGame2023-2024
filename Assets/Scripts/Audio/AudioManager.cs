@@ -35,7 +35,8 @@ public class AudioManager : MonoBehaviour
     private Dictionary<AudioSource, float> originalVolumes;
 
     [SerializeField]float MasterVolume = 1.0f;
-
+    [SerializeField]float SFXVolume = 1.0f;
+    [SerializeField]float MusicVolume = 1.0f;
 
     void Awake()
     {
@@ -95,7 +96,7 @@ public class AudioManager : MonoBehaviour
             source.spatialBlend = 0;
             source.Play();
 
-            StartCoroutine(FadeIn(source, volume * MasterVolume, fadeTime));
+            StartCoroutine(FadeIn(source, volume * MasterVolume * SFXVolume, fadeTime));
 
             if (!loop)
             {
@@ -133,14 +134,13 @@ public class AudioManager : MonoBehaviour
     {
         if (audioClips.ContainsKey(key))
         {
-            Debug.Log(maxDistance);
             GameObject audioObject = new GameObject("AudioObject_" + key);
             AudioSource source = audioObject.AddComponent<AudioSource>();
 
             originalVolumes.Add(source, volume);
 
             source.clip = audioClips[key];
-            source.volume = volume * MasterVolume;
+            source.volume = volume * MasterVolume * SFXVolume;
             source.loop = loop;
             source.spatialBlend = 1f; 
             source.rolloffMode = AudioRolloffMode.Linear;
@@ -183,7 +183,7 @@ public class AudioManager : MonoBehaviour
             originalVolumes.Add(source, volume);
 
             source.clip = audioClips[key];
-            source.volume = volume * MasterVolume;
+            source.volume = volume * MasterVolume * SFXVolume;
             source.loop = loop;
 
             source.spatialBlend = 1; 
@@ -288,9 +288,31 @@ public class AudioManager : MonoBehaviour
 
         foreach(var audioList in playingAudioSources.Values){
             foreach(var audioSource in audioList){
-                audioSource.volume = GetOriginalVolume(audioSource) * MasterVolume;
+                audioSource.volume = GetOriginalVolume(audioSource) * MasterVolume *SFXVolume;
             }
         }
+
+        foreach (var audioZone in FindObjectsOfType<AudioZone>()){
+            audioZone.UpdateVolumeBasedOnMasterVolume();
+        }
+    }
+
+    public void SetSFXVolume(float newVolume){
+        SFXVolume = Mathf.Clamp(newVolume, 0.0f, 1.0f);
+
+        foreach(var audioList in playingAudioSources.Values){
+            foreach(var audioSource in audioList){
+                audioSource.volume = GetOriginalVolume(audioSource) * MasterVolume * SFXVolume;
+            }
+        }
+
+        foreach (var audioZone in FindObjectsOfType<AudioZone>()){
+            audioZone.UpdateVolumeBasedOnMasterVolume();
+        }
+    }
+
+    public void SetMusicVolume(float newVolume){
+        MusicVolume = Mathf.Clamp(newVolume, 0.0f, 1.0f);
 
         foreach (var audioZone in FindObjectsOfType<AudioZone>()){
             audioZone.UpdateVolumeBasedOnMasterVolume();
@@ -312,7 +334,15 @@ public class AudioManager : MonoBehaviour
         return MasterVolume;
     }
 
+    public float GetSFXVolume()
+    {
+        return SFXVolume;
+    }
 
+    public float GetMusicVolume()
+    {
+        return MusicVolume;
+    }
 
     private void CleanupInvalidAudioSources()
     {
