@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3669483850098196932
 Transform:
   m_ObjectHideFlags: 0
@@ -181,6 +181,7 @@ MonoBehaviour:
   knockbackTrigger: {fileID: 3554075441753484872}
   openCollider: {fileID: 3371883622965084247}
   closedCollider: {fileID: 4193803086553994736}
+  bloodLostOnHit: 0
 --- !u!54 &3883798777622723500
 Rigidbody:
   m_ObjectHideFlags: 0
