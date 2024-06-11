@@ -24,7 +24,6 @@ public class EnemyStateManager : MonoBehaviour
 
     [Header("Enemy Death Speed Boost Variables")]
     public float deathSpeedIncrease;
-    public float deathSpeedDuration;
 
     [Header("References")]
     private Killable kill;
@@ -162,16 +161,17 @@ public class EnemyStateManager : MonoBehaviour
     }
 
     // switch state to deathstate
-    public void Death()
-    {
-        render.material.color = Color.black;
-        SwitchState(deathState);
+    public void Death() {
+        if (currentState != deathState) {
+            playerTransform.GetComponentInChildren<MovementModification>().AddSpeedBoost(float.MaxValue, deathSpeedIncrease);
+            render.material.color = Color.black;
+            SwitchState(deathState);
+        }
     }
     #endregion
 
     public void DeleteOnDeath()
     {
-        playerTransform.GetComponentInChildren<MovementModification>().AddSpeedBoost(deathSpeedDuration, deathSpeedIncrease);
         Destroy(gameObject);
     }
 

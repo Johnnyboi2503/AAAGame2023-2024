@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 1009479359832023577}
   - component: {fileID: 8953753239630407971}
   - component: {fileID: 4847278419906203444}
+  - component: {fileID: 7303035096955556055}
   m_Layer: 6
   m_Name: OtherPlayerComponents
   m_TagString: Untagged
@@ -49,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b92b510a04956c40aa1a3eab43f2d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minimumValueForSpeedBuff: 0.01
   boostForAll: 0
   OnModifyMovement:
     m_PersistentCalls:
@@ -129,6 +131,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactDistance: 3
+--- !u!114 &7303035096955556055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665959102625697816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c54a910c55841a5439057390d08d31f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 6003801723596019275}
+  actionManager: {fileID: 1554232633083437368}
+  render: {fileID: 70619026253435599}
+  stunColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 0}
 --- !u!1 &1432506812781281859
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,7 +515,7 @@ MonoBehaviour:
   cursorSprite: {fileID: 2800000, guid: 326e05d98fb81e14fbf7bd51bfd56c3d, type: 3}
   currentControls: 1
   combinationWindow: 0.2
-  MKXSensitivity: 300
+  MKXSensitivity: 500
   MKYSensitivity: 2
   ControllerXSensitivity: 300
   ControllerYSensitivity: 2
@@ -533,23 +551,23 @@ MonoBehaviour:
   OnStartAction:
     m_PersistentCalls:
       m_Calls: []
-  groundAcceleration: 7
-  maxGroundSpeed: 10
-  groundFriction: 1
-  boostedGroundAcceleration: 10
-  boostedMaxGroundSpeed: 15
-  boostedGroundFriction: 1
-  airAcceleration: 5
-  maxAirSpeed: 10
-  airDrag: 1
-  boostedAirAcceleration: 7
-  boostedMaxAirSpeed: 15
-  boostedAirDrag: 1
-  gravityAcceleration: 1
+  groundAcceleration: 700
+  maxGroundSpeed: 20
+  groundFriction: 300
+  boostedGroundAcceleration: 800
+  boostedMaxGroundSpeed: 30
+  boostedGroundFriction: 400
+  airAcceleration: 700
+  maxAirSpeed: 30
+  airDrag: 200
+  boostedAirAcceleration: 800
+  boostedMaxAirSpeed: 40
+  boostedAirDrag: 300
+  gravityAcceleration: 100
   maxFallSpeed: 30
-  boostedGravityAcceleration: 1
-  boostedMaxFallSpeed: 20
-  rotationSpeed: 0.85
+  boostedGravityAcceleration: 100
+  boostedMaxFallSpeed: 30
+  rotationSpeed: 0.7
 --- !u!114 &7076914383633396891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,7 +589,7 @@ MonoBehaviour:
   initalSpeed: 40
   dampWindow: 0.2
   damping: 0.6
-  boostedInitalSpeed: 40
+  boostedInitalSpeed: 60
   boostedDampWindow: 0.2
   boostedDamping: 0.6
   jumpAudioVolume: 1
@@ -593,20 +611,22 @@ MonoBehaviour:
   OnStartAction:
     m_PersistentCalls:
       m_Calls: []
-  dashSpeed: 17.5
+  dashSpeed: 50
   dashDuration: 0.25
   dashCooldown: 1
   endDashSpeedBonus: 3
   initalSpeedScale: 1
-  speedLimit: 50
-  boostedDashSpeed: 20
+  speedLimit: 500
+  durationMin: 0.05
+  boostedDashSpeed: 60
   boostedDashDuration: 0.2
   boostedDashCooldown: 0.5
   boostedEndDashSpeedBonus: 5
   boostedInitalSpeedScale: 1
-  boostsedSpeedLimit: 50
+  boostsedSpeedLimit: 500
+  boostedDurationMin: 0.05
   dashAudioVolume: 1
-  timer: 0
+  timer: 0.1
 --- !u!114 &3902229200159131934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -629,6 +649,7 @@ MonoBehaviour:
   bloodGainAmount: 12
   attackDuration: 0.375
   stabAudioVolume: 1
+  isStabbing: 0
   timer: 0
 --- !u!114 &3088617981437380700
 MonoBehaviour:
@@ -652,6 +673,7 @@ MonoBehaviour:
   bloodGained: 12
   attackDuration: 0.5
   slashAudioVolume: 1
+  isSlashing: 0
   timer: 0
 --- !u!114 &8671536288844823369
 MonoBehaviour:
@@ -672,14 +694,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   swordMovement: {fileID: 2230350445419021309}
-  downwardStabAcceleration: 10
+  downwardStabAcceleration: 300
   downwardStabMaxSpeed: 17.5
   initalSpeedScale: 1
-  speedLimit: 50
-  boostedDownwardStabAcceleration: 14
+  speedLimit: 200
+  boostedDownwardStabAcceleration: 400
   boostedDownwardStabMaxSpeed: 30
   boostedInitalSpeedScale: 1
-  boostedSpeedLimit: 50
+  boostedSpeedLimit: 200
   pressDownTime: 0.25
   bloodGain: 10
 --- !u!114 &8012279846651036797
@@ -701,16 +723,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   dashCollider: {fileID: 6990662696071883527}
-  dashSpeed: 20
+  dashSpeed: 50
   dashDuration: 0.25
   endDashSpeedBonus: 1
   initalSpeedScale: 1
-  speedLimit: 50
-  boostedDashSpeed: 20
-  boostedDashDuration: 0.25
+  speedLimit: 200
+  durationMin: 0.05
+  boostedDashSpeed: 60
+  boostedDashDuration: 0.2
   boostedEndDashSpeedBonus: 1
   boostedInitalSpeedScale: 1
-  boostsedSpeedLimit: 50
+  boostsedSpeedLimit: 200
+  boostedDurationMin: 0.05
   bloodGained: 10
 --- !u!114 &7021382955167843328
 MonoBehaviour:
@@ -731,16 +755,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   dashCollider: {fileID: 6990662696071883527}
-  dashSpeed: 20
+  dashSpeed: 50
   dashDuration: 0.25
   endDashSpeedBonus: 1
   initalSpeedScale: 1
-  speedLimit: 50
-  boostedDashSpeed: 20
+  speedLimit: 200
+  durationMin: 0.05
+  boostedDashSpeed: 60
   boostedDashDuration: 0.25
   boostedEndDashSpeedBonus: 1
   boostedInitalSpeedScale: 1
-  boostsedSpeedLimit: 50
+  boostsedSpeedLimit: 200
+  boostedDurationMin: 0.05
   bloodGained: 10
 --- !u!114 &3134688513665312600
 MonoBehaviour:

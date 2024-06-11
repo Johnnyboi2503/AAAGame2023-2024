@@ -139,10 +139,10 @@ MonoBehaviour:
   enemyDamage: 100
   enemyAttackCooldown: 3
   enemyAttackDuration: 1
-  deathSpeedIncrease: 0.1
-  deathSpeedDuration: 1
+  deathSpeedIncrease: 0.01
   render: {fileID: 0}
   animator: {fileID: 6347194620461092749}
+  particle: {fileID: 0}
 --- !u!114 &6666421292523791849
 MonoBehaviour:
   m_ObjectHideFlags: 0

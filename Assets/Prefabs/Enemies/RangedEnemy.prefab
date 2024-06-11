@@ -140,10 +140,10 @@ MonoBehaviour:
   bulletSpeed: 2
   bulletDamage: 10
   enemyAttackCooldown: 1
-  deathSpeedIncrease: 0.1
-  deathSpeedDuration: 1
+  deathSpeedIncrease: 0.01
   render: {fileID: 0}
   animator: {fileID: 2826188410596817014}
+  particle: {fileID: 0}
 --- !u!114 &4716024343329377481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,7 +236,7 @@ MonoBehaviour:
       - 0
       globalNormalsAngle: 0
       flipNormals: 0
-    vertexPathUpToDate: 1
+    vertexPathUpToDate: 0
     vertexPathMaxAngleError: 0.3
     vertexPathMinVertexSpacing: 0.01
     showTransformTool: 1

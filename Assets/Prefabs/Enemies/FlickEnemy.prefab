@@ -139,4 +139,5 @@ MonoBehaviour:
   bloodAmountSpawned: 5
   stunnedBloodAmountSpawned: 10
   stunDuration: 1
+  deathSpeedIncrease: 0.01
   stunned: 0

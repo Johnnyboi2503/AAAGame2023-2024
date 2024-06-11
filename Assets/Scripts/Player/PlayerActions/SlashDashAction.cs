@@ -14,6 +14,7 @@ public class SlashDashAction : PlayerAction {
     [SerializeField] float endDashSpeedBonus; // How fast the player is moving at the end of the dash
     [SerializeField] float initalSpeedScale;  // How much the player impacts the speed, measured in percent (i.e. value of 0.1 == 10% of player speed is factored)
     [SerializeField] float speedLimit; // The max speed AFTER inital velocity + speed + bonus speed CALCULATION (so this limit applies for both the exit speed and the action itself) 
+    [SerializeField] float durationMin; // The minimum dash duration AFTER all the calculations
 
     [Header("Boosted Variables")]
     [SerializeField] float boostedDashSpeed;
@@ -21,6 +22,7 @@ public class SlashDashAction : PlayerAction {
     [SerializeField] float boostedEndDashSpeedBonus;
     [SerializeField] float boostedInitalSpeedScale;
     [SerializeField] float boostsedSpeedLimit;
+    [SerializeField] float boostedDurationMin;
 
     [Header("Other Variables")]
     [SerializeField] float bloodGained; // How much blood the player gains when striking something slashable
@@ -74,10 +76,13 @@ public class SlashDashAction : PlayerAction {
 
             // Limiting Speed
             float currentMaxSpeed = movementModification.GetBoost(speedLimit, boostsedSpeedLimit, false);
+            float currentMinDuration = movementModification.GetBoost(durationMin, boostedDurationMin, false);
+
             float appliedDashSpeed = Mathf.Min(currentMaxSpeed, currentVelocity + currentDashSpeed);
+            float appliedDashDuration = Mathf.Max(currentMinDuration, currentDashDuration);
             float appliedExitSpeed = Mathf.Min(currentMaxSpeed, appliedDashSpeed + currentEndDashSpeedBonus);
 
-            dashMovement.Dash(appliedDashSpeed, currentDashDuration, direction, appliedExitSpeed);
+            dashMovement.Dash(appliedDashSpeed, appliedDashDuration, direction, appliedExitSpeed);
 
             OnStartAction.Invoke();
         }

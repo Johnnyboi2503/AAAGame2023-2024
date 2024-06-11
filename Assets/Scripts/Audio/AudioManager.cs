@@ -133,7 +133,7 @@ public class AudioManager : MonoBehaviour
     {
         if (audioClips.ContainsKey(key))
         {
-            Debug.Log(maxDistance);
+            //Debug.Log(maxDistance);
             GameObject audioObject = new GameObject("AudioObject_" + key);
             AudioSource source = audioObject.AddComponent<AudioSource>();
 

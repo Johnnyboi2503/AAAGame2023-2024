@@ -33,7 +33,7 @@ public class BasicMovementAction : PlayerAction
     [SerializeField] float gravityAcceleration; // How fast the player accelerates due to gravity
     [SerializeField] float maxFallSpeed; // The max fall speed DUE TO GRAVITY, things like the downward stab can make you fall faster than this
 
-    [Header("Gravity Jump")]
+    [Header("Boosted Gravity")]
     [SerializeField] float boostedGravityAcceleration;
     [SerializeField] float boostedMaxFallSpeed;
 
@@ -51,22 +51,25 @@ public class BasicMovementAction : PlayerAction
         movementModification = GetComponentInChildren<MovementModification>();
         playerPositionCheck = GetComponentInChildren<PlayerPositionCheck>();
         rb = GetComponent<Rigidbody>();
+        rb.drag = 0;
     }
 
     private void FixedUpdate() {
+        // Position Checks
+        grounded = playerPositionCheck.CheckOnGround();
+        onSlope = playerPositionCheck.CheckOnSlope();
+
+        // Movement
         if (isMoving) {
             MoveUpdate();
             RotationUpdate();
         }
 
-        grounded = playerPositionCheck.CheckOnGround();
-        onSlope = playerPositionCheck.CheckOnSlope();
-
         //Implemented physics
         if (grounded) {
             // Ground Friction Calculations
             if (rb.velocity.magnitude > 0) {
-                Vector3 frictionChange = rb.velocity.normalized * movementModification.GetBoost(groundFriction, boostedGroundFriction, false);
+                Vector3 frictionChange = rb.velocity.normalized * movementModification.GetBoost(groundFriction, boostedGroundFriction, true) * Time.fixedDeltaTime;
                 if(frictionChange.magnitude < rb.velocity.magnitude) {
                     rb.velocity -= frictionChange;
                 }
@@ -76,18 +79,27 @@ public class BasicMovementAction : PlayerAction
             }
             // Slope gravity appllying
             if (onSlope) {
-                Vector3 addedGravityAcceleration = Vector3.down * movementModification.GetBoost(gravityAcceleration, boostedGravityAcceleration, false);
+                Vector3 addedGravityAcceleration = Vector3.down * movementModification.GetBoost(gravityAcceleration, boostedGravityAcceleration, true) * Time.fixedDeltaTime;
                 addedGravityAcceleration = playerPositionCheck.CorrectVelocityCollision(addedGravityAcceleration);
                 rb.velocity += addedGravityAcceleration;
             }
         }
         else {
-            // Applying drag
-            rb.drag = airDrag;
+            // Air Horizontal Friction Calculations
+            if (rb.velocity.magnitude > 0) {
+                Vector3 frictionChange = rb.velocity.normalized * movementModification.GetBoost(airDrag, boostedAirDrag, true) * Time.fixedDeltaTime;
+                frictionChange.y = 0; // Eliminating y component
+                if (frictionChange.magnitude < rb.velocity.magnitude) {
+                    rb.velocity -= frictionChange;
+                }
+                else {
+                    rb.velocity = Vector3.zero;
+                }
+            }
 
             // Applying gravity
             if (-rb.velocity.y < movementModification.GetBoost(maxFallSpeed, boostedMaxFallSpeed, false)) {
-                Vector3 addedGravityAcceleration = Vector3.down * movementModification.GetBoost(gravityAcceleration, boostedGravityAcceleration, false);
+                Vector3 addedGravityAcceleration = Vector3.down * movementModification.GetBoost(gravityAcceleration, boostedGravityAcceleration, false) * Time.fixedDeltaTime;
                 rb.velocity += addedGravityAcceleration;
             }
         }
@@ -126,7 +138,7 @@ public class BasicMovementAction : PlayerAction
         // Applying horizontal movement and limiting speed based on max velocity
         float alignment = Vector3.Dot(horizontalVelocity / maxVelocity.magnitude, maxVelocity / maxVelocity.magnitude);
         if (alignment < 1) {
-            rb.AddForce(addedVelocity, ForceMode.VelocityChange);
+            rb.velocity += addedVelocity * Time.fixedDeltaTime;
         }
     }
 

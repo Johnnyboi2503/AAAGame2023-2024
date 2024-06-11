@@ -84,7 +84,7 @@ public class DownwardStabAction : PlayerAction {
     }
     private void DownwardStabMovementUpdate() {
         // Calculating inital variables
-        float addedSpeed = movementModification.GetBoost(downwardStabAcceleration, boostedDownwardStabMaxSpeed, true);
+        float appliedAcceleration = movementModification.GetBoost(downwardStabAcceleration, boostedDownwardStabAcceleration, true);
         float maxSpeed = movementModification.GetBoost(downwardStabMaxSpeed, boostedDownwardStabMaxSpeed, true);
 
         maxSpeed += startVelocity.magnitude;
@@ -93,9 +93,11 @@ public class DownwardStabAction : PlayerAction {
         float currentMaxSpeed = movementModification.GetBoost(speedLimit, boostedSpeedLimit, false);
         maxSpeed = Math.Min(currentMaxSpeed, maxSpeed);
 
+        Debug.Log(appliedAcceleration + "--" + maxSpeed);
+
         // Applying vertical movement if the speed is higher than the max velocity
         if (-rb.velocity.y < maxSpeed) {
-            rb.velocity += Vector3.down*addedSpeed;
+            rb.velocity += Vector3.down* appliedAcceleration * Time.fixedDeltaTime;
         }
     }
 
