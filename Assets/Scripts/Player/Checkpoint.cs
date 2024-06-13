@@ -32,6 +32,7 @@ public class Checkpoint : MonoBehaviour
 
                 render.material.color = Color.blue;
                 collider.transform.GetComponent<PlayerKillable>().respawnPosition = transform.position; // setting player respawn position if valid checkpoint
+                CheckpointEnterObserver.NotifyCheckpointEnter();
             }
         }
     }

@@ -526,6 +526,7 @@ MonoBehaviour:
   keyboardShoot: 316
   keyboardDialogue: 316
   keyboardInteract: 107
+  keyboardRestart: 114
   controllerStab: 329
   controllerSlash: 328
   controllerDash: 331
@@ -533,6 +534,7 @@ MonoBehaviour:
   controllerShoot: 330
   controllerDialogue: 326
   controllerInteract: 345
+  controllerRestart: 0
 --- !u!114 &7281945831924435466
 MonoBehaviour:
   m_ObjectHideFlags: 0
