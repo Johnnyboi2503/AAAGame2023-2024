@@ -28,14 +28,14 @@ public class PlayerInput : MonoBehaviour {
     // All of these are inputs for their respective inputs
     [Header("Mouse Keyboard Inputs")]
     [SerializeField] KeyCode keyboardStab;// Seperate this one because I wanna only have the header apply to one
-    [SerializeField] KeyCode keyboardSlash, keyboardDash, keyboardJump, keyboardShoot, keyboardDialogue, keyboardInteract;
+    [SerializeField] KeyCode keyboardSlash, keyboardDash, keyboardJump, keyboardShoot, keyboardDialogue, keyboardInteract, keyboardRestart;
 
     [Header("Controller Inputs")]
     [SerializeField] KeyCode controllerStab; // Seperate this one because I wanna only have the header apply to one
-    [SerializeField] KeyCode controllerSlash, controllerDash, controllerJump, controllerShoot, controllerDialogue, controllerInteract;
+    [SerializeField] KeyCode controllerSlash, controllerDash, controllerJump, controllerShoot, controllerDialogue, controllerInteract, controllerRestart;
 
     // Controls
-    KeyCode inputStab, inputSlash, inputDash, inputJump, inputShoot, inputDialogue, inputInteract;
+    KeyCode inputStab, inputSlash, inputDash, inputJump, inputShoot, inputDialogue, inputInteract, inputRestart;
 
     bool canInput = true, canAbilityInput = true;
 
@@ -126,6 +126,9 @@ public class PlayerInput : MonoBehaviour {
         // Advancing dialogue
         if (Input.GetKeyDown(inputDialogue)) {
             dialogueManager.DialougeAdvanceInput();
+        }
+        if (Input.GetKeyDown(inputRestart)) {
+            Restart();
         }
     }
     private void CheckAbilities(Vector3 direction) {
@@ -251,6 +254,7 @@ public class PlayerInput : MonoBehaviour {
         inputShoot = controllerShoot + 4;
         inputDialogue = controllerDialogue + 4;
         inputInteract = controllerInteract + 4; // added interact
+        inputRestart = controllerRestart + 4;
 
         //set the sensitivity of the camera with ControllerXsensitivity and ControllerYsensitivity
         if (canAbilityInput) {
@@ -279,6 +283,7 @@ public class PlayerInput : MonoBehaviour {
 
         inputShoot = keyboardShoot + 7; // Keycode enums are offset when set in the editor (mouse inputs here)
         inputDialogue = keyboardDialogue + 7;
+        inputRestart = keyboardRestart;
 
         //set the sensitivity of the camera with MKXSensitivity and MKYSensitivity
         if (canAbilityInput) {
@@ -294,6 +299,13 @@ public class PlayerInput : MonoBehaviour {
 
         cinemachineCam.m_XAxis.m_MaxSpeed = MKXSensitivity;
         cinemachineCam.m_YAxis.m_MaxSpeed = MKYSensitivity;
+    }
+
+    public void Restart()
+    {
+        PlayerKillable playerKillable = GetComponentInChildren<PlayerKillable>();
+        playerKillable.TakeDamage(100000);
+        RestartAtCheckpointObserver.NotifyRestartAtCheckpoint();
     }
 
 }
