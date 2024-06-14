@@ -56,6 +56,7 @@ MonoBehaviour:
   dialogue: {fileID: 6048658080395889547}
   portrait: {fileID: 4192458133340654200}
   textSpeed: 0.05
+  playerColor: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
   textComplete: 1
 --- !u!1 &2321712205636616196
 GameObject:
