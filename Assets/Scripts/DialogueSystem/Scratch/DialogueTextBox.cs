@@ -33,7 +33,6 @@ public class DialogueTextBox : MonoBehaviour
         // Set portrait color darker if player is speaking.
         if (isPlayer)
         {
-            Debug.Log("COLOR DARKER");
             portrait.color = playerColor;
         }
         else
