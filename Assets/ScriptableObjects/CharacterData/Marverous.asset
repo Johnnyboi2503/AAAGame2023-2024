@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Marverous
   m_EditorClassIdentifier: 
   characterName: Marverous
-  idle: {fileID: 473850823, guid: f1b100e3196616e4dbeb7c5f7b1d6c4f, type: 3}
-  happy: {fileID: 1467708464, guid: f1b100e3196616e4dbeb7c5f7b1d6c4f, type: 3}
-  sad: {fileID: -1219694674, guid: f1b100e3196616e4dbeb7c5f7b1d6c4f, type: 3}
-  angry: {fileID: 163590949, guid: f1b100e3196616e4dbeb7c5f7b1d6c4f, type: 3}
-  suprised: {fileID: -1268174825, guid: f1b100e3196616e4dbeb7c5f7b1d6c4f, type: 3}
+  idle: {fileID: 21300000, guid: 8d029f06367bb7b42a58513a128c359e, type: 3}
+  happy: {fileID: 21300000, guid: b50e929c75b4e054692ee2e60cd210a5, type: 3}
+  sad: {fileID: 0}
+  angry: {fileID: 0}
+  suprised: {fileID: 0}
