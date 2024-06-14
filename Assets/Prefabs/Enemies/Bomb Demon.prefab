@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1601227346848069220}
   - component: {fileID: 3491244969230101381}
   - component: {fileID: 8422013526667354321}
+  - component: {fileID: 5988906201529962325}
   m_Layer: 8
   m_Name: Bomb Demon
   m_TagString: Untagged
@@ -216,3 +217,17 @@ MonoBehaviour:
   bloodPrefab: {fileID: 7959290666730999954, guid: 6d3004141710547468d2b677ddc35683,
     type: 3}
   bloodDropAmount: 4
+--- !u!114 &5988906201529962325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5503810578031880460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc521d1000daee4f8514ca710c5bdf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: 2
+  initalPosition: {x: 0, y: 0, z: 0}

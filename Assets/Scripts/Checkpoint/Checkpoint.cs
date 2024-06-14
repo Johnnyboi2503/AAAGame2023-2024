@@ -13,12 +13,20 @@ public class Checkpoint : MonoBehaviour
     public bool triggered = false; // Set by the manager
     public CheckPointManager checkPointManager; // Used to check if they can be used as checkpoint
     public Renderer render; // Temperary component use for testing
+    [SerializeField] LevelStateController levelStateController; // Used to save the load the state of the level
 
     [Space]
     [SerializeField] private float interactionAudioVolume = 0.75f;
 
+
+    public void ActivateCheckpoint() {
+        triggered = true;
+        render.material.color = Color.cyan; // Temperary visual to show it has been activated
+    }
+
     private void Start() {
         render = GetComponent<Renderer>();
+        levelStateController = FindAnyObjectByType<LevelStateController>();
     }
 
     void OnTriggerEnter(Collider collider)
@@ -32,13 +40,9 @@ public class Checkpoint : MonoBehaviour
 
                 render.material.color = Color.blue;
                 collider.transform.GetComponent<PlayerKillable>().respawnPosition = transform.position; // setting player respawn position if valid checkpoint
+                levelStateController.SaveLevelState();
                 CheckpointEnterObserver.NotifyCheckpointEnter();
             }
         }
-    }
-
-    public void ActivateCheckpoint() {
-        triggered = true;
-        render.material.color = Color.cyan; // Temperary visual to show it has been activated
     }
 }

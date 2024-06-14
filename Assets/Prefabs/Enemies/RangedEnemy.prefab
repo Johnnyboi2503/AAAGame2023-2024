@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 2986863351317142199}
   - component: {fileID: 5104841024641144038}
   - component: {fileID: 3896014209172367775}
+  - component: {fileID: -6490914641889021875}
   m_Layer: 8
   m_Name: RangedEnemy
   m_TagString: Untagged
@@ -305,6 +306,20 @@ MonoBehaviour:
   stunnedBloodAmountSpawned: 10
   bloodPrefab: {fileID: 7959290666730999954, guid: 6d3004141710547468d2b677ddc35683,
     type: 3}
+--- !u!114 &-6490914641889021875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3966855605319378575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc521d1000daee4f8514ca710c5bdf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: 1
+  initalPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &7133236584065642053
 GameObject:
   m_ObjectHideFlags: 0
