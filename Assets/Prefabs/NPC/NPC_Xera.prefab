@@ -8,6 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2231168036588200336, guid: d4903bbadc0882045a9faab3360f138f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 2494370042148761084, guid: d4903bbadc0882045a9faab3360f138f,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 2494370042148761084, guid: d4903bbadc0882045a9faab3360f138f,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 4.839999
+      objectReference: {fileID: 0}
     - target: {fileID: 2604651950570797721, guid: d4903bbadc0882045a9faab3360f138f,
         type: 3}
       propertyPath: m_Name
@@ -23,22 +38,27 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 00a8f3925c5de104fa86dcea8cd53eed,
+      objectReference: {fileID: 21300000, guid: fef2173aa7866f24a9232fbae0cfceba,
         type: 3}
+    - target: {fileID: 5764391229360375054, guid: d4903bbadc0882045a9faab3360f138f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6501400087870898027, guid: d4903bbadc0882045a9faab3360f138f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -8.83467
       objectReference: {fileID: 0}
     - target: {fileID: 6501400087870898027, guid: d4903bbadc0882045a9faab3360f138f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.7000005
       objectReference: {fileID: 0}
     - target: {fileID: 6501400087870898027, guid: d4903bbadc0882045a9faab3360f138f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -4.1415744
       objectReference: {fileID: 0}
     - target: {fileID: 6501400087870898027, guid: d4903bbadc0882045a9faab3360f138f,
         type: 3}
