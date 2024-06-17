@@ -173,7 +173,7 @@ public class BombDemon : MonoBehaviour
                 if (animator != null) {
                     animator.SetBool("isExploding", false);
                 }
-                bloodThirst.LoseBlood(explosionBloodLoss);
+                bloodThirst.LoseBlood(explosionBloodLoss, this.gameObject);
                 Debug.Log(explosionBloodLoss);
                 state = State.dead;
             }

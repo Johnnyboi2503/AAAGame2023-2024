@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player" && other.gameObject.TryGetComponent(out BloodThirst blood)) {
-            blood.LoseBlood(damage);
+            blood.LoseBlood(damage, this.gameObject);
             Destroy(gameObject);
         }
     }

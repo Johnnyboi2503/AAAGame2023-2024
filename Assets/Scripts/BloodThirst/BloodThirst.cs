@@ -17,6 +17,10 @@ public class BloodThirst : MonoBehaviour
     [SerializeField] bool canDrainBlood = true;
     [SerializeField] float bloodthirstBarAudioVolume = 1f;
 
+    [Header("Player Damaged Variables")]
+    [SerializeField] float stunDuration; // amount of stun when hit
+    [SerializeField] float knockbackStrength; // knockback from enemy
+
     [Header("Other Variables")]
     [SerializeField] PlayerKillable playerKillable;
     [SerializeField] float playerHealthDrainRate; // How much are you draining from the player
@@ -107,8 +111,15 @@ public class BloodThirst : MonoBehaviour
         OnBloodChange.Invoke();
     }
 
-    public void LoseBlood(float amount)
+    public void LoseBlood(float amount, GameObject attacker)
     {
+        // knockback
+        Vector3 moveDirection = this.gameObject.transform.position - attacker.transform.position;
+        this.gameObject.GetComponentInParent<Rigidbody>().AddForce(moveDirection * knockbackStrength, ForceMode.Impulse);
+
+        // stuns the player
+        this.gameObject.GetComponentInChildren<PlayerStun>().Stun(stunDuration);
+
         currentBlood -= amount;
         currentBlood = Mathf.Clamp(currentBlood, 0, maxBlood);
 
