@@ -52,7 +52,7 @@ public class EnergyBlast : MonoBehaviour
         {
             ShootInternal();
             currTimeBetweenShots = 0f;
-            GetComponent<BloodThirst>().LoseBlood(bloodPerShot, this.gameObject);
+            GetComponent<BloodThirst>().PayBlood(bloodPerShot);
 
             // Play Energy Blast Audio
             AudioManager.GetInstance().PlayAudioFollowObject("EnergyBlast_SFX", gameObject, energyBlastAudioVolume);

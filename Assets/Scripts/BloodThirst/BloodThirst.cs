@@ -120,6 +120,10 @@ public class BloodThirst : MonoBehaviour
         // stuns the player
         this.gameObject.GetComponentInChildren<PlayerStun>().Stun(stunDuration);
 
+        PayBlood(amount);
+    }
+
+    public void PayBlood(float amount) {
         currentBlood -= amount;
         currentBlood = Mathf.Clamp(currentBlood, 0, maxBlood);
 

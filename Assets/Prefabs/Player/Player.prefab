@@ -911,6 +911,8 @@ MonoBehaviour:
   overfedDrainRate: 5
   canDrainBlood: 1
   bloodthirstBarAudioVolume: 1
+  stunDuration: 0.3
+  knockbackStrength: 20
   playerKillable: {fileID: 8596804024649230227}
   playerHealthDrainRate: 0.1
   OnBloodChange:
