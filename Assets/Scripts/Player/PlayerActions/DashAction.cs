@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
 public class DashAction : PlayerAction
 {
     [Header("Movement")]
@@ -25,6 +24,8 @@ public class DashAction : PlayerAction
 
     [Space]
     [SerializeField] private float dashAudioVolume = 1f;
+    [Range(0.0f, 1f)]
+    [SerializeField] private float dashTrauma;
 
     bool dashAvailable = true;
     float dashCdTimer;// Time before you can dash again
@@ -36,7 +37,7 @@ public class DashAction : PlayerAction
     MovementModification movementModification;
     PlayerPositionCheck playerPositionCheck;
     DashMovement dashMovement;
-
+    CameraFov cameraFov;
     // Temp for visual clarity
     Renderer render;
     Color holder;
@@ -50,10 +51,18 @@ public class DashAction : PlayerAction
         playerPositionCheck = GetComponentInChildren<PlayerPositionCheck>();
         dashMovement = new DashMovement(transform, rb);
         dashMovement.OnDashEnd.AddListener(EndAction);
-
-
+        cameraFov = FindObjectOfType<CameraFov>();
         // Temp for visual clarity
         render = GetComponent<Renderer>();
+    }
+
+    private void OnEnable()
+    {
+        OnStartAction.AddListener(() => cameraFov.IncreaseTrauma(dashTrauma));
+    }
+    private void OnDisable()
+    {
+        OnStartAction.RemoveListener(() => cameraFov.IncreaseTrauma(dashTrauma));
     }
 
     // Update is called once per frame
@@ -143,4 +152,6 @@ public class DashAction : PlayerAction
         }
         OnEndAction.Invoke();
     }
+
+  
 }

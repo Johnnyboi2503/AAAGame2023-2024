@@ -22,7 +22,10 @@ public class SlideAction : PlayerAction{
     [SerializeField] float boostedJumpForceLimit;
     
     float currentSlideSpeed;
-    
+    [Space]
+    [Range(0.0f, 1f)]
+    [SerializeField] private float slideTrauma;
+    CameraFov cameraFov;
     private Rigidbody rb;
     private Collider playerCollider;
     private PathCreator pathCreator;
@@ -47,6 +50,7 @@ public class SlideAction : PlayerAction{
     JumpAction jumpAction;
     
     private void Start() {
+        cameraFov = FindObjectOfType<CameraFov>();
         rb = GetComponent<Rigidbody>();
         playerCollider = GetComponent<Collider>();
         jumpAction = GetComponent<JumpAction>();
@@ -59,6 +63,14 @@ public class SlideAction : PlayerAction{
         if (sliding) {
             UpdateSliding();
         }
+    }
+    private void OnEnable()
+    {
+        OnStartAction.AddListener(() => cameraFov.IncreaseTrauma(slideTrauma));
+    }
+    private void OnDisable()
+    {
+        OnStartAction.RemoveListener(() => cameraFov.IncreaseTrauma(slideTrauma));
     }
 
     public void StartSlide(PathCreator pc, Collider other, float enemyBonus = 0) {

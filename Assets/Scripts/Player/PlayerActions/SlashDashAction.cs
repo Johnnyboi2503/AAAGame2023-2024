@@ -7,7 +7,7 @@ using PathCreation;
 public class SlashDashAction : PlayerAction {
     [Header("References")]
     [SerializeField] DashCollider dashCollider;
-
+    CameraFov cameraFov;
     [Header("Dash Variables")]
     [SerializeField] float dashSpeed; // How far the dash goes
     [SerializeField] float dashDuration; // How long the dash lasts
@@ -26,7 +26,8 @@ public class SlashDashAction : PlayerAction {
 
     [Header("Other Variables")]
     [SerializeField] float bloodGained; // How much blood the player gains when striking something slashable
-
+    [Range(0.0f, 1f)]
+    [SerializeField] float slashDashTrauma;
     // Temp color change
     Renderer render;
     Color holder;
@@ -48,7 +49,7 @@ public class SlashDashAction : PlayerAction {
         slashContact = GetComponentInChildren<SlashContact>();
         movementModification = GetComponentInChildren<MovementModification>();
         dashAction = GetComponent<DashAction>();
-
+        cameraFov = FindObjectOfType<CameraFov>();
 
         dashMovement.OnDashEnd.AddListener(EndAction);
 
@@ -59,6 +60,15 @@ public class SlashDashAction : PlayerAction {
     private void FixedUpdate() {
         dashMovement.UpdateDashing();
     }
+    private void OnEnable()
+    {
+        OnStartAction.AddListener(() => cameraFov.IncreaseTrauma(slashDashTrauma));
+    }
+    private void OnDisable()
+    {
+        OnStartAction.RemoveListener(() => cameraFov.IncreaseTrauma(slashDashTrauma));
+    }
+
 
     public void SlashDashInput(Vector3 direction) {
         if (!isDashing) {

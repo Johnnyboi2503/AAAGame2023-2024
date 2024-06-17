@@ -628,6 +628,7 @@ MonoBehaviour:
   boostsedSpeedLimit: 500
   boostedDurationMin: 0.05
   dashAudioVolume: 1
+  dashTrauma: 0.326
   timer: 0.1
 --- !u!114 &3902229200159131934
 MonoBehaviour:
@@ -651,6 +652,7 @@ MonoBehaviour:
   bloodGainAmount: 12
   attackDuration: 0.375
   stabAudioVolume: 1
+  stabTrauma: 0
   isStabbing: 0
   timer: 0
 --- !u!114 &3088617981437380700
@@ -675,6 +677,7 @@ MonoBehaviour:
   bloodGained: 12
   attackDuration: 0.5
   slashAudioVolume: 1
+  slashTrauma: 0
   isSlashing: 0
   timer: 0
 --- !u!114 &8671536288844823369
@@ -706,6 +709,7 @@ MonoBehaviour:
   boostedSpeedLimit: 200
   pressDownTime: 0.25
   bloodGain: 10
+  stabTrauma: 0.298
 --- !u!114 &8012279846651036797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -738,6 +742,7 @@ MonoBehaviour:
   boostsedSpeedLimit: 200
   boostedDurationMin: 0.05
   bloodGained: 10
+  stabDashTrauma: 0.351
 --- !u!114 &7021382955167843328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -770,6 +775,7 @@ MonoBehaviour:
   boostsedSpeedLimit: 200
   boostedDurationMin: 0.05
   bloodGained: 10
+  slashDashTrauma: 0.303
 --- !u!114 &3134688513665312600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -797,6 +803,7 @@ MonoBehaviour:
   boostedInitalSpeedScale: 1
   boostsedSpeedLimit: 50
   stickMag: 0.5
+  dashThroughTrauma: 0.367
 --- !u!114 &903524653456634431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -827,6 +834,7 @@ MonoBehaviour:
   boostedInitalSpeedScale: 0
   boostsedSpeedLimit: 20
   boostedJumpForceLimit: 35
+  slideTrauma: 0.351
   swordObject: {fileID: 6800678773869080880}
 --- !u!114 &3462496366872794715
 MonoBehaviour:
@@ -859,6 +867,7 @@ MonoBehaviour:
   boostedHorizontalSpeedLimit: 60
   boostedJumpSpeedLimit: 50
   boostedStunnedEnemyBonus: 10
+  flickTrauma: 0.293
 --- !u!114 &6773326116938459665
 MonoBehaviour:
   m_ObjectHideFlags: 0
