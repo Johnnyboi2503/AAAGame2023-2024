@@ -28,6 +28,12 @@ public class BloodThirst : MonoBehaviour
     [Header("Events")]
     public UnityEvent OnBloodChange = new UnityEvent(); // Sends signal update to the UI
 
+    [Header("Camera Shake")] 
+    [SerializeField] private float _shakeDuration = 0.5f;
+    [SerializeField] private float _shakeAmplitude = 1.5f;
+    [SerializeField] private float _shakeFrequency = 1f;
+    private CameraShake _cameraShake;
+    
     // Components
     MovementModification movementModification;
     
@@ -46,6 +52,9 @@ public class BloodThirst : MonoBehaviour
         }
 
         playerKillable.OnDie.AddListener(OnDeath);
+        
+        // Cache CameraShake
+        _cameraShake = FindObjectOfType<CameraShake>();
     }
 
     // Update is called once per frame
@@ -113,14 +122,31 @@ public class BloodThirst : MonoBehaviour
 
     public void LoseBlood(float amount, GameObject attacker)
     {
-        // knockback
-        Vector3 moveDirection = this.gameObject.transform.position - attacker.transform.position;
-        this.gameObject.GetComponentInParent<Rigidbody>().AddForce(moveDirection * knockbackStrength, ForceMode.Impulse);
+        PlayerStun stun = this.gameObject.GetComponentInChildren<PlayerStun>();
 
-        // stuns the player
-        this.gameObject.GetComponentInChildren<PlayerStun>().Stun(stunDuration);
+        if (!stun.IsStunned()) {
+            // stuns the player
+            stun.Stun(stunDuration);
 
-        PayBlood(amount);
+
+            // Getting direciton
+            Vector3 moveDirection = this.gameObject.transform.position - attacker.transform.position;
+
+            // Getting and normalizing horizontal direction
+            moveDirection.y = 0;
+            moveDirection = moveDirection.normalized;
+
+            // Setting vertical components and applying normalized value
+            moveDirection.y = 1; // Giving vertical component
+            this.gameObject.GetComponentInParent<Rigidbody>().velocity = moveDirection.normalized * knockbackStrength;
+
+
+            if (_cameraShake != null) {
+                _cameraShake.ShakeCamera(_shakeDuration, _shakeAmplitude, _shakeFrequency);
+            }
+
+            PayBlood(amount);
+        }
     }
 
     public void PayBlood(float amount) {

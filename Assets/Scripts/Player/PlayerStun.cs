@@ -39,4 +39,8 @@ public class PlayerStun : MonoBehaviour
 
         render.material.color = stunColor;
     }
+
+    public bool IsStunned() {
+        return stunTimer > 0;
+    }
 }

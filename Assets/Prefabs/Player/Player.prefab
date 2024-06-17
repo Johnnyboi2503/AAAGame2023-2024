@@ -918,6 +918,9 @@ MonoBehaviour:
   OnBloodChange:
     m_PersistentCalls:
       m_Calls: []
+  _shakeDuration: 0.5
+  _shakeAmplitude: 5
+  _shakeFrequency: 3
 --- !u!1 &3410584284265416894
 GameObject:
   m_ObjectHideFlags: 0
