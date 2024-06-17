@@ -175,7 +175,7 @@ public class MeleeEnemyStateManager : MonoBehaviour
             if (!timer.IsActive())
                 timer.StartTimer(enemyAttackDuration, EndMelee);
 
-            Debug.Log("sword active");
+            //Debug.Log("sword active");
         }
     }
     

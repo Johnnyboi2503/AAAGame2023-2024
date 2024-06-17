@@ -11,6 +11,10 @@ public class BloodOrbSpawnPoint : MonoBehaviour
     GameObject currentBloodOrb;
 
 
+    public bool HasBloodOrb() {
+        return currentBloodOrb != null;
+    }
+
     private void Start() {
         playerKillable = FindAnyObjectByType<PlayerKillable>();
         playerKillable.OnDie.AddListener(ResetBloodOrb);
@@ -24,8 +28,16 @@ public class BloodOrbSpawnPoint : MonoBehaviour
         }
     }
 
+    // Clearing blood orb
+    public void ClearBloodOrb() {
+        if(currentBloodOrb != null) {
+            Destroy(currentBloodOrb);
+            currentBloodOrb = null;
+        }
+    }
+
     // Resetting blood orb
-    private void ResetBloodOrb() {
+    public void ResetBloodOrb() {
         if (currentBloodOrb == null) {
             currentBloodOrb = Instantiate(bloodOrb, transform);
             SetOrb(currentBloodOrb.GetComponent<BloodOrb>());

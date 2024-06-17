@@ -16,13 +16,11 @@ public class PlayerAnimation : MonoBehaviour
     Animator anim;
     Rigidbody rb;
     ParentConstraint swordPC;
-    ParentConstraint handPC;
     AimConstraint ac;
 
     // references demon sword for parent constraint & player's hand for aim constraint
     [SerializeField] GameObject demonSword;
     [SerializeField] GameObject playerArm;
-    [SerializeField] GameObject playerHand;
 
     private Vector3 origPos;
     private Quaternion origRot;
@@ -36,7 +34,6 @@ public class PlayerAnimation : MonoBehaviour
         slashAction = GetComponentInParent<SlashAction>();
         stabAction = GetComponentInParent<StabAction>();
         swordPC = demonSword.GetComponent<ParentConstraint>();
-        handPC = playerHand.GetComponent<ParentConstraint>();
         ac = playerArm.GetComponent<AimConstraint>();
 
         dashAction.OnStartAction.AddListener(DashAnimation);

@@ -27,7 +27,13 @@ public class MovementModification : MonoBehaviour
     [Header("Internal Variables")]
     public float boostForAll; // 0-1 value represent percentage
     public UnityEvent OnModifyMovement = new UnityEvent();
-    List<SpeedEffect> speedEffects = new List<SpeedEffect>();
+    public List<SpeedEffect> speedEffects = new List<SpeedEffect>();
+
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.L)) {
+            PrintSpeedEffectState();
+        }
+    }
 
     private void UpdateSpeedBuff() {
         for (int i = 0; i < speedEffects.Count; i++) {
@@ -38,6 +44,15 @@ public class MovementModification : MonoBehaviour
                 continue;
             }
             speedEffects[i].currentPercentSpeed = speedEffects[i].percentSpeed * (speedEffects[i].durationTimer / speedEffects[i].duration);
+        }
+    }
+
+    private void PrintSpeedEffectState() {
+        if(speedEffects.Count > 0) {
+            Debug.Log(speedEffects[0].percentSpeed + "---" + speedEffects.Count);
+        }
+        else {
+            Debug.Log("no speed effects");
         }
     }
 

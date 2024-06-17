@@ -119,20 +119,26 @@ public class DialogueManager : MonoBehaviour
                         dialogueName = rowName;
                     }
                     textBox.InitalizeName(dialogueName);
-
+                    
                     // Setting portrait
-                    Sprite poseSprite = null;
-                    if (rowPose != "" && rowPose != " ") {
-                        // Seaching and assigning character data
-                        foreach (CharacterData characterData in characterDatas){
-                            if (characterData.characterName == textBox.nameText.text) {
-                                Debug.Log(characterData.characterName);
-                                poseSprite = characterData.GetSprite(rowPose);
-                                break;
+                    if (rowName.Equals("Player"))
+                    {
+                        textBox.InitalizePortrait(null, true);
+                    }
+                    else
+                    {
+                        Sprite poseSprite = null;
+                        if (rowPose != "" && rowPose != " ") {
+                            // Seaching and assigning character data
+                            foreach (CharacterData characterData in characterDatas){
+                                if (characterData.characterName == textBox.nameText.text) {
+                                    poseSprite = characterData.GetSprite(rowPose);
+                                    break;
+                                }
                             }
                         }
+                        textBox.InitalizePortrait(poseSprite);
                     }
-                    textBox.InitalizePortrait(poseSprite);
 
                     // Start typing
                     textBox.StartTyping(rowDialogue);

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2040191311006456894}
   - component: {fileID: 6300216890138376358}
   - component: {fileID: -5194304357077370883}
+  - component: {fileID: 6471968030921465007}
   m_Layer: 0
   m_Name: Enemy Projectile
   m_TagString: Untagged
@@ -150,3 +151,17 @@ MonoBehaviour:
   rigidBody: {fileID: 6300216890138376358}
   damage: 0
   maxDistanceTravel: 100
+--- !u!114 &6471968030921465007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3113997752838417528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dc521d1000daee4f8514ca710c5bdf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 3113997752838417528}
+  initalPosition: {x: 0, y: 0, z: 0}

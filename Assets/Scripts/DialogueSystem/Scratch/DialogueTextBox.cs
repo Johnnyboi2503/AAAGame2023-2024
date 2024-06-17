@@ -17,6 +17,8 @@ public class DialogueTextBox : MonoBehaviour
     // Other Variables
     [SerializeField]
     float textSpeed;
+    [Tooltip("When the player is speaking, the portrait is darkened to this color.")]
+    [SerializeField] private Color playerColor = new Color(95, 95, 95, 1);
     string fullText;
     public bool textComplete = true;
 
@@ -27,8 +29,17 @@ public class DialogueTextBox : MonoBehaviour
         }
     }
 
-    public void InitalizePortrait(Sprite _portrait) {
-        // Initalize values
+    public void InitalizePortrait(Sprite _portrait, bool isPlayer = false) {
+        // Set portrait color darker if player is speaking.
+        if (isPlayer)
+        {
+            portrait.color = playerColor;
+        }
+        else
+        {
+            portrait.color = Color.white;
+        }
+        
         if (_portrait != null) {
             portrait.sprite = _portrait;
         }
