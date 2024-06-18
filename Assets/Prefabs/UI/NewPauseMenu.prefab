@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 5066312098287941690}
-  pauseKey: 27
+  pauseKey: 112
   uiInteractionAudioVolume: 0.75
 --- !u!1 &562667968040106889
 GameObject:
@@ -1765,7 +1765,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &592586353321673154
 RectTransform:
   m_ObjectHideFlags: 0
