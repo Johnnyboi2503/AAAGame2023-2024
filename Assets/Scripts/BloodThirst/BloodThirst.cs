@@ -17,6 +17,10 @@ public class BloodThirst : MonoBehaviour
     [SerializeField] bool canDrainBlood = true;
     [SerializeField] float bloodthirstBarAudioVolume = 1f;
 
+    [Header("Player Damaged Variables")]
+    [SerializeField] float stunDuration; // amount of stun when hit
+    [SerializeField] float knockbackStrength; // knockback from enemy
+
     [Header("Other Variables")]
     [SerializeField] PlayerKillable playerKillable;
     [SerializeField] float playerHealthDrainRate; // How much are you draining from the player
@@ -24,6 +28,12 @@ public class BloodThirst : MonoBehaviour
     [Header("Events")]
     public UnityEvent OnBloodChange = new UnityEvent(); // Sends signal update to the UI
 
+    [Header("Camera Shake")] 
+    [SerializeField] private float _shakeDuration = 0.5f;
+    [SerializeField] private float _shakeAmplitude = 1.5f;
+    [SerializeField] private float _shakeFrequency = 1f;
+    private CameraShake _cameraShake;
+    
     // Components
     MovementModification movementModification;
     
@@ -42,6 +52,9 @@ public class BloodThirst : MonoBehaviour
         }
 
         playerKillable.OnDie.AddListener(OnDeath);
+        
+        // Cache CameraShake
+        _cameraShake = FindObjectOfType<CameraShake>();
     }
 
     // Update is called once per frame
@@ -107,8 +120,36 @@ public class BloodThirst : MonoBehaviour
         OnBloodChange.Invoke();
     }
 
-    public void LoseBlood(float amount)
+    public void LoseBlood(float amount, GameObject attacker)
     {
+        PlayerStun stun = this.gameObject.GetComponentInChildren<PlayerStun>();
+
+        if (!stun.IsStunned()) {
+            // stuns the player
+            stun.Stun(stunDuration);
+
+
+            // Getting direciton
+            Vector3 moveDirection = this.gameObject.transform.position - attacker.transform.position;
+
+            // Getting and normalizing horizontal direction
+            moveDirection.y = 0;
+            moveDirection = moveDirection.normalized;
+
+            // Setting vertical components and applying normalized value
+            moveDirection.y = 1; // Giving vertical component
+            this.gameObject.GetComponentInParent<Rigidbody>().velocity = moveDirection.normalized * knockbackStrength;
+
+
+            if (_cameraShake != null) {
+                _cameraShake.ShakeCamera(_shakeDuration, _shakeAmplitude, _shakeFrequency);
+            }
+
+            PayBlood(amount);
+        }
+    }
+
+    public void PayBlood(float amount) {
         currentBlood -= amount;
         currentBlood = Mathf.Clamp(currentBlood, 0, maxBlood);
 

@@ -23,8 +23,11 @@ public class FlickAction : PlayerAction
     [SerializeField] float boostedHorizontalSpeedLimit;
     [SerializeField] float boostedJumpSpeedLimit;
     [SerializeField] float boostedStunnedEnemyBonus;
-
+    [Space]
+    [Range(0.0f, 1f)]
+    [SerializeField] private float flickTrauma;
     // References
+    CameraFov cameraFov;
     Rigidbody rb;
     JumpAction jumpAction;
     MovementModification movementModification;
@@ -40,6 +43,7 @@ public class FlickAction : PlayerAction
 
     private void Start() {
         // Getting references
+        cameraFov = FindObjectOfType<CameraFov>();
         rb = GetComponent<Rigidbody>();
         jumpAction = GetComponent<JumpAction>();
         movementModification = GetComponentInChildren<MovementModification>();
@@ -50,6 +54,15 @@ public class FlickAction : PlayerAction
             StickUpdate();
         }
     }
+    private void OnEnable()
+    {
+        OnStartAction.AddListener(() => cameraFov.IncreaseTrauma(flickTrauma));
+    }
+    private void OnDisable()
+    {
+        OnStartAction.RemoveListener(() => cameraFov.IncreaseTrauma(flickTrauma));
+    }
+
 
     // Sticking to the object
     public void Stick(FlickEnemyStabable _flickEnemy = null, FlickEnviornmentStabable _flickEnviornment = null) {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class AudioZone : MonoBehaviour
 {
     AudioSource audioSource;
@@ -11,12 +12,14 @@ public class AudioZone : MonoBehaviour
     private bool playerIsInZone = false;
     private bool hasPlayedOnce = false;
 
+
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        audioSource.volume = 0f; 
+        audioSource.volume = 0f;
         audioSource.clip.LoadAudioData(); //load the data to prevent jitters upon entering a new zone
     }
+
 
     void OnTriggerEnter(Collider other)
     {
@@ -25,16 +28,18 @@ public class AudioZone : MonoBehaviour
             playerIsInZone = true;
             StopAllCoroutines(); // Stop ongoing fade out coroutine
 
+
             if(!hasPlayedOnce) //this will ensure that the audio will only "start" during the first time entering a zone
             {
                 audioSource.Play();
                 hasPlayedOnce=true;
             }
-            
+           
             isFading = true;
             FadeIn();
         }
     }
+
 
     void OnTriggerExit(Collider other)
     {
@@ -47,37 +52,45 @@ public class AudioZone : MonoBehaviour
         }
     }
 
+
     public void FadeIn()
     {
         StartCoroutine(StartFade(audioSource, fadeDuration, fullVolume)); // fade to full volume
     }
+
 
     public void FadeOut()
     {
         StartCoroutine(StartFade(audioSource, fadeDuration, 0f)); // fade to 0
     }
 
+
     public IEnumerator StartFade(AudioSource audioSource, float duration, float targetVolume)
     {
         float currentTime = 0;
         float start = audioSource.volume;
 
+
         while (currentTime < duration)
         {
             currentTime += Time.deltaTime;
             float masterVolume = AudioManager.GetInstance().GetMasterVolume();
-            audioSource.volume = Mathf.Lerp(start, targetVolume * masterVolume, currentTime / duration);
+            float musicVolume = AudioManager.GetInstance().GetMusicVolume();
+            audioSource.volume = Mathf.Lerp(start, targetVolume * masterVolume * musicVolume, currentTime / duration);
             yield return null;
         }
+
 
         isFading = false;
         yield break;
     }
 
+
     public void UpdateVolumeBasedOnMasterVolume(){
         if(playerIsInZone){
             float masterVolume = fullVolume * AudioManager.GetInstance().GetMasterVolume();
-            audioSource.volume = fullVolume * masterVolume;
+            float musicVolume = fullVolume * AudioManager.GetInstance().GetMusicVolume();
+            audioSource.volume = fullVolume * masterVolume * musicVolume;
         }
         else if (!isFading){
             audioSource.volume = 0f;

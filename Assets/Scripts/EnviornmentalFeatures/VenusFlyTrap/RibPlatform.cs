@@ -83,7 +83,7 @@ public class RibPlatform : MonoBehaviour
         if (!hitPlayer && ribsClosed) {
             // Affecting player
             BloodThirst bloodThirst = playerInput.GetComponent<BloodThirst>();
-            bloodThirst.LoseBlood(bloodLostOnHit); //player loses blood when they get hit by the volume
+            bloodThirst.LoseBlood(bloodLostOnHit, this.gameObject); //player loses blood when they get hit by the volume
             playerInput.gameObject.GetComponentInChildren<PlayerStun>().Stun(timeClosed); // Stunning the player
             player = playerInput.gameObject;
 

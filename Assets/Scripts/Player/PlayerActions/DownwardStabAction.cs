@@ -7,7 +7,7 @@ public class DownwardStabAction : PlayerAction {
 
     [Header("References")]
     [SerializeField] SwordMovement swordMovement;
-
+    CameraFov cameraFov;
     [Header("Movement")]
     [SerializeField] float downwardStabAcceleration; // How fast the player accelerates to max speed while stabbing
     [SerializeField] float downwardStabMaxSpeed; // The max speed while downward stabbing
@@ -24,7 +24,8 @@ public class DownwardStabAction : PlayerAction {
     [Header("Other Variables")]
     [SerializeField] float pressDownTime; // Amount of time you need to hold down the stab button before starting downward stab
     [SerializeField] float bloodGain; // Amount of blood gained when striking a stabable object
-
+    [Range(0.0f, 1f)]
+    [SerializeField] private float stabTrauma;
     //variables for downward stab
     float stabButtonTimer = 0.0f;
     bool canDownwardStab = true;
@@ -42,7 +43,7 @@ public class DownwardStabAction : PlayerAction {
         playerPositionCheck = GetComponentInChildren<PlayerPositionCheck>();
         stabAction = GetComponent<StabAction>();
         movementModification = GetComponentInChildren<MovementModification>();
-
+        cameraFov = FindObjectOfType<CameraFov>();
         swordMovement.OnContact.AddListener(DownwardStabContact);
     }
 
@@ -55,6 +56,14 @@ public class DownwardStabAction : PlayerAction {
     private void Update() {
         //if grounded can perform downward stab
         canDownwardStab = !playerPositionCheck.CheckOnGround();
+    }
+    private void OnEnable()
+    {
+        OnStartAction.AddListener(() => cameraFov.IncreaseTrauma(stabTrauma));
+    }
+    private void OnDisable()
+    {
+        OnStartAction.RemoveListener(() => cameraFov.IncreaseTrauma(stabTrauma));
     }
 
     public void DownwardStabInputUpdate() {

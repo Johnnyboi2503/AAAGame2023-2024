@@ -18,7 +18,9 @@ public class DashThroughAction : PlayerAction
 
     [Range(0.0f, 1f)]
     [SerializeField] float stickMag; // How smoothly you transision from your position to the dash, a value of 1 would make you teleport to the center of the object the moment you stab it
-
+    [Range(0.0f, 1f)]
+    [SerializeField] float dashThroughTrauma;
+    CameraFov cameraFov;
     Rigidbody rb;
     Collider playerCollider;
     MovementModification movementModification;
@@ -33,6 +35,7 @@ public class DashThroughAction : PlayerAction
         rb = GetComponent<Rigidbody>();
         playerCollider = GetComponent<Collider>();
         movementModification = GetComponentInChildren<MovementModification>();
+        cameraFov = FindObjectOfType<CameraFov>();
     }
 
     private void FixedUpdate() {
@@ -40,7 +43,14 @@ public class DashThroughAction : PlayerAction
             DashThroughUpdate();
         }
     }
-
+    private void OnEnable()
+    {
+        OnStartAction.AddListener(() => cameraFov.IncreaseTrauma(dashThroughTrauma));
+    }
+    private void OnDisable()
+    {
+        OnStartAction.RemoveListener(() => cameraFov.IncreaseTrauma(dashThroughTrauma));
+    }
     public void DashThrough(StabableDashThrough dashThrough, float enemyBonus = 0) {
         dashThrough.CalculateDash(gameObject);
 

@@ -7,7 +7,7 @@ public class StabDashAction : PlayerAction
 {
     [Header("References")]
     [SerializeField] DashCollider dashCollider;
-
+    CameraFov cameraFov;
     [Header("Dash Variables")]
     [SerializeField] float dashSpeed; // The speed on top of the player velocity
     [SerializeField] float dashDuration; // How long the dash takes
@@ -23,10 +23,11 @@ public class StabDashAction : PlayerAction
     [SerializeField] float boostedInitalSpeedScale;
     [SerializeField] float boostsedSpeedLimit;
     [SerializeField] float boostedDurationMin;
-
+    
     [Header("Other Variables")]
     [SerializeField] float bloodGained; // How much blood is gained when striking something stabable
-
+    [Range(0.0f, 1f)]
+    [SerializeField] float stabDashTrauma;
     // Temp color change
     Renderer render;
     Color holder;
@@ -49,13 +50,22 @@ public class StabDashAction : PlayerAction
         stabContact = GetComponentInChildren<StabContact>();
         movementModification = GetComponentInChildren<MovementModification>();
         dashAction = GetComponent<DashAction>();
-
+        cameraFov = FindObjectOfType<CameraFov>();
         // Setting events
         dashMovement.OnDashEnd.AddListener(EndAction);
 
         // Temp holder
         holder = render.material.color;
     }
+    private void OnEnable()
+    {
+        OnStartAction.AddListener(() => cameraFov.IncreaseTrauma(stabDashTrauma));
+    }
+    private void OnDisable()
+    {
+        OnStartAction.RemoveListener(() => cameraFov.IncreaseTrauma(stabDashTrauma));
+    }
+
 
     private void FixedUpdate() {
         dashMovement.UpdateDashing();
