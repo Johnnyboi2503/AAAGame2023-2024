@@ -25,7 +25,10 @@ public class MeleeEnemyAttackState : MeleeEnemyBaseState
         // NOT DONE
         // melee attack?
         enemy.animator.SetBool("isAttacking", true);
-        enemy.MeleeAttack();
+        if(enemy.DetectPlayer())
+            enemy.MeleeAttack();
+        else
+            enemy.LookAtPlayer();
 
 
         //Debug.Log("Enter Attack Update");
