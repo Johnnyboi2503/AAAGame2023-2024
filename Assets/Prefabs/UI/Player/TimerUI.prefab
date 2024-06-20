@@ -148,5 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 1594350096609166562}
+  record: {fileID: 11400000, guid: 8dc6b2a3ae0cd874dbfa8779cb211c31, type: 2}
   currentTime: 0
   timeActive: 0
+  timerPersistsAfterRestarting: 1
