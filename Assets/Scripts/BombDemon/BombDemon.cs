@@ -175,12 +175,12 @@ public class BombDemon : MonoBehaviour
                 }
                 bloodThirst.LoseBlood(explosionBloodLoss, this.gameObject);
                 Debug.Log(explosionBloodLoss);
-                state = State.dead;
             }
 
 
 
         }
+        state = State.dead;
         Invoke("DestroyExplosionEffect", 0.5f);
     }
 
