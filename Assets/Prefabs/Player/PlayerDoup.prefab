@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1009479359832023577}
   - component: {fileID: 8953753239630407971}
   - component: {fileID: 4847278419906203444}
-  - component: {fileID: 7303035096955556055}
+  - component: {fileID: 7836322720630386838}
   m_Layer: 6
   m_Name: OtherPlayerComponents
   m_TagString: Untagged
@@ -50,7 +50,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b92b510a04956c40aa1a3eab43f2d4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimumValueForSpeedBuff: 0.01
   boostForAll: 0
   OnModifyMovement:
     m_PersistentCalls:
@@ -131,7 +130,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactDistance: 3
---- !u!114 &7303035096955556055
+--- !u!114 &7836322720630386838
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,7 +181,7 @@ Transform:
   - {fileID: 6088350622376495114}
   - {fileID: 4336202542278233531}
   - {fileID: 7564267098114665675}
-  - {fileID: 1365840534510365891}
+  - {fileID: 5981879798080360674}
   m_Father: {fileID: 7569982482725669098}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1713748701685793990
@@ -347,7 +346,7 @@ GameObject:
   - component: {fileID: 6773326116938459665}
   - component: {fileID: 3739281105588693709}
   m_Layer: 6
-  m_Name: Player
+  m_Name: PlayerDoup
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -371,7 +370,7 @@ Transform:
   - {fileID: 5275782304108923720}
   - {fileID: 3567104782591337}
   - {fileID: 2648321462352433941}
-  - {fileID: 1477458571682636583}
+  - {fileID: 4533527758081074943}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2936462189952305664
@@ -437,7 +436,7 @@ CapsuleCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -488,7 +487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 100
   currentHP: 0
-  isKillable: 1
+  isKillable: 0
   isDead: 0
   OnHealthChange:
     m_PersistentCalls:
@@ -528,7 +527,6 @@ MonoBehaviour:
   keyboardShoot: 316
   keyboardDialogue: 316
   keyboardInteract: 107
-  keyboardRestart: 114
   controllerStab: 329
   controllerSlash: 328
   controllerDash: 331
@@ -536,7 +534,6 @@ MonoBehaviour:
   controllerShoot: 330
   controllerDialogue: 326
   controllerInteract: 345
-  controllerRestart: 0
 --- !u!114 &7281945831924435466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,23 +552,23 @@ MonoBehaviour:
   OnStartAction:
     m_PersistentCalls:
       m_Calls: []
-  groundAcceleration: 700
-  maxGroundSpeed: 20
-  groundFriction: 300
-  boostedGroundAcceleration: 800
-  boostedMaxGroundSpeed: 30
-  boostedGroundFriction: 400
-  airAcceleration: 700
-  maxAirSpeed: 30
-  airDrag: 200
-  boostedAirAcceleration: 800
-  boostedMaxAirSpeed: 40
-  boostedAirDrag: 300
-  gravityAcceleration: 100
+  groundAcceleration: 7
+  maxGroundSpeed: 10
+  groundFriction: 1
+  boostedGroundAcceleration: 10
+  boostedMaxGroundSpeed: 15
+  boostedGroundFriction: 1
+  airAcceleration: 5
+  maxAirSpeed: 10
+  airDrag: 1
+  boostedAirAcceleration: 7
+  boostedMaxAirSpeed: 15
+  boostedAirDrag: 1
+  gravityAcceleration: 1
   maxFallSpeed: 30
-  boostedGravityAcceleration: 100
-  boostedMaxFallSpeed: 30
-  rotationSpeed: 0.7
+  boostedGravityAcceleration: 1
+  boostedMaxFallSpeed: 20
+  rotationSpeed: 0.85
 --- !u!114 &7076914383633396891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,7 +590,7 @@ MonoBehaviour:
   initalSpeed: 40
   dampWindow: 0.2
   damping: 0.6
-  boostedInitalSpeed: 60
+  boostedInitalSpeed: 40
   boostedDampWindow: 0.2
   boostedDamping: 0.6
   jumpAudioVolume: 1
@@ -615,23 +612,20 @@ MonoBehaviour:
   OnStartAction:
     m_PersistentCalls:
       m_Calls: []
-  dashSpeed: 50
+  dashSpeed: 17.5
   dashDuration: 0.25
   dashCooldown: 1
   endDashSpeedBonus: 3
   initalSpeedScale: 1
-  speedLimit: 500
-  durationMin: 0.05
-  boostedDashSpeed: 60
+  speedLimit: 50
+  boostedDashSpeed: 20
   boostedDashDuration: 0.2
   boostedDashCooldown: 0.5
   boostedEndDashSpeedBonus: 5
   boostedInitalSpeedScale: 1
-  boostsedSpeedLimit: 500
-  boostedDurationMin: 0.05
+  boostsedSpeedLimit: 50
   dashAudioVolume: 1
-  dashTrauma: 0.326
-  timer: 0.1
+  timer: 0
 --- !u!114 &3902229200159131934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,7 +648,6 @@ MonoBehaviour:
   bloodGainAmount: 12
   attackDuration: 0.375
   stabAudioVolume: 1
-  stabTrauma: 0
   isStabbing: 0
   timer: 0
 --- !u!114 &3088617981437380700
@@ -679,7 +672,6 @@ MonoBehaviour:
   bloodGained: 12
   attackDuration: 0.5
   slashAudioVolume: 1
-  slashTrauma: 0
   isSlashing: 0
   timer: 0
 --- !u!114 &8671536288844823369
@@ -701,17 +693,16 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   swordMovement: {fileID: 2230350445419021309}
-  downwardStabAcceleration: 300
+  downwardStabAcceleration: 10
   downwardStabMaxSpeed: 17.5
   initalSpeedScale: 1
-  speedLimit: 200
-  boostedDownwardStabAcceleration: 400
+  speedLimit: 50
+  boostedDownwardStabAcceleration: 14
   boostedDownwardStabMaxSpeed: 30
   boostedInitalSpeedScale: 1
-  boostedSpeedLimit: 200
+  boostedSpeedLimit: 50
   pressDownTime: 0.25
   bloodGain: 10
-  stabTrauma: 0.298
 --- !u!114 &8012279846651036797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -731,20 +722,17 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   dashCollider: {fileID: 6990662696071883527}
-  dashSpeed: 50
+  dashSpeed: 20
   dashDuration: 0.25
   endDashSpeedBonus: 1
   initalSpeedScale: 1
-  speedLimit: 200
-  durationMin: 0.05
-  boostedDashSpeed: 60
-  boostedDashDuration: 0.2
+  speedLimit: 50
+  boostedDashSpeed: 20
+  boostedDashDuration: 0.25
   boostedEndDashSpeedBonus: 1
   boostedInitalSpeedScale: 1
-  boostsedSpeedLimit: 200
-  boostedDurationMin: 0.05
+  boostsedSpeedLimit: 50
   bloodGained: 10
-  stabDashTrauma: 0.351
 --- !u!114 &7021382955167843328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -764,20 +752,17 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   dashCollider: {fileID: 6990662696071883527}
-  dashSpeed: 50
+  dashSpeed: 20
   dashDuration: 0.25
   endDashSpeedBonus: 1
   initalSpeedScale: 1
-  speedLimit: 200
-  durationMin: 0.05
-  boostedDashSpeed: 60
+  speedLimit: 50
+  boostedDashSpeed: 20
   boostedDashDuration: 0.25
   boostedEndDashSpeedBonus: 1
   boostedInitalSpeedScale: 1
-  boostsedSpeedLimit: 200
-  boostedDurationMin: 0.05
+  boostsedSpeedLimit: 50
   bloodGained: 10
-  slashDashTrauma: 0.303
 --- !u!114 &3134688513665312600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,7 +791,6 @@ MonoBehaviour:
   boostsedSpeedLimit: 50
   stickMag: 0.5
   swordMovement: {fileID: 2230350445419021309}
-  dashThroughTrauma: 0.367
 --- !u!114 &903524653456634431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -837,7 +821,6 @@ MonoBehaviour:
   boostedInitalSpeedScale: 0
   boostsedSpeedLimit: 20
   boostedJumpForceLimit: 35
-  slideTrauma: 0.351
   swordMovment: {fileID: 2230350445419021309}
 --- !u!114 &3462496366872794715
 MonoBehaviour:
@@ -870,7 +853,6 @@ MonoBehaviour:
   boostedHorizontalSpeedLimit: 60
   boostedJumpSpeedLimit: 50
   boostedStunnedEnemyBonus: 10
-  flickTrauma: 0.293
 --- !u!114 &6773326116938459665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -914,16 +896,42 @@ MonoBehaviour:
   overfedDrainRate: 5
   canDrainBlood: 1
   bloodthirstBarAudioVolume: 1
-  stunDuration: 0.3
-  knockbackStrength: 25
   playerKillable: {fileID: 8596804024649230227}
   playerHealthDrainRate: 0.1
   OnBloodChange:
     m_PersistentCalls:
       m_Calls: []
-  _shakeDuration: 0.4
-  _shakeAmplitude: 5
-  _shakeFrequency: 3
+--- !u!1 &2935731889762700542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2386697607067937291}
+  m_Layer: 6
+  m_Name: Hilt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2386697607067937291
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2935731889762700542}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.378, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7564267098114665675}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3410584284265416894
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,6 +993,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7569982482725669098}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5327769884862517191
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5981879798080360674}
+  m_Layer: 6
+  m_Name: SlideTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5981879798080360674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5327769884862517191}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6356397532985679041}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5779005118584249303
 GameObject:
@@ -1115,69 +1154,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6356397532985679041}
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
---- !u!1 &9077280970907233517
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1365840534510365891}
-  m_Layer: 6
-  m_Name: SlidePos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1365840534510365891
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9077280970907233517}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6356397532985679041}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &9176167671375036334
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7601454973779621465}
-  m_Layer: 6
-  m_Name: Hilt
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7601454973779621465
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9176167671375036334}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.68, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7564267098114665675}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &780683633435337551
+--- !u!1001 &2359644754639824535
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1188,7 +1165,7 @@ PrefabInstance:
     - target: {fileID: 1521838108940720850, guid: d33456f0b7ebca042b540a5cdf32131a,
         type: 3}
       propertyPath: m_Name
-      value: DemonIdle VariantCurveFollow
+      value: DemonIdle Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2185784168844099688, guid: d33456f0b7ebca042b540a5cdf32131a,
         type: 3}
@@ -1254,7 +1231,7 @@ PrefabInstance:
         type: 3}
       propertyPath: targetTransform
       value: 
-      objectReference: {fileID: 7601454973779621465}
+      objectReference: {fileID: 2386697607067937291}
     - target: {fileID: 6682839149733724626, guid: d33456f0b7ebca042b540a5cdf32131a,
         type: 3}
       propertyPath: dashThroughAction
@@ -1270,11 +1247,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d33456f0b7ebca042b540a5cdf32131a, type: 3}
---- !u!4 &1477458571682636583 stripped
+--- !u!4 &4533527758081074943 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2185784168844099688, guid: d33456f0b7ebca042b540a5cdf32131a,
     type: 3}
-  m_PrefabInstance: {fileID: 780683633435337551}
+  m_PrefabInstance: {fileID: 2359644754639824535}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5605391723127491252
 PrefabInstance:
@@ -1363,7 +1340,7 @@ PrefabInstance:
         type: 3}
       propertyPath: slideTransform
       value: 
-      objectReference: {fileID: 1365840534510365891}
+      objectReference: {fileID: 5981879798080360674}
     - target: {fileID: 5996984886382561609, guid: c66b3c9ba7489084f8c3f641e0306f46,
         type: 3}
       propertyPath: attackTransform
@@ -1372,7 +1349,7 @@ PrefabInstance:
     - target: {fileID: 5996984886382561609, guid: c66b3c9ba7489084f8c3f641e0306f46,
         type: 3}
       propertyPath: dashThroughOffset
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 5996984886382561609, guid: c66b3c9ba7489084f8c3f641e0306f46,
         type: 3}
@@ -1411,7 +1388,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2680757558890817151, guid: c66b3c9ba7489084f8c3f641e0306f46,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7601454973779621465}
+      addedObject: {fileID: 2386697607067937291}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c66b3c9ba7489084f8c3f641e0306f46, type: 3}
 --- !u!114 &2230350445419021309 stripped

@@ -27,7 +27,6 @@ public class SlideAction : PlayerAction{
     [SerializeField] private float slideTrauma;
     CameraFov cameraFov;
     private Rigidbody rb;
-    private Collider playerCollider;
     private PathCreator pathCreator;
     MovementModification movementModification;
     PlayerPositionCheck playerPositionCheck;
@@ -36,7 +35,8 @@ public class SlideAction : PlayerAction{
     private bool sliding = false;
 
     [Header("References")]
-    [SerializeField] GameObject swordObject;
+    [SerializeField] SwordMovement swordMovment;
+    private Collider slidingCollider;
     private Vector3 initialSwordOffset;
     private Vector3 initialPlayerOffset;
     private Quaternion initialPlayerRotation;
@@ -44,6 +44,7 @@ public class SlideAction : PlayerAction{
     private Vector3 startVelocity;
     private float initialEnemyBonus;
     private float dstTravelled = 0f;
+    private Vector3 savedPathDir;
 
     private Quaternion initialWallRotation;
 
@@ -52,7 +53,6 @@ public class SlideAction : PlayerAction{
     private void Start() {
         cameraFov = FindObjectOfType<CameraFov>();
         rb = GetComponent<Rigidbody>();
-        playerCollider = GetComponent<Collider>();
         jumpAction = GetComponent<JumpAction>();
         movementModification = GetComponentInChildren<MovementModification>();
         playerPositionCheck = GetComponentInChildren<PlayerPositionCheck>();
@@ -96,27 +96,28 @@ public class SlideAction : PlayerAction{
         initialWallRotation = pathCreator.transform.rotation;
         initialPlayerOffset = transform.position - pathCreator.path.GetPointAtDistance(dstTravelled, end);
         initialPlayerRotation = transform.rotation;
-        initialSwordOffset = swordObject.transform.position - pathCreator.path.GetPointAtDistance(dstTravelled, end);
+        slidingCollider = other;
 
         // On start action event
         OnStartAction.Invoke();
     }
     
     private void UpdateSliding() {
+        // Calculating path values
+        Vector3 pathPoint = pathCreator.path.GetPointAtDistance(dstTravelled, end);
+        Vector3 pathDir = pathCreator.path.GetDirectionAtDistance(dstTravelled, end);
+        savedPathDir = pathDir;
         // Initalizing offsets by rotation transformation
         Quaternion rotationTransformation = pathCreator.transform.rotation * Quaternion.Inverse(initialWallRotation);
         Vector3 playerOffset = rotationTransformation * initialPlayerOffset;
-        Vector3 swordOffset = rotationTransformation * initialSwordOffset;
 
-        Vector3 pathPoint = pathCreator.path.GetPointAtDistance(dstTravelled, end);
-        Vector3 pathNormal = pathCreator.path.GetNormalAtDistance(dstTravelled, end);
-
-        // Applying speed
+        // Adding and Applying speed
         dstTravelled += (currentSlideSpeed * Time.fixedDeltaTime) / pathCreator.path.CalculatePathWorldLength();
         transform.position = pathPoint + playerOffset;
         transform.rotation = rotationTransformation*initialPlayerRotation;
-        swordObject.transform.position = pathPoint + swordOffset;
-        swordObject.transform.up = pathNormal;
+
+        // Calculating sword variables
+        swordMovment.UpdateSlidePosition(transform.position, slidingCollider, pathDir);
 
         // Ending the dash with movement abilities
         if (dstTravelled > pathCreator.path.length) {
@@ -129,6 +130,10 @@ public class SlideAction : PlayerAction{
             ApplyHorizontalOffset();
             EndAction();
         }
+    }
+
+    public Vector3 GetSlideDirection() {
+        return savedPathDir;
     }
 
     public void SlideInput(Vector3 direction) {
@@ -145,6 +150,7 @@ public class SlideAction : PlayerAction{
         dstTravelled = 0f;
         sliding = false;
         initialEnemyBonus = 0;
+        swordMovment.EndAttackPosition();
 
         OnEndAction.Invoke();
     }

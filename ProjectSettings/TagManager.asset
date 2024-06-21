@@ -19,7 +19,7 @@ TagManager:
   - Player
   - SpawnPoint
   - Enemy
-  - 
+  - PlayerRagdoll
   - Terrain
   - NotAttackable
   - 

@@ -11,12 +11,16 @@ public class SwordMovement : MonoBehaviour
     [SerializeField] Transform slashTransform;
     [SerializeField] Transform downwardStabTransform;
     [SerializeField] Transform dashAttackTransform;
+    [SerializeField] Transform slideTransform;
 
     [Header("Other Variables")]
     [Range(0f,1f)]
     [SerializeField] float followingSpeed;
     [SerializeField] int playerLayerNumber;
     [SerializeField] int notAttackableLayer;
+    [SerializeField] float slideOffsetFromSurface;
+    [SerializeField] float slideOffsetFromParent;
+    [SerializeField] float dashThroughOffset;
 
     [Header("Events")]
     public UnityEvent<Collider> OnContact = new UnityEvent<Collider>();
@@ -68,10 +72,29 @@ public class SwordMovement : MonoBehaviour
         CancelInvoke();
         OnEndAction.Invoke();
     }
+    public void UpdateSlidePosition(Vector3 parentPos, Collider slidingCollider, Vector3 pathDir) {
+        // Calculating contact point + surface normal
+        Vector3 contactCheckOffset = parentPos + (pathDir.normalized*slideOffsetFromParent);
+        Vector3 contactPoint = slidingCollider.ClosestPoint(contactCheckOffset);
+        Vector3 surfaceNormal = (contactCheckOffset - contactPoint).normalized;
+
+        // Applying values to rotation transform
+        slideTransform.position = contactPoint + (slideOffsetFromSurface*surfaceNormal);
+        slideTransform.up = -surfaceNormal;
+        
+        // Setting follow
+        currentFollow = slideTransform;
+    }
+
+    public void UpdateDashThrough(Vector3 parentPos, Vector3 direction) {
+        slideTransform.position = parentPos + (direction.normalized * dashThroughOffset);
+        slideTransform.up = direction.normalized;
+
+        currentFollow = slideTransform;
+    }
     private void OnTriggerStay(Collider other)
     {
-        //Debug.Log(other.gameObject.layer.ToString() + " " + playerLayerNumber.ToString());
-        if (other.gameObject.layer != gameObject.layer && other.gameObject.layer != notAttackableLayer) {
+        if (other.gameObject.layer != gameObject.layer && other.gameObject.layer != notAttackableLayer && isAttacking) {
             OnContact.Invoke(other);
             EndAttackPosition();
         }
