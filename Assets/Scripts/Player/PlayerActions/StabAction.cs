@@ -78,7 +78,7 @@ public class StabAction : PlayerAction {
     }
     public override void EndAction() {
         isStabbing = false;
-        if (swordMovement.isAttacking) {
+        if (swordMovement.IsAttacking()) {
             swordMovement.EndAttackPosition();
         }
         stabContact.EndContactEvent();

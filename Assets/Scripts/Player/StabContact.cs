@@ -75,6 +75,13 @@ public class StabContact : MonoBehaviour
         }
     }
 
+    public bool CanStab(GameObject checkObject) {
+        return checkObject.TryGetComponent(out Stabable stabable) ||
+            checkObject.TryGetComponent(out StabableDashThrough dashThrough) ||
+            checkObject.TryGetComponent(out FlickEnemyStabable flickEnemy) ||
+            checkObject.TryGetComponent(out FlickEnviornmentStabable flickEnviornment);
+    }
+
     public void ActivateContactEvent(UnityEvent<Collider> _contactEvent, float bloodGained) {
         bloodGainAmount = bloodGained;
         contactEvent = _contactEvent;

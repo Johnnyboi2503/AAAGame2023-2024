@@ -71,7 +71,7 @@ public class SlashAction : PlayerAction
     }
     public override void EndAction() {
         isSlashing = false;
-        if(swordMovement.isAttacking) {
+        if (swordMovement.IsAttacking()) {
             swordMovement.EndAttackPosition();
         }
         slashContact.EndContactEvent();

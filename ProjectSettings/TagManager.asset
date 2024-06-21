@@ -9,6 +9,8 @@ TagManager:
   - Death
   - Level2
   - Restart1
+  - Stabable
+  - Slashable
   layers:
   - Default
   - TransparentFX
