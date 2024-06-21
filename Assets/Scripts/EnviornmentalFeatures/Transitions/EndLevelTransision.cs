@@ -19,6 +19,8 @@ public class EndLevelTransision : MonoBehaviour
         }
     }
     void ActivateMenu(){
+        AudioManager.GetInstance().PauseAllAudio();
+        GamePauseChangeObserver.NotifyGamePauseChange(true);
         menuUI.SetActive(true);
         EndLevelObserver.NotifyEndLevel();
         Time.timeScale = 0f;

@@ -44,7 +44,13 @@ public class BasicMovementAction : PlayerAction
     bool grounded;
     bool onSlope;
     bool isMoving = false;
+
+    [SerializeField] float runVolume = 1f;
     Vector3 targetDirection;
+
+    public event System.Action<bool> OnMovementStateChange;
+
+    private bool previousGroundedState;
 
     void Start() {
         // Getting references
@@ -52,6 +58,7 @@ public class BasicMovementAction : PlayerAction
         playerPositionCheck = GetComponentInChildren<PlayerPositionCheck>();
         rb = GetComponent<Rigidbody>();
         rb.drag = 0;
+        previousGroundedState = grounded;
     }
 
     private void FixedUpdate() {
@@ -103,16 +110,29 @@ public class BasicMovementAction : PlayerAction
                 rb.velocity += addedGravityAcceleration;
             }
         }
+
+        if (grounded != previousGroundedState) {
+            OnGroundedChange(grounded);
+            previousGroundedState = grounded;
+        }
     }
 
     public void MoveInput(Vector3 inputDirection)
     {
-        isMoving = true;
+        if (!isMoving)
+        {
+            isMoving = true;
+            AudioManager.GetInstance().PlayAudioFollowObject("Run_SFX", gameObject, runVolume, true);
+        }
         targetDirection = new Vector3(inputDirection.x, 0, inputDirection.z).normalized;
     }
 
     public void NoMoveInput() {
-        isMoving = false;
+        if (isMoving)
+        {
+            isMoving = false;
+            AudioManager.GetInstance().StopAudioOfType("Run_SFX");
+        }
     }
     private void MoveUpdate()
     {
@@ -156,5 +176,14 @@ public class BasicMovementAction : PlayerAction
         }
         return movementModification.GetBoost(maxAirSpeed, boostedMaxAirSpeed, true);
 
+    }
+    private void OnGroundedChange(bool groundedState) {
+        Debug.Log($"Grounded state changed to: {groundedState}");
+        if(!groundedState) {
+            AudioManager.GetInstance().StopAudioOfType("Run_SFX");
+        }
+        else if (isMoving) {
+            AudioManager.GetInstance().PlayAudioFollowObject("Run_SFX", gameObject, runVolume, true);
+        }
     }
 }

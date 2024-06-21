@@ -3,13 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-
-//TODO:
-    //ADD A METHOD TO UPDATE ALL CURRENTLY-PLAYING AUDIO SOURCES WHEN MASTERVOLUME GETS CHANGED BY THE PLAYER
-
-
-
-
 public class AudioManager : MonoBehaviour
 {
     //singleton

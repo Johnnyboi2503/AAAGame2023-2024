@@ -66,6 +66,7 @@ public class PlayerKillable : Killable
     private void PlayerDied() {
         transform.position = respawnPosition;
         bloodThirst.GainBlood(bloodThirst.maxBlood, false);
+        RestartAtCheckpointObserver.NotifyRestartAtCheckpoint();
         Revive();
     }
 }

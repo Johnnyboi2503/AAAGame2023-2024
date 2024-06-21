@@ -14,17 +14,25 @@ public class PauseMenuUI : MonoBehaviour
     private CursorLockMode prevCursorLockMode;
     private bool prevCursorVisibility;
 
+    bool levelEnded = false;
+
     [Space]
     [SerializeField] private float uiInteractionAudioVolume = 0.75f;
+
+    void Start()
+    {
+        Time.timeScale = 1;
+    }
     private void OnEnable()
     {
-     playerKillable = FindObjectOfType<PlayerKillable>();
-     playerInput = FindAnyObjectByType<PlayerInput>();
+        playerKillable = FindObjectOfType<PlayerKillable>();
+        playerInput = FindAnyObjectByType<PlayerInput>();
+        FinalCheckpointTimeLogObserver.FinalCheckpointTimeLog += OnFinalCheckpointTimeLog;
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(pauseKey))
+        if(Input.GetKeyDown(pauseKey) && !levelEnded)
         {
             if(gameIsPaused)
             {
@@ -39,6 +47,7 @@ public class PauseMenuUI : MonoBehaviour
     public void Resume()
     {
         AudioManager.GetInstance().ResumeAllAudio();
+        GamePauseChangeObserver.NotifyGamePauseChange(false);
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1;
         gameIsPaused = false;
@@ -57,6 +66,7 @@ public class PauseMenuUI : MonoBehaviour
     public void Pause()
     {
         AudioManager.GetInstance().PauseAllAudio();
+        GamePauseChangeObserver.NotifyGamePauseChange(true);
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPaused = true;
@@ -72,32 +82,30 @@ public class PauseMenuUI : MonoBehaviour
 
     public void QuitToMenu()
     {
-        PlayUIInteractionAudio();
-
         ChangeScene("MainMenu");
         Time.timeScale = 1f;
     }
 
-    public void Restart()
+    public void RestartLevel()
     {
-        PlayUIInteractionAudio();
-
-        playerKillable.TakeDamage(100000);
-
         // Reset prev Cursor State
         prevCursorVisibility = false;
         prevCursorLockMode = CursorLockMode.Locked;
-        Resume();
+
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
     public void ChangeScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
 
-    private void PlayUIInteractionAudio()
-    {
-        AudioSource audioSource = AudioManager.GetInstance().PlayGlobalAudio("UI_Interaction_SFX", uiInteractionAudioVolume);
-        DontDestroyOnLoad(audioSource.transform.gameObject);
+    void OnDisable(){
+        FinalCheckpointTimeLogObserver.FinalCheckpointTimeLog -= OnFinalCheckpointTimeLog;
+    }
+
+    void OnFinalCheckpointTimeLog(List<string> checkpointTimes){
+        levelEnded = true;
     }
 }
 

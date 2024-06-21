@@ -36,7 +36,7 @@ public class Checkpoint : MonoBehaviour
             if(checkPointManager.CanActivateCheckpoint(index)) {
 
                 // Play audio on activate checkpoint
-                AudioManager.GetInstance().PlayAudioAtLocation("TerrainInteration_SFX", transform.position, interactionAudioVolume);
+                AudioManager.GetInstance().PlayAudioAtLocation("UISelectSFX", transform.position, interactionAudioVolume);
 
                 render.material.color = Color.blue;
                 collider.transform.GetComponent<PlayerKillable>().respawnPosition = transform.position; // setting player respawn position if valid checkpoint

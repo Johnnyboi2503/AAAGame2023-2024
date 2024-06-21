@@ -10,5 +10,5 @@ abstract public class StabableDashThrough : MonoBehaviour {
     [Header("Adjustable")]
     public bool canGiveBlood;
 
-    abstract public void CalculateDash(GameObject source);
+    abstract public void CalculateDash(GameObject source, bool playAudio);
 }

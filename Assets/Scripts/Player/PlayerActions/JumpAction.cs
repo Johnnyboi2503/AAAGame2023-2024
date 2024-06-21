@@ -69,7 +69,8 @@ public class JumpAction : PlayerAction
         jumping = true;
 
         // Play jump audio
-        AudioManager.GetInstance().PlayAudioFollowObject("Jump_SFX", gameObject, jumpAudioVolume);
+        string soundEffect = Random.Range(0, 2) == 0 ? "Jump_SFX" : "Jump2_SFX";
+        AudioManager.GetInstance().PlayAudioFollowObject(soundEffect, gameObject, jumpAudioVolume);
 
         OnStartAction.Invoke();
     }

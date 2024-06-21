@@ -57,7 +57,8 @@ public class SlashAction : PlayerAction
         swordMovement.SlashPosition(attackDuration);
 
         // Play slash audio
-        AudioManager.GetInstance().PlayAudioFollowObject("Slash_SFX", gameObject, slashAudioVolume);
+        string soundEffect = Random.Range(0, 2) == 0 ? "Slash_SFX" : "Slash2_SFX";
+        AudioManager.GetInstance().PlayAudioFollowObject(soundEffect, gameObject, slashAudioVolume);
 
         OnStartAction.Invoke();
     }

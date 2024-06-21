@@ -59,7 +59,7 @@ public class DashThroughAction : PlayerAction
         OnStartAction.RemoveListener(() => cameraFov.IncreaseTrauma(dashThroughTrauma));
     }
     public void DashThrough(StabableDashThrough dashThrough, float enemyBonus = 0) {
-        dashThrough.CalculateDash(gameObject);
+        dashThrough.CalculateDash(gameObject, true);
 
         // Setting variables
         playerCollider.isTrigger = true; // Temp implementation for passing through objects

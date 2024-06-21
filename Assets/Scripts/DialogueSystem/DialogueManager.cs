@@ -13,6 +13,8 @@ public class DialogueManager : MonoBehaviour
 
     public int decisionIndex;
 
+    public float dialogueVolume = 1f;
+
     [SerializeField]
     public DialogueTextBox textBox;
     [SerializeField]
@@ -36,6 +38,7 @@ public class DialogueManager : MonoBehaviour
             selectedOption = false;
             dialogueInterupt = false;
             textBox.gameObject.SetActive(true);
+            DialogueStateChangeObserver.NotifyDialogueStateChange(true);
 
             StartCoroutine(RunDialogue(dialogueInteraction.dialogues, actionAfterDialogue));
         }
@@ -141,6 +144,7 @@ public class DialogueManager : MonoBehaviour
                     }
 
                     // Start typing
+                    AudioManager.GetInstance().PlayGlobalAudio("DialogueUISFX", dialogueVolume);
                     textBox.StartTyping(rowDialogue);
                     yield return new WaitUntil(() => completedLine);
                     completedLine = false;
@@ -158,6 +162,7 @@ public class DialogueManager : MonoBehaviour
         // Disabling textbox once dialogue is finished
         optionsUI.gameObject.SetActive(false);
         textBox.gameObject.SetActive(false);
+        DialogueStateChangeObserver.NotifyDialogueStateChange(false);
 
         if (actionAfterDialogue != null)
         {
