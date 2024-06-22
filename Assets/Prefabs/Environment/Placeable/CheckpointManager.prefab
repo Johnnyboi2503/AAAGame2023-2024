@@ -59,6 +59,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 598f09103ac294441a1ec43f6661bf32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyPrefabs:
+  - {fileID: 2702828146198153179, guid: 5bf3cde02d767d84483d6fca34846329, type: 3}
+  - {fileID: 3966855605319378575, guid: 798eb078d59d8e84a8608a2abda2c685, type: 3}
+  - {fileID: 5503810578031880460, guid: 3ad2f30930958f642ac676370cd0876a, type: 3}
+  - {fileID: 1730740226662411882, guid: a6b93ca16b5ff36448f6e8fef5c06597, type: 3}
+  initalSaveTimer: 0.1
 --- !u!1001 &2083447839740050210
 PrefabInstance:
   m_ObjectHideFlags: 0

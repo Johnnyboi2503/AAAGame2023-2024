@@ -26,7 +26,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/TestScenes/VaporWaveTest.unity
     guid: 31ea6e892b2d599489b80d48d80431bc
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestScenes/WiktorEnemyBarrierTest.unity
     guid: ae9b9beef1c0dfa4b886cd2f0cfbddbf
+  - enabled: 1
+    path: Assets/Scenes/DesignersTestScenes/MainScenes/Section_1_WithText.unity
+    guid: 7c1793090fabb764b8c2cb9a1841c0a4
+  - enabled: 1
+    path: Assets/Scenes/DesignersTestScenes/MainScenes/Area_4_E_With_Text.unity
+    guid: 1ee3c8b171b63fb40aa7bceb39f8cd77
   m_configObjects: {}

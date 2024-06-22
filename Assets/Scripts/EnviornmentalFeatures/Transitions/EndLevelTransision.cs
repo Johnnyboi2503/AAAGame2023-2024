@@ -13,6 +13,10 @@ public class EndLevelTransision : MonoBehaviour
     private CursorLockMode prevCursorLockMode;
     private bool prevCursorVisibility;
 
+    private void Start() {
+        menuUI.SetActive(false);
+    }
+
     private void OnTriggerEnter(Collider other) {
         if(other.TryGetComponent(out PlayerInput input)) {
             ActivateMenu();

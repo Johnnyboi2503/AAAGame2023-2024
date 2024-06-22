@@ -67,9 +67,9 @@ Material:
     - _IsMoving: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Thickness: 1.07
+    - _Thickness: 1.01
     m_Colors:
     - _GridColor: {r: 2.0626583, g: 0, b: 1.1735134, a: 1}
     - _TileColor: {r: 1, g: 1, b: 1, a: 0}
-    - _Tiling: {r: 1, g: 1, b: 0, a: 0}
+    - _Tiling: {r: 0.5, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []

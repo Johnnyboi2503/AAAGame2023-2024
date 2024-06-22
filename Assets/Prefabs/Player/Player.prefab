@@ -522,7 +522,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   timeBeforeRegen: 3
-  healthRegenRate: 5
+  healthRegenRate: 10
   respawnPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &6003801723596019275
 MonoBehaviour:
@@ -848,17 +848,17 @@ MonoBehaviour:
   OnStartAction:
     m_PersistentCalls:
       m_Calls: []
-  slideSpeed: 20
+  slideSpeed: 40
   jumpForce: 25
   exitOffsetSpeed: 10
   initalSpeedScale: 0.1
-  speedLimit: 20
+  speedLimit: 40
   jumpForceLimit: 35
-  boostedSlideSpeed: 20
+  boostedSlideSpeed: 40
   boostedJumpForce: 25
   boostedExitOffsetSpeed: 10
   boostedInitalSpeedScale: 0
-  boostsedSpeedLimit: 20
+  boostsedSpeedLimit: 40
   boostedJumpForceLimit: 35
   slideTrauma: 0.351
   swordMovment: {fileID: 2230350445419021309}
@@ -941,7 +941,7 @@ MonoBehaviour:
   stunDuration: 0.3
   knockbackStrength: 25
   playerKillable: {fileID: 8596804024649230227}
-  playerHealthDrainRate: 0.1
+  playerHealthDrainRate: 3
   OnBloodChange:
     m_PersistentCalls:
       m_Calls: []

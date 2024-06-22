@@ -27,6 +27,7 @@ public class Stopwatch : MonoBehaviour
     void Start()
     {
         currentTime = 0;
+        StartTime();
     }
 
     void Update()
