@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8953753239630407971}
   - component: {fileID: 4847278419906203444}
   - component: {fileID: 7303035096955556055}
+  - component: {fileID: 8613599494664731385}
   m_Layer: 6
   m_Name: OtherPlayerComponents
   m_TagString: Untagged
@@ -153,6 +154,20 @@ MonoBehaviour:
   OnEndStun:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8613599494664731385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665959102625697816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9d2e340ade49304c8a954a3a44f5e90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCollider: {fileID: 2711925284241185732}
+  stun: {fileID: 7303035096955556055}
 --- !u!1 &1432506812781281859
 GameObject:
   m_ObjectHideFlags: 0
@@ -1371,22 +1386,22 @@ PrefabInstance:
     - target: {fileID: 6065413658000917940, guid: 7788ee3f0a657464d850ca17a6af4f2f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6065413658000917940, guid: 7788ee3f0a657464d850ca17a6af4f2f,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6065413658000917940, guid: 7788ee3f0a657464d850ca17a6af4f2f,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6065413658000917940, guid: 7788ee3f0a657464d850ca17a6af4f2f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6065413658000917940, guid: 7788ee3f0a657464d850ca17a6af4f2f,
         type: 3}
@@ -1396,7 +1411,7 @@ PrefabInstance:
     - target: {fileID: 6065413658000917940, guid: 7788ee3f0a657464d850ca17a6af4f2f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 6065413658000917940, guid: 7788ee3f0a657464d850ca17a6af4f2f,
         type: 3}
@@ -1484,9 +1499,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5996984886382561609, guid: c66b3c9ba7489084f8c3f641e0306f46,
         type: 3}
+      propertyPath: bloodRate
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 5996984886382561609, guid: c66b3c9ba7489084f8c3f641e0306f46,
+        type: 3}
+      propertyPath: stabContact
+      value: 
+      objectReference: {fileID: 1009479359832023577}
+    - target: {fileID: 5996984886382561609, guid: c66b3c9ba7489084f8c3f641e0306f46,
+        type: 3}
       propertyPath: followTarget
       value: 
       objectReference: {fileID: 6088350622376495114}
+    - target: {fileID: 5996984886382561609, guid: c66b3c9ba7489084f8c3f641e0306f46,
+        type: 3}
+      propertyPath: slashContact
+      value: 
+      objectReference: {fileID: 8953753239630407971}
+    - target: {fileID: 5996984886382561609, guid: c66b3c9ba7489084f8c3f641e0306f46,
+        type: 3}
+      propertyPath: terrainLayer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5996984886382561609, guid: c66b3c9ba7489084f8c3f641e0306f46,
         type: 3}
       propertyPath: freeTransform
@@ -1540,12 +1575,12 @@ PrefabInstance:
     - target: {fileID: 5996984886382561609, guid: c66b3c9ba7489084f8c3f641e0306f46,
         type: 3}
       propertyPath: slideOffsetFromParent
-      value: 2.5
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 5996984886382561609, guid: c66b3c9ba7489084f8c3f641e0306f46,
         type: 3}
       propertyPath: slideOffsetFromSurface
-      value: 0.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7747520786984620803, guid: c66b3c9ba7489084f8c3f641e0306f46,
         type: 3}

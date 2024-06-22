@@ -12,6 +12,7 @@ public class EffectsController : MonoBehaviour {
     [SerializeField] const float defaultRate = 32;
     [SerializeField] const float defaultSpeed = 5f;
     [SerializeField] const float defaultSpread = 0.5f;
+    [SerializeField] const float circleBurstSpread = 2f;
 
     private void Update() {
         if (allowTestInput) {
@@ -47,6 +48,6 @@ public class EffectsController : MonoBehaviour {
     }
 
     public void CircleBurst(Vector3 position) {
-        CreateBloodEffect(position, Vector3.up, false);
+        CreateBloodEffect(position, Vector3.up, false, defaultRate, defaultSpeed, circleBurstSpread);
     }
 }

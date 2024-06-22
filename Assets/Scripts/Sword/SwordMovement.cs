@@ -17,6 +17,7 @@ public class SwordMovement : MonoBehaviour {
     [SerializeField] float followingSpeed;
     [SerializeField] int playerLayerNumber;
     [SerializeField] int notAttackableLayer;
+    [SerializeField] int terrainLayer;
     [SerializeField] float slideOffsetFromSurface;
     [SerializeField] float slideOffsetFromParent;
     [SerializeField] float dashThroughOffset;
@@ -28,6 +29,7 @@ public class SwordMovement : MonoBehaviour {
     [Header("References")]
     [SerializeField] SlashContact slashContact;
     [SerializeField] StabContact stabContact;
+    [SerializeField] DownwardStabAction downwardStab;
 
     // Other variables
     private bool isFollowing = true;
@@ -135,7 +137,7 @@ public class SwordMovement : MonoBehaviour {
     }
     private void OnTriggerStay(Collider other)
     {
-        if (slashContact.CanSlash(other.gameObject) || stabContact.CanStab(other.gameObject)) {
+        if (slashContact.CanSlash(other.gameObject) || stabContact.CanStab(other.gameObject) || other.gameObject.layer == terrainLayer) {
             if (other.gameObject.layer != gameObject.layer && other.gameObject.layer != notAttackableLayer && isAttacking) {
                 OnContact.Invoke(other);
                 EndAttackPosition();
