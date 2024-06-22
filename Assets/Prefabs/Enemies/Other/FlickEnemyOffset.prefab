@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3849398790771948181}
   - component: {fileID: 5703960486392347816}
+  - component: {fileID: 2414499490316258099}
   m_Layer: 8
   m_Name: FlickEnemyOffset
   m_TagString: Untagged
@@ -46,6 +47,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stickMag: 0.6
+--- !u!114 &2414499490316258099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6772390868343086315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a3e2b1412f74b14caccc8f2fcb80216, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amplitude: 0.1
+  ocilationSpeed: 3
 --- !u!1001 &6092775301017392796
 PrefabInstance:
   m_ObjectHideFlags: 0
