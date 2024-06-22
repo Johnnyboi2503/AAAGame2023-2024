@@ -9,6 +9,7 @@ public class FlickEnemyStabable : MonoBehaviour
     [SerializeField] int bloodAmountSpawned;
     [SerializeField] int stunnedBloodAmountSpawned;
     [SerializeField] float stunDuration;
+    [SerializeField] float deathSpeedIncrease; // The percent boost given to the player when killed
     float stunnedTimer;
     public bool stunned = false;
 
@@ -52,6 +53,7 @@ public class FlickEnemyStabable : MonoBehaviour
                 Instantiate(bloodOrb, transform.position, Quaternion.identity);
             }
         }
+        FindObjectOfType<MovementModification>().AddSpeedBoost(float.MaxValue, deathSpeedIncrease); // Adding speed boost to player when dead
         Destroy(gameObject);
     }
 }

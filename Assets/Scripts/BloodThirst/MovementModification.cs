@@ -21,22 +21,38 @@ public class SpeedEffect
 
 public class MovementModification : MonoBehaviour
 {
+    [Header("Adjustable Variables")]
+    [SerializeField] float minimumValueForSpeedBuff;
+
+    [Header("Internal Variables")]
     public float boostForAll; // 0-1 value represent percentage
     public UnityEvent OnModifyMovement = new UnityEvent();
-    List<SpeedEffect> speedEffects = new List<SpeedEffect>();
+    public List<SpeedEffect> speedEffects = new List<SpeedEffect>();
 
-    private void Update()
-    {
-        for(int i = 0; i < speedEffects.Count; i++)
-        {
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.L)) {
+            PrintSpeedEffectState();
+        }
+    }
+
+    private void UpdateSpeedBuff() {
+        for (int i = 0; i < speedEffects.Count; i++) {
             speedEffects[i].durationTimer -= Time.deltaTime;
-            if (speedEffects[i].durationTimer <= 0f)
-            {
+            if (speedEffects[i].durationTimer <= 0f) {
                 speedEffects.RemoveAt(i);
                 i--;
                 continue;
             }
             speedEffects[i].currentPercentSpeed = speedEffects[i].percentSpeed * (speedEffects[i].durationTimer / speedEffects[i].duration);
+        }
+    }
+
+    private void PrintSpeedEffectState() {
+        if(speedEffects.Count > 0) {
+            Debug.Log(speedEffects[0].percentSpeed + "---" + speedEffects.Count);
+        }
+        else {
+            Debug.Log("no speed effects");
         }
     }
 
@@ -55,11 +71,11 @@ public class MovementModification : MonoBehaviour
         float output = amount;
         foreach(SpeedEffect effect in speedEffects) {
             if (increaseAmount) {
-                output += effect.currentPercentSpeed * amount;
+                output += effect.percentSpeed * amount;
             }
             else {
-                output -= effect.currentPercentSpeed * amount;
-                output = Mathf.Max(0, output);
+                output -= effect.percentSpeed * amount;
+                output = Mathf.Max(minimumValueForSpeedBuff, output);
             }
         }
 
@@ -68,7 +84,7 @@ public class MovementModification : MonoBehaviour
     public float GetBoost(float baseAmount, float boostedAmount, bool useBuff) {
         float output = Mathf.Lerp(baseAmount, boostedAmount, boostForAll);
         if (useBuff) {
-            return CalcBoostedSpeed(output, boostedAmount > baseAmount);
+            return CalcBoostedSpeed(output, boostedAmount >= baseAmount);
         }
         return output;
     }

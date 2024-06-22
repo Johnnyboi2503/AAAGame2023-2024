@@ -21,10 +21,11 @@ public class EnemyStateManager : MonoBehaviour
     public float bulletSpeed;
     public float bulletDamage;
     public float enemyAttackCooldown;
+    public float turnSpeed; // speed of the enemy turn to attack player
+    public PlayerInRange attackRange;
 
     [Header("Enemy Death Speed Boost Variables")]
     public float deathSpeedIncrease;
-    public float deathSpeedDuration;
 
     [Header("References")]
     private Killable kill;
@@ -162,16 +163,17 @@ public class EnemyStateManager : MonoBehaviour
     }
 
     // switch state to deathstate
-    public void Death()
-    {
-        render.material.color = Color.black;
-        SwitchState(deathState);
+    public void Death() {
+        if (currentState != deathState) {
+            playerTransform.GetComponentInChildren<MovementModification>().AddSpeedBoost(float.MaxValue, deathSpeedIncrease);
+            render.material.color = Color.black;
+            SwitchState(deathState);
+        }
     }
     #endregion
 
     public void DeleteOnDeath()
     {
-        playerTransform.GetComponentInChildren<MovementModification>().AddSpeedBoost(deathSpeedDuration, deathSpeedIncrease);
         Destroy(gameObject);
     }
 
@@ -201,5 +203,34 @@ public class EnemyStateManager : MonoBehaviour
         Gizmos.color = Color.black;
         Gizmos.DrawWireSphere(transform.position, attackDistance);
         Gizmos.color = holder;
+    }
+
+    public void LookAtPlayer()
+    {
+        // set speed, will aimbot the player
+        //this.transform.LookAt(playerTransform);
+
+        Vector3 targetPlayer = playerTransform.position - transform.position;
+        targetPlayer.y = 0;
+        float step = turnSpeed * Time.deltaTime;
+
+        Vector3 newDir = Vector3.RotateTowards(transform.forward, targetPlayer, step, 0.0F);
+        Debug.DrawRay(transform.position, newDir, Color.red);
+
+        transform.rotation = Quaternion.LookRotation(newDir);
+    }
+
+    public bool DetectPlayer()
+    {
+        if (attackRange.playerHit)
+        {
+            Debug.Log("player hit");
+            return true;
+        }
+        else
+        {
+            Debug.Log("no player");
+            return false;
+        }
     }
 }

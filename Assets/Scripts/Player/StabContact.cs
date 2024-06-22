@@ -19,6 +19,10 @@ public class StabContact : MonoBehaviour
 
     float bloodGainAmount;
     UnityEvent<Collider> contactEvent;
+
+    // Blood Effect
+    EffectsController effect;
+
     private void Start() {
         dashThroughAction = GetComponentInParent<DashThroughAction>();
         flickAction = GetComponentInParent<FlickAction>();
@@ -27,6 +31,8 @@ public class StabContact : MonoBehaviour
 
         // End of events
         dashThroughAction.OnEndAction.AddListener(EndOfDash);
+
+        effect = FindObjectOfType<EffectsController>();
     }
 
     private void StabContactEffect(Collider other) {
@@ -47,6 +53,11 @@ public class StabContact : MonoBehaviour
             dashThroughAction.OnEndAction.AddListener(EndEnemy);
             actionManager.ChangeAction(dashThroughAction);
             dashThroughAction.DashThrough(dashThroughEnemy, dashThroughEnemy.GetBonus());
+
+            // Blood effect
+            Vector3 point = other.ClosestPoint(transform.position);
+            Vector3 dir = point - transform.position;
+            effect.CreateBloodEffect(point, dir, false);
         }
         else if (other.gameObject.TryGetComponent(out StabableDashThrough dashThrough)) {
             canGiveBlood = dashThrough.canGiveBlood;
@@ -58,14 +69,29 @@ public class StabContact : MonoBehaviour
             found = true;
 
             AudioManager.GetInstance().PlayAudioFollowObject("WallStab_SFX", gameObject, wallStabAudioVolume);
+
+            // Blood effect
+            Vector3 point = other.ClosestPoint(transform.position);
+            Vector3 dir = transform.position - point;
+            effect.CreateBloodEffect(point, dir, false);
         }
         if(other.gameObject.TryGetComponent(out FlickEnemyStabable flickEnemy)) {
             actionManager.ChangeAction(flickAction);
             flickAction.Stick(flickEnemy, null);
+
+            // Blood effect
+            Vector3 point = other.ClosestPoint(transform.position);
+            Vector3 dir = transform.position - point;
+            effect.CreateBloodEffect(point, dir, false);
         }
         if(other.gameObject.TryGetComponent(out FlickEnviornmentStabable flickEnviornment)) {
             actionManager.ChangeAction(flickAction);
             flickAction.Stick(null, flickEnviornment);
+
+            // Blood effect
+            Vector3 point = other.ClosestPoint(transform.position);
+            Vector3 dir = transform.position - point;
+            effect.CreateBloodEffect(point, dir, false);
         }
         if(found) {
             EndContactEvent();
@@ -73,6 +99,13 @@ public class StabContact : MonoBehaviour
         if(canGiveBlood) {
             GetComponentInParent<BloodThirst>().GainBlood(bloodGainAmount, true);
         }
+    }
+
+    public bool CanStab(GameObject check) {
+        return check.TryGetComponent(out Stabable stabable) ||
+            check.TryGetComponent(out StabableDashThrough dashThrough) ||
+            check.TryGetComponent(out FlickEnemyStabable flickEnemy) ||
+            check.TryGetComponent(out FlickEnviornmentStabable flickEnviornment);
     }
 
     public void ActivateContactEvent(UnityEvent<Collider> _contactEvent, float bloodGained) {

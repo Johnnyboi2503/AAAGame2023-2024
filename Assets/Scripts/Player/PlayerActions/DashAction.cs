@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-
 public class DashAction : PlayerAction
 {
     [Header("Movement")]
@@ -12,6 +11,7 @@ public class DashAction : PlayerAction
     [SerializeField] float endDashSpeedBonus; // Speed at the end of the dash
     [SerializeField] float initalSpeedScale; // How much the player impacts the speed, measured in percent (i.e. value of 0.1 == 10% of player speed is factored)
     [SerializeField] float speedLimit; // The max speed AFTER inital velocity + speed + bonus speed CALCULATION (so this limit applies for both the exit speed and the action itself) 
+    [SerializeField] float durationMin; // The minimum dash duration AFTER all the calculations
 
     [Header("Boosted Movement")]
     [SerializeField] float boostedDashSpeed;
@@ -20,9 +20,12 @@ public class DashAction : PlayerAction
     [SerializeField] float boostedEndDashSpeedBonus;
     [SerializeField] float boostedInitalSpeedScale;
     [SerializeField] float boostsedSpeedLimit;
+    [SerializeField] float boostedDurationMin;
 
     [Space]
     [SerializeField] private float dashAudioVolume = 1f;
+    [Range(0.0f, 1f)]
+    [SerializeField] private float dashTrauma;
 
     bool dashAvailable = true;
     float dashCdTimer;// Time before you can dash again
@@ -34,7 +37,7 @@ public class DashAction : PlayerAction
     MovementModification movementModification;
     PlayerPositionCheck playerPositionCheck;
     DashMovement dashMovement;
-
+    CameraFov cameraFov;
     // Temp for visual clarity
     Renderer render;
     Color holder;
@@ -48,10 +51,18 @@ public class DashAction : PlayerAction
         playerPositionCheck = GetComponentInChildren<PlayerPositionCheck>();
         dashMovement = new DashMovement(transform, rb);
         dashMovement.OnDashEnd.AddListener(EndAction);
-
-
+        cameraFov = FindObjectOfType<CameraFov>();
         // Temp for visual clarity
         render = GetComponent<Renderer>();
+    }
+
+    private void OnEnable()
+    {
+        OnStartAction.AddListener(() => cameraFov.IncreaseTrauma(dashTrauma));
+    }
+    private void OnDisable()
+    {
+        OnStartAction.RemoveListener(() => cameraFov.IncreaseTrauma(dashTrauma));
     }
 
     // Update is called once per frame
@@ -94,10 +105,14 @@ public class DashAction : PlayerAction
 
         // Limiting Speed
         float currentMaxSpeed = movementModification.GetBoost(speedLimit, boostsedSpeedLimit, false);
+        float currentMinDuration = movementModification.GetBoost(durationMin, boostedDurationMin, false);
+
+        // Applying limits
         float appliedDashSpeed = Mathf.Min(currentMaxSpeed, currentVelocity + currentDashSpeed);
+        float appliedDashDuration = Mathf.Max(currentMinDuration, currentDashDuration);
         float appliedExitSpeed = Mathf.Min(currentMaxSpeed, appliedDashSpeed + currentEndDashSpeedBonus);
 
-        dashMovement.Dash(appliedDashSpeed, currentDashDuration, direction, appliedExitSpeed);
+        dashMovement.Dash(appliedDashSpeed, appliedDashDuration, direction, appliedExitSpeed);
 
         // Play Dash Audio
         AudioManager.GetInstance().PlayAudioFollowObject("Dash_SFX", gameObject, dashAudioVolume);
@@ -137,4 +152,6 @@ public class DashAction : PlayerAction
         }
         OnEndAction.Invoke();
     }
+
+  
 }

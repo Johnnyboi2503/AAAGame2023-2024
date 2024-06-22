@@ -23,8 +23,15 @@ public class FlickAction : PlayerAction
     [SerializeField] float boostedHorizontalSpeedLimit;
     [SerializeField] float boostedJumpSpeedLimit;
     [SerializeField] float boostedStunnedEnemyBonus;
+    [Space]
+    [Range(0.0f, 1f)]
+    [SerializeField] private float flickTrauma;
+
+    [Header("References")]
+    [SerializeField] SwordMovement swordMovement;
 
     // References
+    CameraFov cameraFov;
     Rigidbody rb;
     JumpAction jumpAction;
     MovementModification movementModification;
@@ -34,12 +41,12 @@ public class FlickAction : PlayerAction
     FlickEnviornmentStabable flickEnviornment;
     bool sticking = false;
     Vector3 stickPos;
-    Vector3 swordStickPos;
     Vector3 initalVelocity;
     Vector3 directionInput;
 
     private void Start() {
         // Getting references
+        cameraFov = FindObjectOfType<CameraFov>();
         rb = GetComponent<Rigidbody>();
         jumpAction = GetComponent<JumpAction>();
         movementModification = GetComponentInChildren<MovementModification>();
@@ -50,6 +57,15 @@ public class FlickAction : PlayerAction
             StickUpdate();
         }
     }
+    private void OnEnable()
+    {
+        OnStartAction.AddListener(() => cameraFov.IncreaseTrauma(flickTrauma));
+    }
+    private void OnDisable()
+    {
+        OnStartAction.RemoveListener(() => cameraFov.IncreaseTrauma(flickTrauma));
+    }
+
 
     // Sticking to the object
     public void Stick(FlickEnemyStabable _flickEnemy = null, FlickEnviornmentStabable _flickEnviornment = null) {
@@ -58,10 +74,8 @@ public class FlickAction : PlayerAction
         flickEnemy = _flickEnemy;
         flickEnviornment = _flickEnviornment;
 
-
         // Setting inital values
         stickPos = transform.position;
-        swordStickPos = swordObject.transform.position;
         initalVelocity = rb.velocity;
         rb.velocity = Vector3.zero;
 
@@ -119,13 +133,28 @@ public class FlickAction : PlayerAction
     private void StickUpdate() {
         // Sticking objects (sword may be temp)
         rb.position = stickPos;
-        swordObject.transform.position = swordStickPos;
+        rb.velocity = Vector3.zero;
+
+
+        // Setting forward direction and sword pos
+        Vector3 horzDir = Vector3.forward;
+        if (flickEnemy != null) {
+            horzDir = flickEnemy.GetComponent<Collider>().ClosestPoint(transform.position) - transform.position;
+            swordMovement.UpdateFlick(rb.position, flickEnemy.GetComponent<Collider>());
+        }
+        else if (flickEnviornment != null) {
+            horzDir = flickEnviornment.GetComponent<Collider>().ClosestPoint(transform.position) - transform.position;
+            swordMovement.UpdateFlick(rb.position, flickEnviornment.GetComponent<Collider>());
+        }
+        horzDir.y = 0;
+        transform.forward = horzDir.normalized;
     }
 
     public override void EndAction() {
         if(sticking) {
             sticking = false;
         }
+        swordMovement.EndAttackPosition();
         OnEndAction.Invoke();
     }
 }

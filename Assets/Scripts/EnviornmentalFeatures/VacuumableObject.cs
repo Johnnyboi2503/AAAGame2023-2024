@@ -11,6 +11,7 @@ public class VacuumableObject : MonoBehaviour
 {
     [Header("Vacuum")]
     [SerializeField] protected float vacuumSpeed = 1;
+    [SerializeField] protected float vacuumeScale = 4f;
 
     protected Transform player;
     public bool inVacuum { get; set; }
@@ -35,6 +36,7 @@ public class VacuumableObject : MonoBehaviour
     {
         if (inVacuum)
         {
+            vacuumSpeed += vacuumeScale * Time.deltaTime;
             MoveTowards((player.position - transform.position).normalized);
         }
     }

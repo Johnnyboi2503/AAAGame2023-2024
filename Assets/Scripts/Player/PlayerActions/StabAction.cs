@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class StabAction : PlayerAction {
     [Header("References")]
     [SerializeField] SwordMovement swordMovement; // Do not adjust
+    CameraFov cameraFov;
 
     [Header("Other Variables")]
     [SerializeField] float bloodGainAmount; // Amount of blood gained from striking something 
@@ -13,9 +14,11 @@ public class StabAction : PlayerAction {
 
     [Space]
     [SerializeField] float stabAudioVolume = 1f;
-
+    [Range(0.0f, 1f)]
+    [SerializeField] float stabTrauma;
     // Movement Compoenents
     StabContact stabContact;
+   
 
     // Variables
     public bool isStabbing = false;
@@ -26,12 +29,21 @@ public class StabAction : PlayerAction {
     {
         // Getting components
         stabContact = GetComponentInChildren<StabContact>();
+        cameraFov = FindObjectOfType<CameraFov>();
     }
 
     private void Update() {
         if(isStabbing) {
             timer += Time.deltaTime;
         }
+    }
+    private void OnEnable()
+    {
+        OnStartAction.AddListener(() => cameraFov.IncreaseTrauma(stabTrauma));
+    }
+    private void OnDisable()
+    {
+        OnStartAction.RemoveListener(() => cameraFov.IncreaseTrauma(stabTrauma));
     }
 
     public void StabInput()

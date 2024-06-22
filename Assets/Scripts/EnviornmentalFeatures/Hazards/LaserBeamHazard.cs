@@ -52,7 +52,7 @@ public class LaserBeamHazard : MonoBehaviour
         if (player != null)
         {
             // Damage player
-            player.LoseBlood(damage);
+            player.LoseBlood(damage, this.gameObject);
         }
     }
 

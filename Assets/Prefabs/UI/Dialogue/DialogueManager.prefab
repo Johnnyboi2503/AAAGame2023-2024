@@ -33,6 +33,7 @@ RectTransform:
   - {fileID: 7987549515880860191}
   - {fileID: 1232428483531415729}
   - {fileID: 8986434015973627880}
+  - {fileID: 2497388693430194749}
   m_Father: {fileID: 4622740231995091808}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -56,6 +57,7 @@ MonoBehaviour:
   dialogue: {fileID: 6048658080395889547}
   portrait: {fileID: 4192458133340654200}
   textSpeed: 0.05
+  playerColor: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
   textComplete: 1
 --- !u!1 &2321712205636616196
 GameObject:
@@ -682,6 +684,7 @@ MonoBehaviour:
   completedLine: 1
   selectedOption: 0
   decisionIndex: 0
+  dialogueVolume: 1
   textBox: {fileID: 5707879475825583252}
   optionsUI: {fileID: 9192025945448794942}
   characterDatas:
@@ -1018,6 +1021,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1737633496462018763}
         m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
         m_MethodName: DialogueSkipInput
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2525934522312319656}
+        m_TargetAssemblyTypeName: UISelectSFX, Assembly-CSharp
+        m_MethodName: PlaySelectSFX
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1601,3 +1616,89 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1001 &3297856832248375728
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1157848162782729795}
+    m_Modifications:
+    - target: {fileID: 1111499156909308813, guid: 7bda9221f4259c64288eaaf31a226f44,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 828.5938
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111499156909308813, guid: 7bda9221f4259c64288eaaf31a226f44,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -496.21616
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111499156909308813, guid: 7bda9221f4259c64288eaaf31a226f44,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -104.61653
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111499156909308813, guid: 7bda9221f4259c64288eaaf31a226f44,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111499156909308813, guid: 7bda9221f4259c64288eaaf31a226f44,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111499156909308813, guid: 7bda9221f4259c64288eaaf31a226f44,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111499156909308813, guid: 7bda9221f4259c64288eaaf31a226f44,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111499156909308813, guid: 7bda9221f4259c64288eaaf31a226f44,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111499156909308813, guid: 7bda9221f4259c64288eaaf31a226f44,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111499156909308813, guid: 7bda9221f4259c64288eaaf31a226f44,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7713366413070590859, guid: 7bda9221f4259c64288eaaf31a226f44,
+        type: 3}
+      propertyPath: m_Name
+      value: UISelectSFX
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7bda9221f4259c64288eaaf31a226f44, type: 3}
+--- !u!4 &2497388693430194749 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1111499156909308813, guid: 7bda9221f4259c64288eaaf31a226f44,
+    type: 3}
+  m_PrefabInstance: {fileID: 3297856832248375728}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2525934522312319656 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1065588671577590552, guid: 7bda9221f4259c64288eaaf31a226f44,
+    type: 3}
+  m_PrefabInstance: {fileID: 3297856832248375728}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 009da78d12674f94385f4ec7ff8b026f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

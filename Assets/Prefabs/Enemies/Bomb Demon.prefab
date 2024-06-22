@@ -17,8 +17,7 @@ GameObject:
   - component: {fileID: 1601227346848069220}
   - component: {fileID: 3491244969230101381}
   - component: {fileID: 8422013526667354321}
-  - component: {fileID: 7229489899993775193}
-  - component: {fileID: 4403752927507272148}
+  - component: {fileID: 5988906201529962325}
   m_Layer: 8
   m_Name: Bomb Demon
   m_TagString: Untagged
@@ -38,7 +37,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3400493137915547536}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2613325891551943716
@@ -56,7 +56,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5503810578031880460}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -187,6 +187,7 @@ MonoBehaviour:
   explosionLayer:
     serializedVersion: 2
     m_Bits: 1088
+  animator: {fileID: 5782537638912600306}
 --- !u!114 &3491244969230101381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bombDemon: {fileID: 1601227346848069220}
+  deathSpeedIncrease: 0.01
 --- !u!114 &8422013526667354321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +218,7 @@ MonoBehaviour:
   bloodPrefab: {fileID: 7959290666730999954, guid: 6d3004141710547468d2b677ddc35683,
     type: 3}
   bloodDropAmount: 4
---- !u!114 &7229489899993775193
+--- !u!114 &5988906201529962325
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,23 +227,88 @@ MonoBehaviour:
   m_GameObject: {fileID: 5503810578031880460}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ed76f32e6a09d84bb4c1d3189e28b5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5dc521d1000daee4f8514ca710c5bdf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombDemon: {fileID: 1601227346848069220}
---- !u!114 &4403752927507272148
-MonoBehaviour:
+  enemyPrefab: 2
+  initalPosition: {x: 0, y: 0, z: 0}
+--- !u!1001 &6071842292376107787
+PrefabInstance:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5503810578031880460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a144e4b463be034d8e0d612e0ef5214, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bombDemon: {fileID: 1601227346848069220}
-  bloodPrefab: {fileID: 7959290666730999954, guid: 6d3004141710547468d2b677ddc35683,
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5328065263646142479}
+    m_Modifications:
+    - target: {fileID: 8086405234251345441, guid: 794b20aea1e1cca4e8253547bfe4d48f,
+        type: 3}
+      propertyPath: m_Name
+      value: Bomb Demon w Anim Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895592343749096603, guid: 794b20aea1e1cca4e8253547bfe4d48f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895592343749096603, guid: 794b20aea1e1cca4e8253547bfe4d48f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.063
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895592343749096603, guid: 794b20aea1e1cca4e8253547bfe4d48f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895592343749096603, guid: 794b20aea1e1cca4e8253547bfe4d48f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895592343749096603, guid: 794b20aea1e1cca4e8253547bfe4d48f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895592343749096603, guid: 794b20aea1e1cca4e8253547bfe4d48f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895592343749096603, guid: 794b20aea1e1cca4e8253547bfe4d48f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895592343749096603, guid: 794b20aea1e1cca4e8253547bfe4d48f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895592343749096603, guid: 794b20aea1e1cca4e8253547bfe4d48f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8895592343749096603, guid: 794b20aea1e1cca4e8253547bfe4d48f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 794b20aea1e1cca4e8253547bfe4d48f, type: 3}
+--- !u!4 &3400493137915547536 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8895592343749096603, guid: 794b20aea1e1cca4e8253547bfe4d48f,
     type: 3}
-  bloodDropAmount: 4
+  m_PrefabInstance: {fileID: 6071842292376107787}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5782537638912600306 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 323194010324915193, guid: 794b20aea1e1cca4e8253547bfe4d48f,
+    type: 3}
+  m_PrefabInstance: {fileID: 6071842292376107787}
+  m_PrefabAsset: {fileID: 0}

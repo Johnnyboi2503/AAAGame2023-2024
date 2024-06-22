@@ -11,7 +11,7 @@ public class MeleeSword : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out BloodThirst blood) && !hitPlayer)
         {
-            blood.LoseBlood(damage);
+            blood.LoseBlood(damage, this.gameObject);
             hitPlayer = true;
         }
     }

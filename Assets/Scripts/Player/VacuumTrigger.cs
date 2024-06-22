@@ -35,7 +35,7 @@ public class VacuumTrigger : MonoBehaviour
     {
         if (other.transform.TryGetComponent<VacuumableObject>(out VacuumableObject vacuumableObject))
         {
-            vacuumableObject.inVacuum = false;
+            //vacuumableObject.inVacuum = false;
         }
     }
 }

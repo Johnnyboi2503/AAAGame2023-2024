@@ -28,7 +28,6 @@ public class MeleeEnemyDeathState : MeleeEnemyBaseState
 
     public override void UpdateState(MeleeEnemyStateManager enemy)
     {
-        Debug.Log("Enter Death Update");
         disappearTimer -= Time.deltaTime;
         if(disappearTimer <= 0) {
             Delete(enemy);

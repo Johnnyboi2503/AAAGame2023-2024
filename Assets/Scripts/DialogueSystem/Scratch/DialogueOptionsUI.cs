@@ -33,5 +33,6 @@ public class DialogueOptionsUI : MonoBehaviour
         DialogueManager manager = FindAnyObjectByType<DialogueManager>();
         manager.decisionIndex = currentButton.assignedIndex;
         manager.selectedOption = true;
+        AudioManager.GetInstance().PlayGlobalAudio("UISelectSFX", manager.dialogueVolume);
     }
 }

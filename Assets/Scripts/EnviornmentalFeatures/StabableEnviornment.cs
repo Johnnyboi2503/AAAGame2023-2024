@@ -7,15 +7,19 @@ public class StabableEnviornment : StabableDashThrough {
     public Transform dashEndTransform;
 
     private void OnDrawGizmos() {
-        CalculateDash(this.gameObject);
+        CalculateDash(this.gameObject, false);
 
         DrawArrow(transform.position, dashEndTransform.position);
     }
 
-    public override void CalculateDash(GameObject source) {
+    public override void CalculateDash(GameObject source, bool playAudio) {
         dashDir = dashEndTransform.position - transform.position;
         dashLength = dashDir.magnitude;
+        if (playAudio) {
+            AudioManager.GetInstance().PlayAudioFollowObject("StabableCubeLaunchSFX", source, 1.0f);
+        }
     }
+
 
     private void DrawArrow(Vector3 start, Vector3 end) {
         //makes it so the gizmos transform with the local transform of the object

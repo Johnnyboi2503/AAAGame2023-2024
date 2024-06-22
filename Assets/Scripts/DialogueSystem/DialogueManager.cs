@@ -13,6 +13,8 @@ public class DialogueManager : MonoBehaviour
 
     public int decisionIndex;
 
+    public float dialogueVolume = 1f;
+
     [SerializeField]
     public DialogueTextBox textBox;
     [SerializeField]
@@ -36,6 +38,7 @@ public class DialogueManager : MonoBehaviour
             selectedOption = false;
             dialogueInterupt = false;
             textBox.gameObject.SetActive(true);
+            DialogueStateChangeObserver.NotifyDialogueStateChange(true);
 
             StartCoroutine(RunDialogue(dialogueInteraction.dialogues, actionAfterDialogue));
         }
@@ -119,22 +122,29 @@ public class DialogueManager : MonoBehaviour
                         dialogueName = rowName;
                     }
                     textBox.InitalizeName(dialogueName);
-
+                    
                     // Setting portrait
-                    Sprite poseSprite = null;
-                    if (rowPose != "" && rowPose != " ") {
-                        // Seaching and assigning character data
-                        foreach (CharacterData characterData in characterDatas){
-                            if (characterData.characterName == textBox.nameText.text) {
-                                Debug.Log(characterData.characterName);
-                                poseSprite = characterData.GetSprite(rowPose);
-                                break;
+                    if (rowName.Equals("Player"))
+                    {
+                        textBox.InitalizePortrait(null, true);
+                    }
+                    else
+                    {
+                        Sprite poseSprite = null;
+                        if (rowPose != "" && rowPose != " ") {
+                            // Seaching and assigning character data
+                            foreach (CharacterData characterData in characterDatas){
+                                if (characterData.characterName == textBox.nameText.text) {
+                                    poseSprite = characterData.GetSprite(rowPose);
+                                    break;
+                                }
                             }
                         }
+                        textBox.InitalizePortrait(poseSprite);
                     }
-                    textBox.InitalizePortrait(poseSprite);
 
                     // Start typing
+                    AudioManager.GetInstance().PlayGlobalAudio("DialogueUISFX", dialogueVolume);
                     textBox.StartTyping(rowDialogue);
                     yield return new WaitUntil(() => completedLine);
                     completedLine = false;
@@ -152,6 +162,7 @@ public class DialogueManager : MonoBehaviour
         // Disabling textbox once dialogue is finished
         optionsUI.gameObject.SetActive(false);
         textBox.gameObject.SetActive(false);
+        DialogueStateChangeObserver.NotifyDialogueStateChange(false);
 
         if (actionAfterDialogue != null)
         {

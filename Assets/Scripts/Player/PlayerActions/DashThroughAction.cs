@@ -19,6 +19,11 @@ public class DashThroughAction : PlayerAction
     [Range(0.0f, 1f)]
     [SerializeField] float stickMag; // How smoothly you transision from your position to the dash, a value of 1 would make you teleport to the center of the object the moment you stab it
 
+    [Header("References")]
+    [SerializeField] SwordMovement swordMovement;
+    [Range(0.0f, 1f)]
+    [SerializeField] float dashThroughTrauma;
+    CameraFov cameraFov;
     Rigidbody rb;
     Collider playerCollider;
     MovementModification movementModification;
@@ -27,12 +32,17 @@ public class DashThroughAction : PlayerAction
     float distanceTraveled = 0;
     bool isDashing = false;
     float currentDashSpeed;
+
+
+    Vector3 currentDirection;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         playerCollider = GetComponent<Collider>();
         movementModification = GetComponentInChildren<MovementModification>();
+        cameraFov = FindObjectOfType<CameraFov>();
     }
 
     private void FixedUpdate() {
@@ -40,9 +50,16 @@ public class DashThroughAction : PlayerAction
             DashThroughUpdate();
         }
     }
-
+    private void OnEnable()
+    {
+        OnStartAction.AddListener(() => cameraFov.IncreaseTrauma(dashThroughTrauma));
+    }
+    private void OnDisable()
+    {
+        OnStartAction.RemoveListener(() => cameraFov.IncreaseTrauma(dashThroughTrauma));
+    }
     public void DashThrough(StabableDashThrough dashThrough, float enemyBonus = 0) {
-        dashThrough.CalculateDash(gameObject);
+        dashThrough.CalculateDash(gameObject, true);
 
         // Setting variables
         playerCollider.isTrigger = true; // Temp implementation for passing through objects
@@ -64,6 +81,10 @@ public class DashThroughAction : PlayerAction
         Vector3 startPos = stabable.gameObject.transform.position;
         Vector3 followPos = startPos + stabable.dashDir.normalized * distanceTraveled;
 
+        currentDirection = (followPos - rb.position).normalized;
+
+        swordMovement.UpdateDashThrough(transform.position, currentDirection);
+
         rb.position = Vector3.Lerp(rb.position, followPos, stickMag);
         distanceTraveled += currentDashSpeed * Time.fixedDeltaTime;
         if(distanceTraveled > stabable.dashLength) {
@@ -76,10 +97,16 @@ public class DashThroughAction : PlayerAction
         }
     }
 
+    public Vector3 GetActionDirection() {
+        return currentDirection;
+    }
+
     public override void EndAction() {
         playerCollider.isTrigger = false;
         isDashing = false;
-        rb.useGravity = true;
+        rb.useGravity = true; 
+        swordMovement.EndAttackPosition();
+
         OnEndAction.Invoke();
     }
 }

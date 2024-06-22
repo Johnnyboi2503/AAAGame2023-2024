@@ -27,7 +27,10 @@ public class EnemyAttackState : EnemyBaseState
         // projectile travels straight and does some damage
         //Debug.Log("enemy stopped, shoot now");
 
-        enemy.ShootBullet();
+        if (enemy.DetectPlayer())
+            enemy.ShootBullet();
+        else
+            enemy.LookAtPlayer();
 
 
         //Debug.Log("Enter Attack Update");

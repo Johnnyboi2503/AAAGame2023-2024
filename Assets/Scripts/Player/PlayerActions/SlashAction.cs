@@ -9,13 +9,14 @@ public class SlashAction : PlayerAction
 {
     [Header("References")]
     [SerializeField] SwordMovement swordMovement;
-
+    CameraFov cameraFov;
     [Header("Other Variables")]
     public float bloodGained; // Amount of blood gained when striking something you can slash
     public float attackDuration; // How long the sword stays out, temp implementation for testing
-
     [Space]
     [SerializeField] private float slashAudioVolume = 1f;
+    [Range(0.0f, 1f)]
+    [SerializeField] private float slashTrauma;
 
     // Components
     private SlashContact slashContact;
@@ -27,6 +28,7 @@ public class SlashAction : PlayerAction
     {
         // Getting Components
         slashContact = GetComponentInChildren<SlashContact>();
+        cameraFov = FindObjectOfType<CameraFov>();
     }
 
     private void Update() {
@@ -34,6 +36,15 @@ public class SlashAction : PlayerAction
             timer += Time.deltaTime;
         }
     }
+    private void OnEnable()
+    {
+        OnStartAction.AddListener(() => cameraFov.IncreaseTrauma(slashTrauma));
+    }
+    private void OnDisable()
+    {
+        OnStartAction.RemoveListener(() => cameraFov.IncreaseTrauma(slashTrauma));
+    }
+
 
     public void SlashInput() {
         //Animation Stuff (to be implemented later)
@@ -46,7 +57,8 @@ public class SlashAction : PlayerAction
         swordMovement.SlashPosition(attackDuration);
 
         // Play slash audio
-        AudioManager.GetInstance().PlayAudioFollowObject("Slash_SFX", gameObject, slashAudioVolume);
+        string soundEffect = Random.Range(0, 2) == 0 ? "Slash_SFX" : "Slash2_SFX";
+        AudioManager.GetInstance().PlayAudioFollowObject(soundEffect, gameObject, slashAudioVolume);
 
         OnStartAction.Invoke();
     }

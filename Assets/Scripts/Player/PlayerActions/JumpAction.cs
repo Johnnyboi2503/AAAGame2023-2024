@@ -11,9 +11,9 @@ public class JumpAction : PlayerAction
 
     [Header("Jump Variables")]
     [SerializeField] float initalSpeed; // Inital Speed that is applied reguardless of how long pressed
-    [SerializeField] float dampWindow; // how long the player has until they can dampen the jump
+    [SerializeField] float dampWindow; // how long the player has to release the button to dapen the jump
     [Range(0, 1)]
-    [SerializeField] float damping; // how much the jump is decreased by (0.2 will decrease the jump height by 20% when released)
+    [SerializeField] float damping; // how much the jump is decreased by (0.2 will decrease the jump height by 20% when jump button is released)
 
     [Header("Boosted Jump")]
     [SerializeField] float boostedInitalSpeed;
@@ -40,7 +40,7 @@ public class JumpAction : PlayerAction
         if(jumping) {
             jumpTimer += Time.deltaTime;
             if (jumpTimer > movementModification.GetBoost(dampWindow, boostedDampWindow, false)) {
-                JumpInputRelease();
+                EndAction();
             }
         }
     }
@@ -69,14 +69,15 @@ public class JumpAction : PlayerAction
         jumping = true;
 
         // Play jump audio
-        AudioManager.GetInstance().PlayAudioFollowObject("Jump_SFX", gameObject, jumpAudioVolume);
+        string soundEffect = Random.Range(0, 2) == 0 ? "Jump_SFX" : "Jump2_SFX";
+        AudioManager.GetInstance().PlayAudioFollowObject(soundEffect, gameObject, jumpAudioVolume);
 
         OnStartAction.Invoke();
     }
 
     public void JumpInputRelease() {
         // Dampeneing the speed when below the boosted amount
-        if(rb.velocity.y <= boostedInitalSpeed && rb.velocity.y > 0) {
+        if(rb.velocity.y <= movementModification.GetBoost(initalSpeed, boostedInitalSpeed, true) && rb.velocity.y > 0) {
             rb.velocity -= rb.velocity * movementModification.GetBoost(damping, boostedDamping, true);
         }
         EndAction();

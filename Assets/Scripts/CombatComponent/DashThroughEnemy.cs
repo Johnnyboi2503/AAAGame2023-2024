@@ -6,7 +6,7 @@ public class DashThroughEnemy : StabableDashThrough
 {
     [SerializeField] float inputDashLength; // how far past the enemy you 
     [SerializeField] public float movementBonus; // speed added on top of player speed calcuations
-    public override void CalculateDash(GameObject source) {
+    public override void CalculateDash(GameObject source, bool playAudio) {
         dashDir = source.transform.forward;
         Debug.DrawLine(transform.position, transform.position + dashDir, Color.blue);
         dashLength = inputDashLength;

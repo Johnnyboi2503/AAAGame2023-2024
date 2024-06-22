@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerStun : MonoBehaviour
 {
@@ -9,12 +10,16 @@ public class PlayerStun : MonoBehaviour
     [SerializeField] Renderer render;
     [SerializeField] Color stunColor;
 
+    public UnityEvent OnStun = new UnityEvent();
+    public UnityEvent OnEndStun = new UnityEvent();
+
     float stunTimer;
     bool isStunned = false;
     Color holderColor;
     private void Start() {
         holderColor = render.material.color;
     }
+
     private void Update() {
         if (isStunned) {
             stunTimer -= Time.deltaTime;
@@ -25,6 +30,7 @@ public class PlayerStun : MonoBehaviour
 
                 // Enabling player
                 input.EnableAbilityInput();
+                OnEndStun.Invoke();
             }
         }
     }
@@ -38,5 +44,11 @@ public class PlayerStun : MonoBehaviour
         isStunned = true;
 
         render.material.color = stunColor;
+
+        OnStun.Invoke();
+    }
+
+    public bool IsStunned() {
+        return stunTimer > 0;
     }
 }
