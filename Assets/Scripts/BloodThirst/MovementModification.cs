@@ -64,7 +64,6 @@ public class MovementModification : MonoBehaviour
 
     public void AddSpeedBoost(float duration, float percentIncrease)
     {
-        Debug.Log("Adding speed boost: " + percentIncrease);
         SpeedEffect deathSpeed = new SpeedEffect(duration, percentIncrease);
         speedEffects.Add(deathSpeed);
     }

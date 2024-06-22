@@ -102,7 +102,7 @@ public class DownwardStabAction : PlayerAction {
         float currentMaxSpeed = movementModification.GetBoost(speedLimit, boostedSpeedLimit, false);
         maxSpeed = Math.Min(currentMaxSpeed, maxSpeed);
 
-        Debug.Log(appliedAcceleration + "--" + maxSpeed);
+        //Debug.Log(appliedAcceleration + "--" + maxSpeed);
 
         // Applying vertical movement if the speed is higher than the max velocity
         if (-rb.velocity.y < maxSpeed) {

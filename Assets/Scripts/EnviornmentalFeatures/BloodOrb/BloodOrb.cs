@@ -8,6 +8,7 @@ public class BloodOrb : VacuumableObject
     [SerializeField] public float gainBloodAmount;
     [SerializeField] private float interactionAudioVolume = 0.75f;
 
+
     ///-//////////////////////////////////////////////////////////////////////
     ///
     private void OnTriggerEnter(Collider other)
@@ -18,7 +19,15 @@ public class BloodOrb : VacuumableObject
             AudioManager.GetInstance().PlayAudioAtLocation("TerrainInteration_SFX", transform.position, interactionAudioVolume);
 
             bloodThirst.GainBlood(gainBloodAmount, true);
+            SpawnBloodEffect();
             Destroy(gameObject);
+        }
+    }
+
+    private void SpawnBloodEffect() {
+        EffectsController effect = FindObjectOfType<EffectsController>();
+        if (effect != null) {
+            effect.CircleBurst(transform.position);
         }
     }
 

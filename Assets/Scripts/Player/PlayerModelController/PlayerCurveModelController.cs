@@ -9,6 +9,7 @@ public class PlayerCurveModelController : MonoBehaviour
     [SerializeField] SlideAction slideAction;
     [SerializeField] DashThroughAction dashThroughAction;
     [SerializeField] DownwardStabAction downwardStabAction;
+    [SerializeField] FlickAction flickAction;
     [SerializeField] GameObject constraint;
     [SerializeField] Transform targetTransform;
     [SerializeField] Transform constraintTarget;
@@ -26,6 +27,7 @@ public class PlayerCurveModelController : MonoBehaviour
         SLIDE,
         DASHTRHOUGH,
         DOWNWARDSTAB,
+        FLICK,
         NULL
     }
 
@@ -58,6 +60,9 @@ public class PlayerCurveModelController : MonoBehaviour
         downwardStabAction.OnStartAction.AddListener(DownwardStabSave);
         downwardStabAction.OnEndAction.AddListener(EndSaving);
 
+        flickAction.OnStartAction.AddListener(FlickSave);
+        flickAction.OnEndAction.AddListener(EndSaving);
+
         constraint.SetActive(false);
     }
 
@@ -73,9 +78,10 @@ public class PlayerCurveModelController : MonoBehaviour
         currentAction = ActionSelected.DOWNWARDSTAB;
         StartSavingInternal();
     }
-
-
-
+    public void FlickSave() {
+        currentAction = ActionSelected.FLICK;
+        StartSavingInternal();
+    }
     public void StartSavingInternal() {
         constraint.SetActive(true);
         constraintTarget.GetComponent<SmoothFollowTarget>().SetTarget(targetTransform);
@@ -121,6 +127,9 @@ public class PlayerCurveModelController : MonoBehaviour
                         break;
                     case ActionSelected.DOWNWARDSTAB:
                         AddUpDirectionToFront(Vector3.down);
+                        break;
+                    case ActionSelected.FLICK:
+                        AddUpDirectionToFront(Vector3.up);
                         break;
                 }
                 SettingRotations();

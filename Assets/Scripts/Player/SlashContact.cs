@@ -15,6 +15,9 @@ public class SlashContact : MonoBehaviour {
 
     SlidableEnemy slidableEnemy;
 
+    // Blood Effect
+    EffectsController effect;
+
     // Other variables
     float bloodGainAmount;
     UnityEvent<Collider> contactEvent;
@@ -26,6 +29,8 @@ public class SlashContact : MonoBehaviour {
 
         // End of events
         slideAction.OnEndAction.AddListener(EndOfSlide);
+
+        effect = FindObjectOfType<EffectsController>();
     }
 
     private void StabContactEffect(Collider other) {
@@ -44,6 +49,11 @@ public class SlashContact : MonoBehaviour {
             slidableEnemy = enemy;
             StartSlideAction(enemy.pathCreator, other, enemy.GetBonus());
             found = true;
+
+            // Blood effect
+            Vector3 point = other.ClosestPoint(transform.position);
+            Vector3 dir = transform.position - point;
+            effect.CreateBloodEffect(point, dir, false);
         }
         else if (other.TryGetComponent(out PathCreator pathCreator)) {
             AudioManager.GetInstance().PlayAudioAtLocation("WallSlash_SFX", transform.position, wallSlashAudioVolume);
@@ -62,6 +72,11 @@ public class SlashContact : MonoBehaviour {
                 StartSlideAction(pathCreator, other);
                 found = true;
             }
+
+            // Blood effect
+            Vector3 point = other.ClosestPoint(transform.position);
+            Vector3 dir = transform.position - point;
+            effect.CreateBloodEffect(point, dir, false);
         }
         if (other.TryGetComponent(out SlashableEnviornment slashableEnviornment)) {
             canGainBlood = slashableEnviornment.canGiveBlood;
@@ -72,6 +87,13 @@ public class SlashContact : MonoBehaviour {
         if(canGainBlood) {
             GetComponentInParent<BloodThirst>().GainBlood(bloodGainAmount, true);
         }
+    }
+
+    public bool CanSlash(GameObject check) {
+        return check.TryGetComponent(out Slashable slashable) ||
+            check.TryGetComponent(out SlidableEnemy slidableEnemy) ||
+            check.TryGetComponent(out PathCreator pathCreator) ||
+            check.TryGetComponent(out SlashableEnviornment slashableEnviornment);
     }
 
     private void StartSlideAction(PathCreator pc, Collider other, float enemyBonus = 0) {

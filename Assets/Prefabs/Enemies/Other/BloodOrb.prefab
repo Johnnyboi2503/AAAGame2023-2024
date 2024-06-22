@@ -51,6 +51,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vacuumSpeed: 4
   gainBloodAmount: 50
+  interactionAudioVolume: 0.75
+  effectSpread: 5
 --- !u!33 &136108890744760622
 MeshFilter:
   m_ObjectHideFlags: 0

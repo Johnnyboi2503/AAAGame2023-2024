@@ -33,7 +33,7 @@ public class LevelStateController : MonoBehaviour {
     }
 
     public void SaveLevelState() {
-        Debug.Log("save state");
+        //Debug.Log("save state");
         recentState = new LevelState(SaveBloodOrbState(), SaveEnemyLevelState(), SavePlayerSpeedEffect());
     }
 
